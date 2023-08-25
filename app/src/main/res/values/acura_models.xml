@@ -1,0 +1,13 @@
+<resources>
+    <string-array name="acura_models">
+        <item>EL</item>
+        <item>ILX</item>
+        <item>MDX</item>
+        <item>RDX</item>
+        <item>RSX</item>
+        <item>TL</item>
+        <item>TLX</item>
+        <item>TSX</item>
+        <item>ZDX</item>
+    </string-array>
+</resources>

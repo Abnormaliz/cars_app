@@ -1,0 +1,101 @@
+<resources>
+    <string name="app_name">TheCars</string>
+    <string-array name="car_names">
+        <item>Acura</item>
+        <item>Alfa Romeo</item>
+        <item>Aston Martin</item>
+        <item>Audi</item>
+        <item>Aurus</item>
+        <item>BMW</item>
+        <item>Bentley</item>
+        <item>Buick</item>
+        <item>Cadillac</item>
+        <item>Changan</item>
+        <item>Chery</item>
+        <item>Chevrolet</item>
+        <item>Chrysler</item>
+        <item>Citroen</item>
+        <item>Daewoo</item>
+        <item>Daihatsu</item>
+        <item>Datsun</item>
+        <item>Dodge</item>
+        <item>EXEED</item>
+        <item>FAW</item>
+        <item>Ferrari</item>
+        <item>Fiat</item>
+        <item>Ford</item>
+        <item>GAC</item>
+        <item>GMC</item>
+        <item>Geely</item>
+        <item>Genesis</item>
+        <item>Great Wall</item>
+        <item>Haval</item>
+        <item>Honda</item>
+        <item>Hongqi</item>
+        <item>Hummer</item>
+        <item>Hyundai</item>
+        <item>Infiniti</item>
+        <item>Isuzu</item>
+        <item>JAC</item>
+        <item>Jaguar</item>
+        <item>Jeep</item>
+        <item>Jetour</item>
+        <item>Jetta</item>
+        <item>Kaiyi</item>
+        <item>Kia</item>
+        <item>LADA</item>
+        <item>Lamborghini</item>
+        <item>Land Rover</item>
+        <item>Lexus</item>
+        <item>Lifan</item>
+        <item>Lincoln</item>
+        <item>Livan</item>
+        <item>Lotus</item>
+        <item>Mini</item>
+        <item>Maserati</item>
+        <item>Maybach</item>
+        <item>Mazda</item>
+        <item>McLaren</item>
+        <item>McLaren</item>
+        <item>Mercedes-benz</item>
+        <item>Mitsubishi</item>
+        <item>Nissan</item>
+        <item>OMODA</item>
+        <item>Opel</item>
+        <item>Peugeot</item>
+        <item>Plymouth</item>
+        <item>Polestar</item>
+        <item>Pontiac</item>
+        <item>Porsche</item>
+        <item>RAM</item>
+        <item>Ravon</item>
+        <item>Renault</item>
+        <item>Rolls-Royce</item>
+        <item>Rover</item>
+        <item>SEAT</item>
+        <item>Saab</item>
+        <item>Scion</item>
+        <item>Skoda</item>
+        <item>Skywell</item>
+        <item>Smart</item>
+        <item>SsangYong</item>
+        <item>Subaru</item>
+        <item>Suzuki</item>
+        <item>Tank</item>
+        <item>Tesla</item>
+        <item>Toyota</item>
+        <item>Volkswagen</item>
+        <item>Volvo</item>
+        <item>Vortex</item>
+        <item>Voyah</item>
+        <item>ZEEKR</item>
+        <item>ГАЗ</item>
+        <item>ЗАЗ</item>
+        <item>ЗИЛ</item>
+        <item>ИЖ</item>
+        <item>Москвич</item>
+        <item>УАЗ</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
