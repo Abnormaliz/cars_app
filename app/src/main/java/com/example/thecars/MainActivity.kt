@@ -14,6 +14,6 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().replace(R.id.place_holder, CarsFragment.newInstance()).addToBackStack(null).commit()
 
     }
-    val modelList = mapOf("Acura" to R.array.a)
+    val modelList = mapOf("Acura" to R.array.acura_models, "Alfa Romeo" to R.array.alfa_romeo_models)
 
 }
