@@ -29,7 +29,10 @@ class CarsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         adapter = CarAdapter(getCarList(), onCarClickListener = {
-            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.place_holder, ModelsFragment.newInstance()).addToBackStack(null).commit()
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.place_holder, ModelsFragment.newInstance(it.title))
+                .addToBackStack(null)
+                .commit()
         })
         binding.rcViewCars.adapter = adapter
 

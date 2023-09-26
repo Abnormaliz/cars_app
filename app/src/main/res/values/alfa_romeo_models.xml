@@ -1,0 +1,19 @@
+<resources>
+    <string-array name="alfa_romeo">
+        <item>123</item>
+        <item>12345</item>
+        <item>123</item>
+        <item>123</item>
+        <item>123</item>
+        <item>123</item>
+        <item>123</item>
+        <item>123</item>
+        <item>123</item>
+        <item>123</item>
+        <item>123</item>
+        <item>123</item>
+        <item>123</item>
+        <item>123</item>
+        <item>123</item>
+    </string-array>
+</resources>
