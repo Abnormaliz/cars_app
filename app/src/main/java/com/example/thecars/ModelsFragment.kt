@@ -6,8 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.thecars.databinding.FragmentModelsBinding
 
 
@@ -28,9 +26,10 @@ class ModelsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        currentBrand = arguments?.getString("brand_key")!!
         adapter = ModelAdapter(getModelList())
         binding.rcViewModels.adapter = adapter
-        currentBrand = arguments?.getString("brand_key")!!
+
         Log.d("Mylog", "brand $currentBrand")
 
 
@@ -38,7 +37,9 @@ class ModelsFragment : Fragment() {
     }
 
     private fun getModelList(): List<String> {
-        return this.resources.getStringArray(R.array.acura_models).toList()
+        val modelArray = brandToModels[currentBrand]
+        return resources.getStringArray(modelArray!!).toList()
+
     }
 
 

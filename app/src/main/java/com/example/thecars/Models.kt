@@ -107,7 +107,7 @@ val brands: List<String> = listOf(
     "УАЗ",
 )
 
-val brandToModels: Map<String, Int> = mapOf(
+val brandToModels = mapOf(
     ACURA_BRAND to R.array.acura_models,
     "Alfa Romeo" to R.array.alfa_romeo,
     "Aston Martin" to R.array.acura_models,
