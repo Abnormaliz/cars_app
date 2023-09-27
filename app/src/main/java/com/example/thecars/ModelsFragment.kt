@@ -33,7 +33,6 @@ class ModelsFragment : Fragment() {
         Log.d("Mylog", "brand $currentBrand")
 
 
-
     }
 
     private fun getModelList(): List<String> {
