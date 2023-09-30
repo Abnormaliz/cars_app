@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.thecars.databinding.FragmentCarsBinding
+import com.example.thecars.databinding.FragmentModelsBinding
 
 
 class CarsFragment : Fragment() {
@@ -15,9 +16,10 @@ class CarsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View?
+    {
 
-        binding = FragmentCarsBinding.inflate(inflater)
+       binding = FragmentCarsBinding.inflate(inflater)
         return binding.root
 
 
@@ -28,14 +30,15 @@ class CarsFragment : Fragment() {
 
         adapter = CarAdapter(getCarList(), onCarClickListener = {
             requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.place_holder, ModelsFragment.newInstance()).addToBackStack(null)
+                .replace(R.id.place_holder, ModelsFragment.newInstance(it.title))
+                .addToBackStack(null)
                 .commit()
         })
         binding.rcViewCars.adapter = adapter
 
 
-    }
 
+    }
     private fun getCarList(): List<Car> {
         return this.resources.getStringArray(R.array.car_names).map {
             val logo = when (it) {
