@@ -9,7 +9,10 @@ import android.widget.TextView
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 
-class CarAdapter(private val cars: List<Car>, private val onCarClickListener: (Car) -> Unit) : RecyclerView.Adapter<CarAdapter.CarsViewHolder>() {
+class CarAdapter(
+    private val cars: List<Car>,
+    private val onCarClickListener: (Car) -> Unit) :
+    RecyclerView.Adapter<CarAdapter.CarsViewHolder>() {
     class CarsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val logos: ImageView = itemView.findViewById(R.id.iv_logos)
         val title: TextView = itemView.findViewById(R.id.tv_name_model)

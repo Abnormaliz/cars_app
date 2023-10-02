@@ -11,9 +11,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        supportFragmentManager.beginTransaction().replace(R.id.place_holder, DateFragment.newInstance()).addToBackStack(null).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.place_holder, CarsFragment.newInstance()).addToBackStack(null).commit()
 
     }
-    val modelList = mapOf("Acura" to R.array.acura_models, "Alfa Romeo" to R.array.alfa_romeo_models)
 
 }

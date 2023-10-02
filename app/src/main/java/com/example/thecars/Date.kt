@@ -1,4 +1,4 @@
 package com.example.thecars
 
-class Date (val imageId: List<Int>, val title: String) {
+data class Date (val imageId: List<Int>, val title: String) {
 }

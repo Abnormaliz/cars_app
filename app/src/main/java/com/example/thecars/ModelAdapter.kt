@@ -6,7 +6,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
- class ModelAdapter(private val models: List<String>): RecyclerView.Adapter<ModelAdapter.ModelViewHolder>() {
+ class ModelAdapter(
+     private val models: List<String>,
+     private val onModelClickListener: (String) -> Unit):
+     RecyclerView.Adapter<ModelAdapter.ModelViewHolder>() {
 
     class ModelViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
     val name: TextView = itemView.findViewById(R.id.tv_name_model)
@@ -23,7 +26,9 @@ import androidx.recyclerview.widget.RecyclerView
      }
 
      override fun onBindViewHolder(holder: ModelViewHolder, position: Int) {
-    holder.name.text = models[position]
+        holder.name.text = models[position]
+         holder.itemView.setOnClickListener { onModelClickListener.invoke(models[position]) }
+
 
      }
 
