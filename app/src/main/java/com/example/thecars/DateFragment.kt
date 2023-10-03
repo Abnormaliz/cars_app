@@ -35,8 +35,8 @@ class DateFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         currentModel = arguments?.getString("model_key")!!
-        currentDate = acura_dates[currentModel]!!
-        currentImage = acura_images[currentModel]!!
+        currentDate = acura_dates[currentModel]!! // brand
+        currentImage = acura_images[currentModel]!! // brand
         adapter = DateAdapter(getDateList())
         binding.rcViewDate.adapter = adapter
         Log.d("Mylog", "model $currentModel")
