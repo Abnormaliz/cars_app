@@ -1,4 +1,3 @@
 package com.example.thecars
 
-data class Date (val imageId: List<Int>, val title: String) {
-}
+data class Date(val imageId: Int, val title: String)

@@ -26,6 +26,6 @@ class DateAdapter (private val dates: List<Date>): RecyclerView.Adapter<DateAdap
     override fun onBindViewHolder(holder: DateViewHolder, position: Int) {
         val currentDate = dates[position]
         holder.title.text = currentDate.title
-        holder.image.setImageResource(currentDate.imageId[position])
+        holder.image.setImageResource(currentDate.imageId)
     }
 }

@@ -44,16 +44,27 @@ class DateFragment : Fragment() {
         Log.d("Mylog", "image $currentImage")
     }
 
-        private fun getDateList(): List<Date> {
-            val getImage = 1
-            return acura_dates.values
-                .flatMap { it }
-                .map {
-                    Date(images_acura_mdx, it)
-                }
+    private fun getDateList(): List<Date> {
+        val dates = mutableListOf<Date>()
+        for (i in currentDate.indices) {
+            dates.add(Date(
+                title = currentDate[i],
+                imageId = currentImage[i]
+            ))
+        }
+        return dates
+    }
+
+//        private fun getDateList(): List<Date> {
+//            val getImage = 1
+//            return acura_dates.values
+//                .flatMap { it }
+//                .map {
+//                    Date(images_acura_mdx, it)
+//                }
 //    private fun getDateList() {
 //    }
-        }
+//        }
 
     companion object {
         @JvmStatic
