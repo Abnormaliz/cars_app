@@ -16,6 +16,7 @@ class DateFragment : Fragment() {
     private lateinit var binding: FragmentDateBinding
     private lateinit var adapter: DateAdapter
     private lateinit var currentModel: String
+    private lateinit var currentBrand: String
     private lateinit var currentDate: List<String>
     private lateinit var currentImage: List<Int>
 
@@ -35,6 +36,7 @@ class DateFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         currentModel = arguments?.getString("model_key")!!
+        currentBrand = arguments?.getString("brand_key")!!
         currentDate = acura_dates[currentModel]!! // brand
         currentImage = acura_images[currentModel]!! // brand
         adapter = DateAdapter(getDateList())
@@ -42,6 +44,7 @@ class DateFragment : Fragment() {
         Log.d("Mylog", "model $currentModel")
         Log.d("Mylog", "date $currentDate")
         Log.d("Mylog", "image $currentImage")
+        Log.d("Mylog", "image $currentBrand")
     }
 
     private fun getDateList(): List<Date> {
@@ -68,12 +71,13 @@ class DateFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(model: String): DateFragment {
-            val f = DateFragment()
-            val b = Bundle()
-            b.putString("model_key", model)
-            f.arguments = b
-            return f
+            fun newInstance(model: String, brand: String): DateFragment {
+                val f = DateFragment()
+                val b = Bundle()
+                b.putString("model_key", model)
+                b.putString("brand_key", brand)
+                f.arguments = b
+                return f
         }
     }
 }

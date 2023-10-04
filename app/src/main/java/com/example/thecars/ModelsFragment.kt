@@ -29,12 +29,11 @@ class ModelsFragment : Fragment() {
         currentBrand = arguments?.getString("brand_key")!!
         adapter = ModelAdapter(getModelList(),
             onModelClickListener = {requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.place_holder, DateFragment.newInstance(it))
+            .replace(R.id.place_holder, DateFragment.newInstance(it, currentBrand))
             .addToBackStack(null)
             .commit()})
         binding.rcViewModels.adapter = adapter
 
-        Log.d("Mylog", "brand $currentBrand")
 
 
     }
