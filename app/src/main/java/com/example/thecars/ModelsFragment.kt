@@ -11,8 +11,8 @@ import com.example.thecars.databinding.FragmentModelsBinding
 
 class ModelsFragment : Fragment() {
     private lateinit var binding: FragmentModelsBinding
-    lateinit var adapter: ModelAdapter
-    lateinit var currentBrand: String
+    private lateinit var adapter: ModelAdapter
+    private lateinit var currentBrand: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

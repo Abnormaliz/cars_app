@@ -37,14 +37,14 @@ class DateFragment : Fragment() {
 
         currentModel = arguments?.getString("model_key")!!
         currentBrand = arguments?.getString("brand_key")!!
-        currentDate = acura_dates[currentModel]!! // brand
-        currentImage = acura_images[currentModel]!! // brand
+        currentDate = acura_dates[currentModel]!!
+        currentImage = acura_images[currentModel]!!
         adapter = DateAdapter(getDateList())
         binding.rcViewDate.adapter = adapter
         Log.d("Mylog", "model $currentModel")
         Log.d("Mylog", "date $currentDate")
         Log.d("Mylog", "image $currentImage")
-        Log.d("Mylog", "image $currentBrand")
+        Log.d("Mylog", "brand $currentBrand")
     }
 
     private fun getDateList(): List<Date> {
