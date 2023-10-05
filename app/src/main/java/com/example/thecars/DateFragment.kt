@@ -39,12 +39,15 @@ class DateFragment : Fragment() {
         currentBrand = arguments?.getString("brand_key")!!
         currentDate = acura_dates[currentModel]!!
         currentImage = acura_images[currentModel]!!
-        adapter = DateAdapter(getDateList())
+        adapter = DateAdapter(
+            getDateList(),
+            onDateClickListener = {
+                requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.place_holder, ImagesFragment.newInstance(currentBrand, currentModel, currentDate.toString()))
+                .addToBackStack(null)
+                .commit()})
         binding.rcViewDate.adapter = adapter
-        Log.d("Mylog", "model $currentModel")
-        Log.d("Mylog", "date $currentDate")
-        Log.d("Mylog", "image $currentImage")
-        Log.d("Mylog", "brand $currentBrand")
+
     }
 
     private fun getDateList(): List<Date> {
