@@ -5,8 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.thecars.adapters.CarAdapter
+import com.example.thecars.classes.Car
 import com.example.thecars.databinding.FragmentCarsBinding
-import com.example.thecars.databinding.FragmentModelsBinding
 
 
 class CarsFragment : Fragment() {

@@ -1,13 +1,13 @@
-package com.example.thecars
+package com.example.thecars.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.thecars.classes.Car
+import com.example.thecars.R
 
 class CarAdapter(
     private val cars: List<Car>,

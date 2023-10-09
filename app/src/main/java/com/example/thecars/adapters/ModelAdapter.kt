@@ -1,12 +1,13 @@
-package com.example.thecars
+package com.example.thecars.adapters
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.thecars.R
 
- class ModelAdapter(
+class ModelAdapter(
      private val models: List<String>,
      private val onModelClickListener: (String) -> Unit):
      RecyclerView.Adapter<ModelAdapter.ModelViewHolder>() {

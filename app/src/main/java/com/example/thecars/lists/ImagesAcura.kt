@@ -1,14 +1,19 @@
-package com.example.thecars
+package com.example.thecars.lists
+
+import com.example.thecars.R
+
 val unknown_images = listOf(
     R.drawable.unknownmodel,
     R.drawable.unknownmodel,
     R.drawable.unknownmodel,
-    R.drawable.unknownmodel)
+    R.drawable.unknownmodel
+)
 
 val mdx1_images = listOf(
     R.drawable.mdx1_image_front,
     R.drawable.mdx1_image_back,
-    R.drawable.mdx1_image_side)
+    R.drawable.mdx1_image_side
+)
 
 val modelToImages = mapOf(
     "EL" to unknown_images,
@@ -23,8 +28,8 @@ val modelToImages = mapOf(
 )
 
 val datesToImages = mapOf(
-    "I" to mdx1_images,
-    "II" to unknown_images,
+    "I 2000-2006" to mdx1_images,
+    "II 2006-2010" to unknown_images,
     "IIrest" to unknown_images,
     "III" to unknown_images,
     "IIIrest1" to unknown_images,

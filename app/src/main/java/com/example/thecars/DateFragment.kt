@@ -1,12 +1,17 @@
 package com.example.thecars
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.thecars.adapters.DateAdapter
+import com.example.thecars.classes.Date
 import com.example.thecars.databinding.FragmentDateBinding
+import com.example.thecars.lists.acura_dates
+import com.example.thecars.lists.acura_images
 
 /**
  * An example full-screen fragment that shows and hides the system UI (i.e.
@@ -19,6 +24,7 @@ class DateFragment : Fragment() {
     private lateinit var currentBrand: String
     private lateinit var currentDate: List<String>
     private lateinit var currentImage: List<Int>
+    private lateinit var currentDateKey: String
 
 
     override fun onCreateView(
@@ -32,6 +38,7 @@ class DateFragment : Fragment() {
 
     }
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -43,34 +50,28 @@ class DateFragment : Fragment() {
             getDateList(),
             onDateClickListener = {
                 requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.place_holder, ImagesFragment.newInstance(currentBrand, currentModel, currentDate.toString()))
+                .replace(
+                    R.id.place_holder,
+                    ImagesFragment.newInstance(currentBrand, currentModel, it.title)
+                )
                 .addToBackStack(null)
                 .commit()})
         binding.rcViewDate.adapter = adapter
-
+            Log.d("Mylog", "$currentDate")
     }
 
     private fun getDateList(): List<Date> {
         val dates = mutableListOf<Date>()
         for (i in currentDate.indices) {
-            dates.add(Date(
+            dates.add(
+                Date(
                 title = currentDate[i],
                 imageId = currentImage[i]
-            ))
+            )
+            )
         }
         return dates
     }
-
-//        private fun getDateList(): List<Date> {
-//            val getImage = 1
-//            return acura_dates.values
-//                .flatMap { it }
-//                .map {
-//                    Date(images_acura_mdx, it)
-//                }
-//    private fun getDateList() {
-//    }
-//        }
 
     companion object {
         @JvmStatic

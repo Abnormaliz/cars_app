@@ -1,4 +1,6 @@
-package com.example.thecars
+package com.example.thecars.lists
+
+import com.example.thecars.R
 
 //ctrl + j
 //ctrl + left mouse
