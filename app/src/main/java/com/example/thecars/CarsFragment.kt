@@ -5,20 +5,25 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.thecars.adapters.CarAdapter
 import com.example.thecars.classes.Car
+import com.example.thecars.data.CarViewModel
 import com.example.thecars.databinding.FragmentCarsBinding
 
 
-class CarsFragment : Fragment() {
+class  CarsFragment : Fragment() {
     private lateinit var binding: FragmentCarsBinding
     private lateinit var adapter: CarAdapter
+    private val carViewModel: CarViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View?
     {
+
 
        binding = FragmentCarsBinding.inflate(inflater)
         return binding.root
@@ -29,31 +34,14 @@ class CarsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = CarAdapter(getCarList(), onCarClickListener = {
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.place_holder, ModelsFragment.newInstance(it.title))
-                .addToBackStack(null)
-                .commit()
-        })
+        val carNames = resources.getStringArray(R.array.car_names)
+        val carList = carViewModel.getCarList(carNames)
+
+        adapter = CarAdapter(carList, findNavController().navigate(R.id.action_carsFragment_to_modelsFragment))
         binding.rcViewCars.adapter = adapter
 
 
 
-    }
-    private fun getCarList(): List<Car> {
-        return this.resources.getStringArray(R.array.car_names).map {
-            val logo = when (it) {
-                "Audi" -> R.drawable.audi
-                "BMW" -> R.drawable.bmw
-                "Mercedes-benz" -> R.drawable.mb
-                "Toyota" -> R.drawable.toyota
-                "Volkswagen" -> R.drawable.volkswagen
-                "Volvo" -> R.drawable.volvo
-                else -> R.drawable.unknown
-            }
-            Car(logo, it)
-
-        }
     }
 
     companion object {

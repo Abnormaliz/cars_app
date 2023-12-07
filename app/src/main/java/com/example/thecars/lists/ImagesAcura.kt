@@ -6,14 +6,12 @@ val unknown_images = listOf(
     R.drawable.unknownmodel,
     R.drawable.unknownmodel,
     R.drawable.unknownmodel,
-    R.drawable.unknownmodel
-)
+    R.drawable.unknownmodel)
 
 val mdx1_images = listOf(
     R.drawable.mdx1_image_front,
     R.drawable.mdx1_image_back,
-    R.drawable.mdx1_image_side
-)
+    R.drawable.mdx1_image_side)
 
 val modelToImages = mapOf(
     "EL" to unknown_images,
@@ -24,8 +22,7 @@ val modelToImages = mapOf(
     "TL" to unknown_images,
     "TLX" to unknown_images,
     "TSX" to unknown_images,
-    "ZDX" to unknown_images
-)
+    "ZDX" to unknown_images)
 
 val datesToImages = mapOf(
     "I 2000-2006" to mdx1_images,
@@ -34,5 +31,4 @@ val datesToImages = mapOf(
     "III" to unknown_images,
     "IIIrest1" to unknown_images,
     "IIIrest2" to unknown_images,
-    "IV" to unknown_images,
-)
+    "IV" to unknown_images,)

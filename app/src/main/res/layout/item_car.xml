@@ -30,7 +30,7 @@
                 android:id="@+id/iv_logos"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                app:srcCompat="@drawable/audi" />
+                tools:srcCompat="@drawable/audi" />
 
             <TextView
                 android:id="@+id/tv_name_model"

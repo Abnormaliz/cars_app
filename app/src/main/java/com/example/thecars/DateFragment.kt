@@ -24,7 +24,6 @@ class DateFragment : Fragment() {
     private lateinit var currentBrand: String
     private lateinit var currentDate: List<String>
     private lateinit var currentImage: List<Int>
-    private lateinit var currentDateKey: String
 
 
     override fun onCreateView(
