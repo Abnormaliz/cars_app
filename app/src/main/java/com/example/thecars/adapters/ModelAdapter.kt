@@ -9,7 +9,7 @@ import com.example.thecars.R
 
 class ModelAdapter(
      private val models: List<String>,
-     private val onModelClickListener: (String) -> Unit):
+     private val navController: Unit):
      RecyclerView.Adapter<ModelAdapter.ModelViewHolder>() {
 
     class ModelViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -28,7 +28,7 @@ class ModelAdapter(
 
      override fun onBindViewHolder(holder: ModelViewHolder, position: Int) {
         holder.name.text = models[position]
-         holder.itemView.setOnClickListener { onModelClickListener.invoke(models[position]) }
+         holder.itemView.setOnClickListener { navController }
 
 
      }

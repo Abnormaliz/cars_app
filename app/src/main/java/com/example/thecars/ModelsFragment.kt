@@ -5,7 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.thecars.adapters.ModelAdapter
+import com.example.thecars.data.CarViewModel
 import com.example.thecars.databinding.FragmentModelsBinding
 import com.example.thecars.lists.brandToModels
 
@@ -14,6 +17,7 @@ class ModelsFragment : Fragment() {
     private lateinit var binding: FragmentModelsBinding
     private lateinit var adapter: ModelAdapter
     private lateinit var currentBrand: String
+    private val carViewModel: CarViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,12 +31,12 @@ class ModelsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        carViewModel.setCurrentBrand()
+        carViewModel.get
+
         currentBrand = arguments?.getString("brand_key")!!
-        adapter = ModelAdapter(getModelList(),
-            onModelClickListener = {requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.place_holder, DateFragment.newInstance(it, currentBrand))
-            .addToBackStack(null)
-            .commit()})
+        adapter = ModelAdapter(getModelList(),findNavController()
+            .navigate(R.id.action_modelsFragment_to_dateFragment))
         binding.rcViewModels.adapter = adapter
 
 

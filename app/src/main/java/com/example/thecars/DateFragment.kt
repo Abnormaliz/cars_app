@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.thecars.adapters.DateAdapter
 import com.example.thecars.classes.Date
 import com.example.thecars.databinding.FragmentDateBinding
@@ -20,10 +21,10 @@ import com.example.thecars.lists.acura_images
 class DateFragment : Fragment() {
     private lateinit var binding: FragmentDateBinding
     private lateinit var adapter: DateAdapter
-    private lateinit var currentModel: String
+/*    private lateinit var currentModel: String
     private lateinit var currentBrand: String
     private lateinit var currentDate: List<String>
-    private lateinit var currentImage: List<Int>
+    private lateinit var currentImage: List<Int>*/
 
 
     override fun onCreateView(
@@ -41,22 +42,16 @@ class DateFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        currentModel = arguments?.getString("model_key")!!
+/*        currentModel = arguments?.getString("model_key")!!
         currentBrand = arguments?.getString("brand_key")!!
         currentDate = acura_dates[currentModel]!!
-        currentImage = acura_images[currentModel]!!
+        currentImage = acura_images[currentModel]!!*/
+
+
         adapter = DateAdapter(
-            getDateList(),
-            onDateClickListener = {
-                requireActivity().supportFragmentManager.beginTransaction()
-                .replace(
-                    R.id.place_holder,
-                    ImagesFragment.newInstance(currentBrand, currentModel, it.title)
-                )
-                .addToBackStack(null)
-                .commit()})
+            getDateList(),findNavController()
+                .navigate(R.id.action_dateFragment_to_imagesFragment))
         binding.rcViewDate.adapter = adapter
-            Log.d("Mylog", "$currentDate")
     }
 
     private fun getDateList(): List<Date> {

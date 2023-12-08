@@ -11,7 +11,7 @@ import com.example.thecars.R
 
 class DateAdapter (
     private val dates: List<Date>,
-    private val onDateClickListener: (Date) -> Unit): RecyclerView.Adapter<DateAdapter.DateViewHolder>() {
+    private val navController: Unit): RecyclerView.Adapter<DateAdapter.DateViewHolder>() {
 
     class DateViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val title: TextView = itemView.findViewById(R.id.title_date)
@@ -31,6 +31,6 @@ class DateAdapter (
         val currentDate = dates[position]
         holder.title.text = currentDate.title
         holder.image.setImageResource(currentDate.imageId)
-        holder.itemView.setOnClickListener { onDateClickListener.invoke(dates[position]) }
+        holder.itemView.setOnClickListener { navController }
     }
 }
