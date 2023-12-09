@@ -6,10 +6,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.thecars.R
+import com.example.thecars.interfaces.OnCarClickListener
+import com.example.thecars.interfaces.OnModelClickListener
 
 class ModelAdapter(
      private val models: List<String>,
-     private val navController: Unit):
+     private val listener: OnModelClickListener):
      RecyclerView.Adapter<ModelAdapter.ModelViewHolder>() {
 
     class ModelViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -28,7 +30,9 @@ class ModelAdapter(
 
      override fun onBindViewHolder(holder: ModelViewHolder, position: Int) {
         holder.name.text = models[position]
-         holder.itemView.setOnClickListener { navController }
+         holder.itemView.setOnClickListener {
+             listener.onModelClick(models)
+         }
 
 
      }

@@ -9,12 +9,6 @@ import com.example.thecars.lists.brandToModels
 
 class CarViewModel : ViewModel() {
 
-    private val _currentBrand = MutableLiveData<String>()
-    val currentBrand: LiveData<String> = _currentBrand
-    fun updateCurrentBrand(newBrand: String) {
-        _currentBrand.postValue(newBrand)
-    }
-
 
     fun getCarList(carNames: Array<String>): List<Car> {
         return carNames.map {
@@ -28,12 +22,6 @@ class CarViewModel : ViewModel() {
                 else -> R.drawable.unknown
             }
             Car(logo, it)
-
         }
-    }
-    private fun getModelList(): List<String> {
-        val modelArray = brandToModels[currentBrand]
-        return resources.getStringArray(modelArray!!).toList()
-
     }
 }

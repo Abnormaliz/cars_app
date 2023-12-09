@@ -35,22 +35,15 @@ class  CarsFragment : Fragment(), OnCarClickListener {
         val carNames = resources.getStringArray(R.array.car_names)
         val carList = carViewModel.getCarList(carNames)
 
-        adapter = CarAdapter(carList, findNavController()
-            .navigate(R.id.action_carsFragment_to_modelsFragment),
-            this)
+        adapter = CarAdapter(carList, this)
         binding.rcViewCars.adapter = adapter
     }
 
     override fun onCarClick(car: Car) {
-        carViewModel.updateCurrentBrand(car.title)
+        val bundle = Bundle()
+        bundle.putString("brand_key", car.title)
+        findNavController().navigate(R.id.action_carsFragment_to_modelsFragment, bundle)
     }
-
-    companion object {
-
-        @JvmStatic
-        fun newInstance() = CarsFragment()
-    }
-
 
 
 }

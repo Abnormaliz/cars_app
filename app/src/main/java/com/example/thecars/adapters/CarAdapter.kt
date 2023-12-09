@@ -14,7 +14,6 @@ import com.example.thecars.interfaces.OnCarClickListener
 
 class CarAdapter(
     private val cars: List<Car>,
-    private val navController: Unit,
     private val listener: OnCarClickListener
 ) :
     RecyclerView.Adapter<CarAdapter.CarsViewHolder>() {
@@ -35,7 +34,6 @@ class CarAdapter(
         holder.title.text = currentCar.title
         holder.itemView.setOnClickListener() {
             listener.onCarClick(currentCar)
-            navController
         }
     }
 
