@@ -1,12 +1,16 @@
 package com.example.thecars
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.example.thecars.data.CarViewModel
 import com.example.thecars.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+    val carViewModel: CarViewModel by viewModels()
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController

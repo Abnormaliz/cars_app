@@ -11,11 +11,12 @@ class CarViewModel : ViewModel() {
 
     private val _currentBrand = MutableLiveData<String>()
     val currentBrand: LiveData<String> = _currentBrand
-
-    fun setCurrentBrand(brand: String) {
-        _currentBrand.value = brand
+    fun updateCurrentBrand(newBrand: String) {
+        _currentBrand.postValue(newBrand)
     }
-     fun getCarList(carNames: Array<String>): List<Car> {
+
+
+    fun getCarList(carNames: Array<String>): List<Car> {
         return carNames.map {
             val logo = when (it) {
                 "Audi" -> R.drawable.audi

@@ -10,11 +10,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.thecars.CarsFragment
 import com.example.thecars.classes.Car
 import com.example.thecars.R
+import com.example.thecars.interfaces.OnCarClickListener
 
 class CarAdapter(
     private val cars: List<Car>,
-    private val navController: Unit) :
+    private val navController: Unit,
+    private val listener: OnCarClickListener
+) :
     RecyclerView.Adapter<CarAdapter.CarsViewHolder>() {
+
     class CarsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val logos: ImageView = itemView.findViewById(R.id.iv_logos)
         val title: TextView = itemView.findViewById(R.id.tv_name_model)
@@ -30,6 +34,7 @@ class CarAdapter(
         holder.logos.setImageResource(currentCar.imageId)
         holder.title.text = currentCar.title
         holder.itemView.setOnClickListener() {
+            listener.onCarClick(currentCar)
             navController
         }
     }
@@ -37,6 +42,7 @@ class CarAdapter(
     override fun getItemCount(): Int {
         return cars.size
     }
+
 }
 
 

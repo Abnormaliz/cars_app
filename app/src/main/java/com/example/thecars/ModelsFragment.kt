@@ -32,7 +32,6 @@ class ModelsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         carViewModel.setCurrentBrand()
-        carViewModel.get
 
         currentBrand = arguments?.getString("brand_key")!!
         adapter = ModelAdapter(getModelList(),findNavController()
