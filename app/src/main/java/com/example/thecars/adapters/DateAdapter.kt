@@ -8,10 +8,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.thecars.classes.Date
 import com.example.thecars.R
+import com.example.thecars.interfaces.OnDateClickListener
 
 class DateAdapter (
     private val dates: List<Date>,
-    private val navController: Unit): RecyclerView.Adapter<DateAdapter.DateViewHolder>() {
+    private val listener: OnDateClickListener): RecyclerView.Adapter<DateAdapter.DateViewHolder>() {
 
     class DateViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val title: TextView = itemView.findViewById(R.id.title_date)
@@ -31,6 +32,6 @@ class DateAdapter (
         val currentDate = dates[position]
         holder.title.text = currentDate.title
         holder.image.setImageResource(currentDate.imageId)
-        holder.itemView.setOnClickListener { navController }
+        holder.itemView.setOnClickListener { listener.onDateClick(currentDate) }
     }
 }

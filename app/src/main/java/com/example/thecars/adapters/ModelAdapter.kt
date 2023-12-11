@@ -31,7 +31,7 @@ class ModelAdapter(
      override fun onBindViewHolder(holder: ModelViewHolder, position: Int) {
         holder.name.text = models[position]
          holder.itemView.setOnClickListener {
-             listener.onModelClick(models)
+             listener.onModelClick(models[position])
          }
 
 

@@ -27,8 +27,8 @@ val modelToImages = mapOf(
 val datesToImages = mapOf(
     "I 2000-2006" to mdx1_images,
     "II 2006-2010" to unknown_images,
-    "IIrest" to unknown_images,
-    "III" to unknown_images,
-    "IIIrest1" to unknown_images,
-    "IIIrest2" to unknown_images,
-    "IV" to unknown_images,)
+    "II restyling 2010-2013" to unknown_images,
+    "III 2013-2015" to unknown_images,
+    "III restyling 1 2015-2016" to unknown_images,
+    "III restyling 2 2016-2020" to unknown_images,
+    "IV 2021-2023" to unknown_images,)

@@ -1,11 +1,8 @@
-package com.example.thecars.data
+package com.example.thecars.model
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.thecars.R
 import com.example.thecars.classes.Car
-import com.example.thecars.lists.brandToModels
 
 class CarViewModel : ViewModel() {
 
