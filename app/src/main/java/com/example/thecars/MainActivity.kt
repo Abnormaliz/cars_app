@@ -9,7 +9,6 @@ import com.example.thecars.model.CarViewModel
 import com.example.thecars.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    val carViewModel: CarViewModel by viewModels()
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
@@ -21,11 +20,5 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
-
-        /*supportFragmentManager.beginTransaction().replace(
-            R.id.place_holder,
-            CarsFragment.newInstance()).addToBackStack(null).commit()*/
-
     }
-
 }

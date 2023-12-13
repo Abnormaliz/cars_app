@@ -31,18 +31,15 @@ class  CarsFragment : Fragment(), OnCarClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val carNames = resources.getStringArray(R.array.car_names)
-        val carList = carViewModel.getCarList(carNames)
-
-        adapter = CarAdapter(carList, this)
-        binding.rcViewCars.adapter = adapter
+        carViewModel.carNames.observe(viewLifecycleOwner) { carNames ->
+            val carList = carViewModel.getCarList(carNames)
+            adapter = CarAdapter(carList, this)
+            binding.rcViewCars.adapter = adapter
+        }
     }
-
-    override fun onCarClick(car: Car) {
+        override fun onCarClick(car: Car) {
         val bundle = Bundle()
         bundle.putString("brand_key", car.title)
         findNavController().navigate(R.id.action_carsFragment_to_modelsFragment, bundle)
     }
-
-
 }

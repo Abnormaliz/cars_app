@@ -32,16 +32,20 @@ class ModelsFragment : Fragment(), OnModelClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         currentBrand = arguments?.getString("brand_key")!!
-        val modelArray = brandToModels[currentBrand]
-        val modelList = resources.getStringArray(modelArray!!).toList()
-        adapter = ModelAdapter(modelList,this)
-        binding.rcViewModels.adapter = adapter
+        modelsViewModel.setCurrentBrand(currentBrand)
+
+        modelsViewModel.currentBrand.observe(viewLifecycleOwner) { brand ->
+            currentBrand = brand
+            val modelArray = brandToModels[currentBrand]
+            val modelList = resources.getStringArray(modelArray!!).toList()
+            adapter = ModelAdapter(modelList, this)
+            binding.rcViewModels.adapter = adapter
+        }
     }
 
 
     override fun onModelClick(model: String) {
         val bundle = Bundle()
-        bundle.putString("brand_key", currentBrand)
         bundle.putString("model_key", model)
         findNavController().navigate(R.id.action_modelsFragment_to_dateFragment, bundle)
     }

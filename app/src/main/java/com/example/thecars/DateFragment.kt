@@ -24,12 +24,9 @@ class DateFragment : Fragment(), OnDateClickListener {
     private lateinit var binding: FragmentDateBinding
     private lateinit var adapter: DateAdapter
     private lateinit var currentModel: String
-    private lateinit var currentBrand: String
     private lateinit var currentDate: List<String>
     private lateinit var currentImage: List<Int>
     private val dateViewModel: DateViewModel by viewModels()
-
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,40 +35,26 @@ class DateFragment : Fragment(), OnDateClickListener {
 
         binding = FragmentDateBinding.inflate(inflater)
         return binding.root
-
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         currentModel = arguments?.getString("model_key")!!
-        currentBrand = arguments?.getString("brand_key")!!
-        currentDate = acura_dates[currentModel]!!
-        currentImage = acura_images[currentModel]!!
+        dateViewModel.setCurrentModel(currentModel)
 
-
-        adapter = DateAdapter(
-            getDateList(), this)
-        binding.rcViewDate.adapter = adapter
-    }
-
-    private fun getDateList(): List<Date> {
-        val dates = mutableListOf<Date>()
-        for (i in currentDate.indices) {
-            dates.add(
-                Date(
-                title = currentDate[i],
-                imageId = currentImage[i]
+        dateViewModel.currentModel.observe(viewLifecycleOwner) { model ->
+            currentModel = model
+            currentDate = acura_dates[currentModel]!!
+            currentImage = acura_images[currentModel]!!
+            adapter = DateAdapter(
+                dateViewModel.getDateList(currentDate, currentImage), this
             )
-            )
+            binding.rcViewDate.adapter = adapter
         }
-        return dates
     }
 
     override fun onDateClick(date: Date) {
         val bundle = Bundle()
-        bundle.putString("brand_key", currentBrand)
-        bundle.putString("model_key", currentModel)
         bundle.putString("dateImage_key", date.title)
         findNavController().navigate(R.id.action_dateFragment_to_imagesFragment, bundle)
     }
