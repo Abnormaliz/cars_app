@@ -34,11 +34,8 @@ class ModelsFragment : Fragment(), OnModelClickListener {
         currentBrand = arguments?.getString("brand_key")!!
         modelsViewModel.setCurrentBrand(currentBrand)
 
-        modelsViewModel.currentBrand.observe(viewLifecycleOwner) { brand ->
-            currentBrand = brand
-            val modelArray = brandToModels[currentBrand]
-            val modelList = resources.getStringArray(modelArray!!).toList()
-            adapter = ModelAdapter(modelList, this)
+        modelsViewModel.currentBrand.observe(viewLifecycleOwner) {
+            adapter = ModelAdapter(modelsViewModel.setListModel(), this)
             binding.rcViewModels.adapter = adapter
         }
     }

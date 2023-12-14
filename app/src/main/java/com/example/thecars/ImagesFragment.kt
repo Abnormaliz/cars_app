@@ -37,11 +37,9 @@ class ImagesFragment : Fragment() {
         currentDate = arguments?.getString("dateImage_key")!!
         imagesViewModel.setCurrentDate(currentDate)
 
-        imagesViewModel.currentDate.observe(viewLifecycleOwner) { date ->
-            currentDate = date
-            oneDateImage = datesToImages[currentDate]!!
+        imagesViewModel.currentDate.observe(viewLifecycleOwner) {
             val tabLayout: TabLayout = binding.tabLayout
-            val adapter = ViewPagerAdapter(oneDateImage)
+            val adapter = ViewPagerAdapter(imagesViewModel.setOneDate())
             binding.viewPager.adapter = adapter
 
             TabLayoutMediator(tabLayout, binding.viewPager) { tab, position ->

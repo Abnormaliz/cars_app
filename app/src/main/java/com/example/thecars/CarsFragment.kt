@@ -32,8 +32,7 @@ class  CarsFragment : Fragment(), OnCarClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         carViewModel.carNames.observe(viewLifecycleOwner) { carNames ->
-            val carList = carViewModel.getCarList(carNames)
-            adapter = CarAdapter(carList, this)
+            adapter = CarAdapter(carViewModel.getCarList(carNames), this)
             binding.rcViewCars.adapter = adapter
         }
     }

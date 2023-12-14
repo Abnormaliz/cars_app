@@ -24,8 +24,6 @@ class DateFragment : Fragment(), OnDateClickListener {
     private lateinit var binding: FragmentDateBinding
     private lateinit var adapter: DateAdapter
     private lateinit var currentModel: String
-    private lateinit var currentDate: List<String>
-    private lateinit var currentImage: List<Int>
     private val dateViewModel: DateViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,13 +40,8 @@ class DateFragment : Fragment(), OnDateClickListener {
         currentModel = arguments?.getString("model_key")!!
         dateViewModel.setCurrentModel(currentModel)
 
-        dateViewModel.currentModel.observe(viewLifecycleOwner) { model ->
-            currentModel = model
-            currentDate = acura_dates[currentModel]!!
-            currentImage = acura_images[currentModel]!!
-            adapter = DateAdapter(
-                dateViewModel.getDateList(currentDate, currentImage), this
-            )
+        dateViewModel.currentModel.observe(viewLifecycleOwner) {
+            adapter = DateAdapter(dateViewModel.getDateList(), this)
             binding.rcViewDate.adapter = adapter
         }
     }
