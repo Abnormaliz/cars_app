@@ -25,15 +25,16 @@ class  CarsFragment : Fragment(), OnCarClickListener {
     ): View?
     {
        binding = FragmentCarsBinding.inflate(inflater)
+        adapter = CarAdapter(emptyList(), this)
+        binding.rcViewCars.adapter = adapter
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        carViewModel.carNames.observe(viewLifecycleOwner) { carNames ->
-            adapter = CarAdapter(carViewModel.getCarList(carNames), this)
-            binding.rcViewCars.adapter = adapter
+        carViewModel.carList.observe(viewLifecycleOwner) {
+            adapter.updateData(it)
         }
     }
         override fun onCarClick(car: Car) {

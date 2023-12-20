@@ -1,5 +1,6 @@
 package com.example.thecars.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,7 @@ import com.example.thecars.R
 import com.example.thecars.interfaces.OnCarClickListener
 
 class CarAdapter(
-    private val cars: List<Car>,
+    private var cars: List<Car>,
     private val listener: OnCarClickListener
 ) :
     RecyclerView.Adapter<CarAdapter.CarsViewHolder>() {
@@ -39,6 +40,11 @@ class CarAdapter(
 
     override fun getItemCount(): Int {
         return cars.size
+    }
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateData(newCarList: List<Car>) {
+        cars = newCarList
+        notifyDataSetChanged()
     }
 
 }
