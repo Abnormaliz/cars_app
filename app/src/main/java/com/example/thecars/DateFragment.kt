@@ -32,17 +32,21 @@ class DateFragment : Fragment(), OnDateClickListener {
     ): View? {
 
         binding = FragmentDateBinding.inflate(inflater)
+
+        arguments?.getString("model_key")?.let { dateViewModel.setCurrentDate(it) }
+
+        adapter = DateAdapter(emptyList(), this)
+        binding.rcViewDate.adapter = adapter
+
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        currentModel = arguments?.getString("model_key")!!
-        dateViewModel.setCurrentModel(currentModel)
 
-        dateViewModel.currentModel.observe(viewLifecycleOwner) {
-            adapter = DateAdapter(dateViewModel.getDateList(), this)
-            binding.rcViewDate.adapter = adapter
+
+        dateViewModel.currentDate.observe(viewLifecycleOwner) {
+            adapter.updateData(it)
         }
     }
 

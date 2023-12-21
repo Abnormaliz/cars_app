@@ -1,5 +1,6 @@
 package com.example.thecars.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,7 @@ import com.example.thecars.R
 import com.example.thecars.interfaces.OnDateClickListener
 
 class DateAdapter (
-    private val dates: List<Date>,
+    private var dates: List<Date>,
     private val listener: OnDateClickListener): RecyclerView.Adapter<DateAdapter.DateViewHolder>() {
 
     class DateViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -33,5 +34,10 @@ class DateAdapter (
         holder.title.text = currentDate.title
         holder.image.setImageResource(currentDate.imageId)
         holder.itemView.setOnClickListener { listener.onDateClick(currentDate) }
+    }
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateData(newDatesList: List<Date>) {
+        dates = newDatesList
+        notifyDataSetChanged()
     }
 }

@@ -17,7 +17,6 @@ import com.example.thecars.lists.brandToModels
 class ModelsFragment : Fragment(), OnModelClickListener {
     private lateinit var binding: FragmentModelsBinding
     private lateinit var adapter: ModelAdapter
-    private lateinit var currentBrand: String
     private val modelsViewModel: ModelsViewModel by viewModels()
 
     override fun onCreateView(
@@ -25,18 +24,19 @@ class ModelsFragment : Fragment(), OnModelClickListener {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentModelsBinding.inflate(inflater)
+
+        arguments?.getString("brand_key")?.let { modelsViewModel.setCurrentBrand(it) }
+
+        adapter = ModelAdapter(emptyList(), this)
+        binding.rcViewModels.adapter = adapter
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        currentBrand = arguments?.getString("brand_key")!!
-        modelsViewModel.setCurrentBrand(currentBrand)
-
-        modelsViewModel.currentBrand.observe(viewLifecycleOwner) {
-            adapter = ModelAdapter(modelsViewModel.setListModel(), this)
-            binding.rcViewModels.adapter = adapter
+        modelsViewModel.modelList.observe(viewLifecycleOwner) {
+            adapter.updateData(it)
         }
     }
 

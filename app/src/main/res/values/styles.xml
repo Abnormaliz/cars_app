@@ -1,6 +1,7 @@
 <resources>
-
-    <style name="Widget.Theme.TheCars.ButtonBar.Fullscreen" parent="">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light">
+    </style>
+    <style name="Widget.Theme.TheCars.ButtonBar.Fullscreen" parent="AppTheme">
         <item name="android:background">@color/black_overlay</item>
         <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
     </style>

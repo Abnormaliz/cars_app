@@ -24,7 +24,7 @@ class CarViewModel(application: Application) : AndroidViewModel(application) {
     }
 
 
-    fun updateCarList() {
+    private fun updateCarList() {
         _carNames.value?.let { carNames ->
             val cars = carNames.map {
                 val logo = when (it) {

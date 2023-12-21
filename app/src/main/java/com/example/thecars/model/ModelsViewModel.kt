@@ -9,15 +9,18 @@ import com.example.thecars.lists.brandToModels
 class ModelsViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _currentBrand = MutableLiveData<String>()
-    val currentBrand: LiveData<String>
+    private val currentBrand: LiveData<String>
         get() = _currentBrand
+
+    private val _modelList = MutableLiveData<List<String>>()
+    val modelList: LiveData<List<String>>
+        get() = _modelList
     fun setCurrentBrand(brand: String) {
     _currentBrand.value = brand
-}
-    fun setListModel(): List<String> {
         val modelArray = brandToModels[currentBrand.value]
-        return getApplication<Application>().resources.getStringArray(modelArray!!).toList()
+        val models = modelArray.let {
+            getApplication<Application>().resources.getStringArray(modelArray!!).toList()
+        }
+        _modelList.value = models
     }
-
-
 }

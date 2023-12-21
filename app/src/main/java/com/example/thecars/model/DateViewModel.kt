@@ -12,10 +12,12 @@ class DateViewModel : ViewModel() {
     private val _currentModel = MutableLiveData<String>()
     val currentModel: LiveData<String>
         get() = _currentModel
-    fun setCurrentModel(model: String) {
+
+    private val _currentDate = MutableLiveData<List<Date>>()
+    val currentDate: LiveData<List<Date>>
+        get() = _currentDate
+    fun setCurrentDate(model: String) {
         _currentModel.value = model
-    }
-    fun getDateList(): List<Date> {
         val currentDate = acura_dates[currentModel.value]!!
         val currentImage = acura_images[currentModel.value]!!
         val dates = mutableListOf<Date>()
@@ -27,6 +29,6 @@ class DateViewModel : ViewModel() {
                 )
             )
         }
-        return dates
+        _currentDate.value = dates
     }
 }
