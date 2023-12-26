@@ -20,27 +20,30 @@ import com.google.android.material.tabs.TabLayoutMediator
 class ImagesFragment : Fragment() {
 
     private lateinit var binding: FragmentImagesBinding
-    private lateinit var currentDate: String
-    private lateinit var oneDateImage: List<Int>
+    private lateinit var adapter: ViewPagerAdapter
+    private lateinit var tabLayout: TabLayout
     private val imagesViewModel : ImagesViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         binding = FragmentImagesBinding.inflate(inflater)
+
+        tabLayout = binding.tabLayout
+        adapter = ViewPagerAdapter(emptyList())
+        binding.viewPager.adapter = adapter
+
+        arguments?.getString("dateImage_key")?.let { imagesViewModel.setCurrentDate(it) }
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        currentDate = arguments?.getString("dateImage_key")!!
-        imagesViewModel.setCurrentDate(currentDate)
-
-        imagesViewModel.currentDate.observe(viewLifecycleOwner) {
-            val tabLayout: TabLayout = binding.tabLayout
-            val adapter = ViewPagerAdapter(imagesViewModel.setOneDate())
-            binding.viewPager.adapter = adapter
+        imagesViewModel.currentImageList.observe(viewLifecycleOwner) {
+            adapter.updateData(it)
 
             TabLayoutMediator(tabLayout, binding.viewPager) { tab, position ->
                 tab.text =

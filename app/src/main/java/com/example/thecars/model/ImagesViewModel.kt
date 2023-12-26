@@ -6,14 +6,12 @@ import androidx.lifecycle.ViewModel
 import com.example.thecars.lists.datesToImages
 
 class ImagesViewModel : ViewModel() {
-    private val _currentDate = MutableLiveData<String>()
-    val currentDate: LiveData<String>
-        get() = _currentDate
+
+    private val _currentImageList = MutableLiveData<List<Int>>()
+    val currentImageList: LiveData<List<Int>>
+        get() = _currentImageList
 
     fun setCurrentDate(date: String){
-        _currentDate.value = date
-    }
-    fun setOneDate(): List<Int> {
-        return datesToImages[currentDate.value]!!
+        _currentImageList.value = datesToImages[date]
     }
 }

@@ -23,7 +23,6 @@ import com.example.thecars.lists.acura_images
 class DateFragment : Fragment(), OnDateClickListener {
     private lateinit var binding: FragmentDateBinding
     private lateinit var adapter: DateAdapter
-    private lateinit var currentModel: String
     private val dateViewModel: DateViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater,

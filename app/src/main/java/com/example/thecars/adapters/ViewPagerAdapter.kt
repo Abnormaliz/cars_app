@@ -7,7 +7,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.thecars.R
 
-class ViewPagerAdapter(private val imageList: List<Int>):
+class ViewPagerAdapter(private var imageList: List<Int>):
     RecyclerView.Adapter<ViewPagerAdapter.PagerViewHolder>() {
     class PagerViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val image: ImageView = itemView.findViewById(R.id.idIVImage)
@@ -27,4 +27,7 @@ class ViewPagerAdapter(private val imageList: List<Int>):
         holder.image.setImageResource(imageList[position])
     }
 
+    fun updateData(newImageList: List<Int>) {
+        imageList = newImageList
+    }
 }
