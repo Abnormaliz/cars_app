@@ -25,7 +25,7 @@ class ModelsFragment : Fragment(), OnModelClickListener {
     ): View? {
         binding = FragmentModelsBinding.inflate(inflater)
 
-        arguments?.getString("brand_key")?.let { modelsViewModel.setCurrentBrand(it) }
+        arguments?.getString("brand_key")?.let { modelsViewModel.setModelList(it) }
 
         adapter = ModelAdapter(emptyList(), this)
         binding.rcViewModels.adapter = adapter
