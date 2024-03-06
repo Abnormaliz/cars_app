@@ -9,17 +9,12 @@ import com.example.thecars.lists.acura_images
 
 class DateViewModel : ViewModel() {
 
-    private val _currentModel = MutableLiveData<String>()
-    val currentModel: LiveData<String>
-        get() = _currentModel
-
     private val _currentDate = MutableLiveData<List<Date>>()
     val currentDate: LiveData<List<Date>>
         get() = _currentDate
     fun setCurrentDate(model: String) {
-        _currentModel.value = model
-        val currentDate = acura_dates[currentModel.value]!!
-        val currentImage = acura_images[currentModel.value]!!
+        val currentDate = acura_dates[model]!!
+        val currentImage = acura_images[model]!!
         val dates = mutableListOf<Date>()
         for (i in currentDate.indices) {
             dates.add(
