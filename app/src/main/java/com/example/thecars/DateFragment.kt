@@ -15,6 +15,7 @@ import com.example.thecars.databinding.FragmentDateBinding
 import com.example.thecars.interfaces.OnDateClickListener
 import com.example.thecars.lists.acura_dates
 import com.example.thecars.lists.acura_images
+import com.google.android.material.snackbar.Snackbar
 
 /**
  * An example full-screen fragment that shows and hides the system UI (i.e.
@@ -50,9 +51,13 @@ class DateFragment : Fragment(), OnDateClickListener {
     }
 
     override fun onDateClick(date: Date) {
-        val bundle = Bundle()
-        bundle.putString("dateImage_key", date.title)
-        findNavController().navigate(R.id.action_dateFragment_to_imagesFragment, bundle)
+        if (date.title == "There are no info") {
+            Snackbar.make(binding.root, "No data at the moment", Snackbar.LENGTH_SHORT).show()
+        } else {
+            val bundle = Bundle()
+            bundle.putString("dateImage_key", date.title)
+            findNavController().navigate(R.id.action_dateFragment_to_imagesFragment, bundle)
+        }
     }
 
 }

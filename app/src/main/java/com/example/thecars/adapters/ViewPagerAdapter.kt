@@ -1,5 +1,6 @@
 package com.example.thecars.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,6 +28,7 @@ class ViewPagerAdapter(private var imageList: List<Int>):
         holder.image.setImageResource(imageList[position])
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun updateData(newImageList: List<Int>) {
         imageList = newImageList
     }

@@ -43,7 +43,7 @@ class ImagesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         imagesViewModel.currentImageList.observe(viewLifecycleOwner) {
-            adapter.updateData(it)
+            /*adapter.updateData(it)*/
 
             TabLayoutMediator(tabLayout, binding.viewPager) { tab, position ->
                 tab.text =
