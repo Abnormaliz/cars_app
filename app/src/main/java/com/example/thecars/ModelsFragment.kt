@@ -44,6 +44,7 @@ class ModelsFragment : Fragment(), OnModelClickListener {
     override fun onModelClick(model: String) {
         val bundle = Bundle()
         bundle.putString("model_key", model)
+        bundle.putString("brand_key", modelsViewModel.brand.value)
         findNavController().navigate(R.id.action_modelsFragment_to_dateFragment, bundle)
     }
 }

@@ -13,7 +13,7 @@ val mdx1_images = listOf(
     R.drawable.mdx1_image_back,
     R.drawable.mdx1_image_side)
 
-val modelToImages = mapOf(
+val acuraModelToImages = mapOf(
     "EL" to unknown_images,
     "ILX" to unknown_images,
     "MDX" to mdx1_images,
@@ -24,7 +24,7 @@ val modelToImages = mapOf(
     "TSX" to unknown_images,
     "ZDX" to unknown_images)
 
-val datesToImages = mapOf(
+val acuraDatesToImages = mapOf(
     "I 2000-2006" to mdx1_images,
     "II 2006-2010" to unknown_images,
     "II restyling 2010-2013" to unknown_images,

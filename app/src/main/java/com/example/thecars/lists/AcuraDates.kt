@@ -3,9 +3,9 @@ package com.example.thecars.lists
 import com.example.thecars.R
 
 val dates_acura_el: List<String> = listOf(
-    "There are no info",
-    "There are no info",
-    "There are no info")
+    EMPTY_DATA,
+    EMPTY_DATA,
+    EMPTY_DATA)
 
 val images_acura_el: List<Int> = listOf(
     R.drawable.car1,
@@ -13,9 +13,9 @@ val images_acura_el: List<Int> = listOf(
     R.drawable.car1)
 
 val dates_acura_ilx: List<String> = listOf(
-    "There are no info",
-    "There are no info",
-    "There are no info")
+    EMPTY_DATA,
+    EMPTY_DATA,
+    EMPTY_DATA)
 
 val images_acura_ilx: List<Int> = listOf(
     R.drawable.car1,
@@ -30,6 +30,7 @@ val dates_acura_mdx: List<String> = listOf(
     "III restyling 1 2015-2016",
     "III restyling 2 2016-2020",
     "IV 2021-2023")
+
 val images_acura_mdx: List<Int> = listOf(
     R.drawable.mdx1,
     R.drawable.mdx2,
@@ -40,9 +41,9 @@ val images_acura_mdx: List<Int> = listOf(
     R.drawable.mdx4)
 
 val dates_acura_rdx: List<String> = listOf(
-    "There are no info",
-    "There are no info",
-    "There are no info")
+    EMPTY_DATA,
+    EMPTY_DATA,
+    EMPTY_DATA)
 
 val images_acura_rdx: List<Int> = listOf(
     R.drawable.car1,
@@ -50,9 +51,9 @@ val images_acura_rdx: List<Int> = listOf(
     R.drawable.car1)
 
 val dates_acura_rsx: List<String> = listOf(
-    "There are no info",
-    "There are no info",
-    "There are no info")
+    EMPTY_DATA,
+    EMPTY_DATA,
+    EMPTY_DATA)
 
 val images_acura_rsx: List<Int> = listOf(
     R.drawable.car1,
@@ -60,9 +61,9 @@ val images_acura_rsx: List<Int> = listOf(
     R.drawable.car1)
 
 val dates_acura_tl: List<String> = listOf(
-    "There are no info",
-    "There are no info",
-    "There are no info")
+    EMPTY_DATA,
+    EMPTY_DATA,
+    EMPTY_DATA)
 
 val images_acura_tl: List<Int> = listOf(
     R.drawable.car1,
@@ -71,9 +72,9 @@ val images_acura_tl: List<Int> = listOf(
 )
 
 val dates_acura_tlx: List<String> = listOf(
-    "There are no info",
-    "There are no info",
-    "There are no info")
+    EMPTY_DATA,
+    EMPTY_DATA,
+    EMPTY_DATA)
 
 val images_acura_tlx: List<Int> = listOf(
     R.drawable.car1,
@@ -82,9 +83,9 @@ val images_acura_tlx: List<Int> = listOf(
 )
 
 val dates_acura_tsx: List<String> = listOf(
-    "There are no info",
-    "There are no info",
-    "There are no info")
+    EMPTY_DATA,
+    EMPTY_DATA,
+    EMPTY_DATA)
 
 val images_acura_tsx: List<Int> = listOf(
     R.drawable.car1,
@@ -92,9 +93,9 @@ val images_acura_tsx: List<Int> = listOf(
     R.drawable.car1)
 
 val dates_acura_zdx: List<String> = listOf(
-    "There are no info",
-    "There are no info",
-    "There are no info")
+    EMPTY_DATA,
+    EMPTY_DATA,
+    EMPTY_DATA)
 
 val images_acura_zdx: List<Int> = listOf(
     R.drawable.car1,

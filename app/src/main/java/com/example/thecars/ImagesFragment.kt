@@ -1,7 +1,6 @@
 package com.example.thecars
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,8 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.thecars.adapters.ViewPagerAdapter
 import com.example.thecars.databinding.FragmentImagesBinding
-import com.example.thecars.lists.datesToImages
-import com.example.thecars.lists.modelToImages
 import com.example.thecars.model.ImagesViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -34,7 +31,11 @@ class ImagesFragment : Fragment() {
         adapter = ViewPagerAdapter(emptyList())
         binding.viewPager.adapter = adapter
 
-        arguments?.getString("dateImage_key")?.let { imagesViewModel.setCurrentDate(it) }
+        arguments?.getString("dateImage_key")?.let { date ->
+            arguments?.getString("brand_key")?.let { brand ->
+                imagesViewModel.setCurrentDate(date, brand)
+            }
+        }
 
         return binding.root
     }
@@ -43,7 +44,7 @@ class ImagesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         imagesViewModel.currentImageList.observe(viewLifecycleOwner) {
-            /*adapter.updateData(it)*/
+            adapter.updateData(it)
 
             TabLayoutMediator(tabLayout, binding.viewPager) { tab, position ->
                 tab.text =

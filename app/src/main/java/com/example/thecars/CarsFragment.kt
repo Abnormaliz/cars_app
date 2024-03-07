@@ -12,6 +12,8 @@ import com.example.thecars.classes.Car
 import com.example.thecars.model.CarViewModel
 import com.example.thecars.databinding.FragmentCarsBinding
 import com.example.thecars.interfaces.OnCarClickListener
+import com.example.thecars.lists.brandToModels
+import com.google.android.material.snackbar.Snackbar
 
 
 class  CarsFragment : Fragment(), OnCarClickListener {
@@ -38,8 +40,12 @@ class  CarsFragment : Fragment(), OnCarClickListener {
         }
     }
         override fun onCarClick(car: Car) {
-        val bundle = Bundle()
-        bundle.putString("brand_key", car.title)
-        findNavController().navigate(R.id.action_carsFragment_to_modelsFragment, bundle)
+            if (brandToModels.containsKey(car.title)) {
+                val bundle = Bundle()
+                bundle.putString("brand_key", car.title)
+                findNavController().navigate(R.id.action_carsFragment_to_modelsFragment, bundle)
+            } else {
+                Snackbar.make(binding.root, "No data at the moment", Snackbar.LENGTH_SHORT).show()
+            }
     }
 }

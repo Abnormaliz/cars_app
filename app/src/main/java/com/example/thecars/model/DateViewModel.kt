@@ -6,15 +6,23 @@ import androidx.lifecycle.ViewModel
 import com.example.thecars.classes.Date
 import com.example.thecars.lists.acura_dates
 import com.example.thecars.lists.acura_images
+import com.example.thecars.lists.bmw_dates
+import com.example.thecars.lists.bmw_images
+import com.example.thecars.lists.carsDates
+import com.example.thecars.lists.carsImages
 
 class DateViewModel : ViewModel() {
 
     private val _currentDate = MutableLiveData<List<Date>>()
     val currentDate: LiveData<List<Date>>
         get() = _currentDate
-    fun setCurrentDate(model: String) {
-        val currentDate = acura_dates[model]!!
-        val currentImage = acura_images[model]!!
+    var currentBrand: String = ""
+    fun setCurrentDate(model: String, brand: String) {
+        currentBrand = brand
+        val carsDates = carsDates[brand]
+        val carsImages = carsImages[brand]
+        val currentDate = carsDates?.get(model)!!
+        val currentImage = carsImages?.get(model)!!
         val dates = mutableListOf<Date>()
         for (i in currentDate.indices) {
             dates.add(

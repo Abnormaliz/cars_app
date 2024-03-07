@@ -13,6 +13,7 @@ import com.example.thecars.classes.Date
 import com.example.thecars.model.DateViewModel
 import com.example.thecars.databinding.FragmentDateBinding
 import com.example.thecars.interfaces.OnDateClickListener
+import com.example.thecars.lists.EMPTY_DATA
 import com.example.thecars.lists.acura_dates
 import com.example.thecars.lists.acura_images
 import com.google.android.material.snackbar.Snackbar
@@ -33,7 +34,11 @@ class DateFragment : Fragment(), OnDateClickListener {
 
         binding = FragmentDateBinding.inflate(inflater)
 
-        arguments?.getString("model_key")?.let { dateViewModel.setCurrentDate(it) }
+        arguments?.getString("model_key")?.let { model ->
+            arguments?.getString("brand_key")?.let { brand ->
+                dateViewModel.setCurrentDate(model, brand)
+            }
+        }
 
         adapter = DateAdapter(emptyList(), this)
         binding.rcViewDate.adapter = adapter
@@ -51,11 +56,12 @@ class DateFragment : Fragment(), OnDateClickListener {
     }
 
     override fun onDateClick(date: Date) {
-        if (date.title == "There are no info") {
-            Snackbar.make(binding.root, "No data at the moment", Snackbar.LENGTH_SHORT).show()
+        if (date.title == EMPTY_DATA) {
+            Snackbar.make(binding.root, EMPTY_DATA, Snackbar.LENGTH_SHORT).show()
         } else {
             val bundle = Bundle()
             bundle.putString("dateImage_key", date.title)
+            bundle.putString("brand_key", dateViewModel.currentBrand)
             findNavController().navigate(R.id.action_dateFragment_to_imagesFragment, bundle)
         }
     }
