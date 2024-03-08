@@ -14,8 +14,6 @@ import com.example.thecars.model.DateViewModel
 import com.example.thecars.databinding.FragmentDateBinding
 import com.example.thecars.interfaces.OnDateClickListener
 import com.example.thecars.lists.EMPTY_DATA
-import com.example.thecars.lists.acura_dates
-import com.example.thecars.lists.acura_images
 import com.google.android.material.snackbar.Snackbar
 
 /**

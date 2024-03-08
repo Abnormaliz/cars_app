@@ -3,8 +3,6 @@ package com.example.thecars.model
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.thecars.lists.acuraDatesToImages
-import com.example.thecars.lists.bmwDatesToImages
 import com.example.thecars.lists.carsDateToImages
 
 class ImagesViewModel : ViewModel() {

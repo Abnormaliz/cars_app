@@ -12,6 +12,8 @@ import com.example.thecars.model.ModelsViewModel
 import com.example.thecars.databinding.FragmentModelsBinding
 import com.example.thecars.interfaces.OnModelClickListener
 import com.example.thecars.lists.brandToModels
+import com.example.thecars.lists.carsModelToImages
+import com.google.android.material.snackbar.Snackbar
 
 
 class ModelsFragment : Fragment(), OnModelClickListener {
@@ -42,9 +44,14 @@ class ModelsFragment : Fragment(), OnModelClickListener {
 
 
     override fun onModelClick(model: String) {
+        val modelsMap = carsModelToImages[modelsViewModel.brand.value]
+        if (modelsMap!!.contains(model)) {
         val bundle = Bundle()
         bundle.putString("model_key", model)
         bundle.putString("brand_key", modelsViewModel.brand.value)
         findNavController().navigate(R.id.action_modelsFragment_to_dateFragment, bundle)
+    } else {
+        Snackbar.make(binding.root, "No data at the moment", Snackbar.LENGTH_SHORT).show()
+    }
     }
 }

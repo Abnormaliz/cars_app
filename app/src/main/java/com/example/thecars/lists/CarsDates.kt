@@ -10,11 +10,11 @@ val carsImages = mapOf(
 )
 
 val carsDateToImages = mapOf(
-    ACURA_BRAND to acuraDatesToImages,
-    BMW_BRAND to bmwDatesToImages
+    ACURA_BRAND to acuraMdxDatesToImages,
+    BMW_BRAND to bmwM5DatesToImages
 )
 
 val carsModelToImages = mapOf(
-    ACURA_BRAND to acuraModelToImages,
-    BMW_BRAND to bmwModelToImages
+    ACURA_BRAND to acuraModelToDates,
+    BMW_BRAND to bmwModelsToDates
 )

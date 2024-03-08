@@ -4,10 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.thecars.classes.Date
-import com.example.thecars.lists.acura_dates
-import com.example.thecars.lists.acura_images
-import com.example.thecars.lists.bmw_dates
-import com.example.thecars.lists.bmw_images
 import com.example.thecars.lists.carsDates
 import com.example.thecars.lists.carsImages
 

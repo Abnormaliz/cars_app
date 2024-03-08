@@ -36,12 +36,11 @@ val images_bmw_m5_f90 = listOf(
     R.drawable.bmw_m5_f90_side
 )
 
-
-val bmwModelToImages = mapOf(
-    "M5" to images_bmw_m5
+val bmwModelsToDates = mapOf(
+    "M5" to dates_bmw_m5
 )
 
-val bmwDatesToImages = mapOf(
+val bmwM5DatesToImages = mapOf(
     "E39 1998-2003" to images_bmw_m5_e39,
     "E60_E61 2007-2010" to images_bmw_m5_e60,
     "F10 2011-2017" to images_bmw_m5_f10,
