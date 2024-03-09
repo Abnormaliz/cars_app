@@ -8,10 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.thecars.adapters.ModelAdapter
+import com.example.thecars.classes.Car
 import com.example.thecars.model.ModelsViewModel
 import com.example.thecars.databinding.FragmentModelsBinding
 import com.example.thecars.interfaces.OnModelClickListener
-import com.example.thecars.lists.brandToModels
 import com.example.thecars.lists.carsModelToImages
 import com.google.android.material.snackbar.Snackbar
 
@@ -27,7 +27,7 @@ class ModelsFragment : Fragment(), OnModelClickListener {
     ): View? {
         binding = FragmentModelsBinding.inflate(inflater)
 
-        arguments?.getString("brand_key")?.let { modelsViewModel.setModelList(it) }
+        arguments?.getParcelable<Car>("selectedCar")?.let { modelsViewModel.setModelList(it) }
 
         adapter = ModelAdapter(emptyList(), this)
         binding.rcViewModels.adapter = adapter
