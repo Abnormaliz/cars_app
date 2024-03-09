@@ -45,7 +45,6 @@ class  CarsFragment : Fragment(), OnCarClickListener {
                 val bundle = Bundle().apply {
                     putParcelable("selectedCar", car)
                 }
-                bundle.putString("brand_key", car.title)
                 findNavController().navigate(R.id.action_carsFragment_to_modelsFragment, bundle)
             }
     }

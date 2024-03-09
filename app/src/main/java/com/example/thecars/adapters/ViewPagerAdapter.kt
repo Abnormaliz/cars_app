@@ -31,5 +31,6 @@ class ViewPagerAdapter(private var imageList: List<Int>):
     @SuppressLint("NotifyDataSetChanged")
     fun updateData(newImageList: List<Int>) {
         imageList = newImageList
+        notifyDataSetChanged()
     }
 }

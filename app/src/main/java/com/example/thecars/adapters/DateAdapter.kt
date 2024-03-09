@@ -31,8 +31,8 @@ class DateAdapter (
 
     override fun onBindViewHolder(holder: DateViewHolder, position: Int) {
         val currentDate = dates[position]
-        holder.title.text = currentDate.title
-        holder.image.setImageResource(currentDate.imageId)
+        holder.title.text = currentDate.name
+        holder.image.setImageResource(currentDate.previewPhoto)
         holder.itemView.setOnClickListener { listener.onDateClick(currentDate) }
     }
     @SuppressLint("NotifyDataSetChanged")

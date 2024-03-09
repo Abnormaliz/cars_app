@@ -25,10 +25,3 @@ val dates_bmw_m5 = listOf(
         R.drawable.bmw_m5_f90_side)
 )
 
-val bmwModelsToDates = mapOf(
-    "M5" to dates_bmw_m5
-)
-
-val bmw_dates = mapOf(
-    "M5" to dates_bmw_m5
-)

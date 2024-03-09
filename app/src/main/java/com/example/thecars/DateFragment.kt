@@ -10,16 +10,13 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.thecars.adapters.DateAdapter
 import com.example.thecars.classes.Date
+import com.example.thecars.classes.Model
 import com.example.thecars.model.DateViewModel
 import com.example.thecars.databinding.FragmentDateBinding
 import com.example.thecars.interfaces.OnDateClickListener
 import com.example.thecars.lists.EMPTY_DATA
 import com.google.android.material.snackbar.Snackbar
 
-/**
- * An example full-screen fragment that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
- */
 class DateFragment : Fragment(), OnDateClickListener {
     private lateinit var binding: FragmentDateBinding
     private lateinit var adapter: DateAdapter
@@ -32,11 +29,7 @@ class DateFragment : Fragment(), OnDateClickListener {
 
         binding = FragmentDateBinding.inflate(inflater)
 
-        arguments?.getString("model_key")?.let { model ->
-            arguments?.getString("brand_key")?.let { brand ->
-                dateViewModel.setCurrentDate(model, brand)
-            }
-        }
+        arguments?.getParcelable<Model>("selectedModel")?.let { dateViewModel.setCurrentDate(it) }
 
         adapter = DateAdapter(emptyList(), this)
         binding.rcViewDate.adapter = adapter
@@ -54,12 +47,12 @@ class DateFragment : Fragment(), OnDateClickListener {
     }
 
     override fun onDateClick(date: Date) {
-        if (date.title == EMPTY_DATA) {
+        if (date.previewPhoto == 0) {
             Snackbar.make(binding.root, EMPTY_DATA, Snackbar.LENGTH_SHORT).show()
         } else {
-            val bundle = Bundle()
-            bundle.putString("dateImage_key", date.title)
-            bundle.putString("brand_key", dateViewModel.currentBrand)
+            val bundle = Bundle().apply {
+                putParcelable("selectedDate", date)
+            }
             findNavController().navigate(R.id.action_dateFragment_to_imagesFragment, bundle)
         }
     }

@@ -9,10 +9,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.thecars.adapters.ModelAdapter
 import com.example.thecars.classes.Car
+import com.example.thecars.classes.Model
 import com.example.thecars.model.ModelsViewModel
 import com.example.thecars.databinding.FragmentModelsBinding
 import com.example.thecars.interfaces.OnModelClickListener
-import com.example.thecars.lists.carsModelToImages
 import com.google.android.material.snackbar.Snackbar
 
 
@@ -43,15 +43,14 @@ class ModelsFragment : Fragment(), OnModelClickListener {
     }
 
 
-    override fun onModelClick(model: String) {
-        val modelsMap = carsModelToImages[modelsViewModel.brand.value]
-        if (modelsMap!!.contains(model)) {
-        val bundle = Bundle()
-        bundle.putString("model_key", model)
-        bundle.putString("brand_key", modelsViewModel.brand.value)
-        findNavController().navigate(R.id.action_modelsFragment_to_dateFragment, bundle)
-    } else {
-        Snackbar.make(binding.root, "No data at the moment", Snackbar.LENGTH_SHORT).show()
-    }
+    override fun onModelClick(model: Model) {
+        if (model.list.isEmpty()) {
+            Snackbar.make(binding.root, "No data at the moment", Snackbar.LENGTH_SHORT).show()
+        } else {
+            val bundle = Bundle().apply {
+                putParcelable("selectedModel", model)
+            }
+            findNavController().navigate(R.id.action_modelsFragment_to_dateFragment, bundle)
+        }
     }
 }
