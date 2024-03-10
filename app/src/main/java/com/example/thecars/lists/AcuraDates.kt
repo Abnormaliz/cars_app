@@ -7,8 +7,8 @@ val dates_acura_mdx = listOf(
     Date("I 2000-2006",
         R.drawable.mdx1,
         R.drawable.mdx1_image_front,
-        R.drawable.mdx1_image_side,
-        R.drawable.mdx1_image_back),
+        R.drawable.mdx1_image_back,
+        R.drawable.mdx1_image_side),
     Date(
         "II 2006-2010",
         R.drawable.mdx2),

@@ -12,16 +12,6 @@ class ImagesViewModel : ViewModel() {
         get() = _currentImageList
 
     fun setCurrentDate(date: Date) {
-        val imagelist = mutableListOf<Int>()
-        if (date.frontPhoto != 0) {
-            imagelist.add(date.frontPhoto)
-        }
-        if (date.sidePhoto != 0) {
-            imagelist.add(date.sidePhoto)
-        }
-        if (date.backPhoto != 0) {
-            imagelist.add(date.backPhoto)
-        }
-    _currentImageList.value = imagelist
+        _currentImageList.value = listOf(date.frontPhoto, date.backPhoto, date.sidePhoto)
     }
 }

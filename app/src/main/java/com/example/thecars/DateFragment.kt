@@ -47,7 +47,7 @@ class DateFragment : Fragment(), OnDateClickListener {
     }
 
     override fun onDateClick(date: Date) {
-        if (date.previewPhoto == 0) {
+        if (date.frontPhoto == 0) {
             Snackbar.make(binding.root, EMPTY_DATA, Snackbar.LENGTH_SHORT).show()
         } else {
             val bundle = Bundle().apply {

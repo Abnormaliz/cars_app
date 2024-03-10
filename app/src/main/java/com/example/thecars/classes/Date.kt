@@ -7,8 +7,8 @@ data class Date(
     val name: String,
     val previewPhoto: Int = 0,
     val frontPhoto: Int = 0,
-    val sidePhoto: Int = 0,
-    val backPhoto: Int = 0) : Parcelable {
+    val backPhoto: Int = 0,
+    val sidePhoto: Int = 0) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString() ?: "",
         parcel.readInt(),
@@ -22,8 +22,8 @@ data class Date(
         parcel.writeString(name)
         parcel.writeInt(previewPhoto)
         parcel.writeInt(frontPhoto)
-        parcel.writeInt(sidePhoto)
         parcel.writeInt(backPhoto)
+        parcel.writeInt(sidePhoto)
     }
 
     override fun describeContents(): Int {
