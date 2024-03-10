@@ -11,8 +11,9 @@ class DateViewModel : ViewModel() {
     private val _currentDate = MutableLiveData<List<Date>>()
     val currentDate: LiveData<List<Date>>
         get() = _currentDate
-
+    var selectedModel: Model? = null
     fun setCurrentDate(model: Model) {
+        selectedModel = model
         _currentDate.value = model.list
     }
 }

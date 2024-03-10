@@ -29,8 +29,14 @@ class CarAdapter(
         return CarsViewHolder(itemView)
     }
 
+    @SuppressLint("ResourceAsColor")
     override fun onBindViewHolder(holder: CarsViewHolder, position: Int) {
         val currentCar = cars[position]
+        if (cars[position].modelList.isEmpty()) {
+            holder.logos.setBackgroundColor(R.color.black_overlay)
+        } else {
+            holder.logos.setBackgroundColor(android.R.color.transparent)
+        }
         holder.logos.setImageResource(currentCar.imageId)
         holder.title.text = currentCar.title
         holder.itemView.setOnClickListener() {
@@ -46,7 +52,6 @@ class CarAdapter(
         cars = newCarList
         notifyDataSetChanged()
     }
-
 }
 
 

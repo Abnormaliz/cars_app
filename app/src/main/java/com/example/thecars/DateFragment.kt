@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -21,6 +22,7 @@ class DateFragment : Fragment(), OnDateClickListener {
     private lateinit var binding: FragmentDateBinding
     private lateinit var adapter: DateAdapter
     private val dateViewModel: DateViewModel by viewModels()
+    private var isTitleSet = false
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,8 +41,12 @@ class DateFragment : Fragment(), OnDateClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
+        if (!isTitleSet) {
+            val actionBar = (requireActivity() as AppCompatActivity).supportActionBar?.title
+            val newActionBar = "$actionBar ${dateViewModel.selectedModel?.name}"
+            (requireActivity() as AppCompatActivity).supportActionBar?.title = newActionBar
+            isTitleSet = true
+        }
         dateViewModel.currentDate.observe(viewLifecycleOwner) {
             adapter.updateData(it)
         }

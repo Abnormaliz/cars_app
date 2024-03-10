@@ -5,11 +5,11 @@ import com.example.thecars.classes.Car
 
 val allCarsList = listOf(
 Car(title = "Acura", imageId = R.drawable.unknown, modelList = acuraModels),
+Car(title = "BMW", imageId = R.drawable.bmw, modelList = bmwModels),
 Car(title = "Alfa Romeo", imageId = R.drawable.unknown, modelList = emptyList()),
 Car(title = "Aston Martin", imageId = R.drawable.unknown, modelList = emptyList()),
 Car(title = "Audi", imageId = R.drawable.audi, modelList = emptyList()),
 Car(title = "Aurus", imageId = R.drawable.unknown, modelList = emptyList()),
-Car(title = "BMW", imageId = R.drawable.bmw, modelList = bmwModels),
 Car(title = "Bentley", imageId = R.drawable.unknown, modelList = emptyList()),
 Car(title = "Buick", imageId = R.drawable.unknown, modelList = emptyList()),
 Car(title = "Cadillac", imageId = R.drawable.unknown, modelList = emptyList()),

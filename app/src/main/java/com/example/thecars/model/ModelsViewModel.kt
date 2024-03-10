@@ -12,7 +12,9 @@ class ModelsViewModel() : ViewModel() {
     val modelList: LiveData<List<Model>>
         get() = _modelList
 
+    var selectedCar: Car? = null
     fun setModelList(car: Car) {
+        selectedCar = car
         _modelList.value = car.modelList
     }
 }

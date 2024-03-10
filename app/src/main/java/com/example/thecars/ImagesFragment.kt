@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.thecars.adapters.ViewPagerAdapter
@@ -21,6 +22,8 @@ class ImagesFragment : Fragment() {
     private lateinit var adapter: ViewPagerAdapter
     private lateinit var tabLayout: TabLayout
     private val imagesViewModel : ImagesViewModel by viewModels()
+    private var isTitleSet = false
+    private var previousTitle: CharSequence? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,6 +43,14 @@ class ImagesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        previousTitle = (requireActivity() as AppCompatActivity).supportActionBar?.title
+        if (!isTitleSet) {
+            val actionBar = (requireActivity() as AppCompatActivity).supportActionBar?.title
+            val newActionBar = "$actionBar ${imagesViewModel.selectedDate?.name}"
+            (requireActivity() as AppCompatActivity).supportActionBar?.title = newActionBar
+            isTitleSet = true
+        }
+
         imagesViewModel.currentImageList.observe(viewLifecycleOwner) {
             adapter.updateData(it)
 
@@ -55,4 +66,11 @@ class ImagesFragment : Fragment() {
                 }.attach()
             }
         }
+    override fun onPause() {
+        super.onPause()
+
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = previousTitle
+        isTitleSet = false
     }
+    }
+

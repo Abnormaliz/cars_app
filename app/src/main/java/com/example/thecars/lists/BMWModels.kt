@@ -3,6 +3,7 @@ package com.example.thecars.lists
 import com.example.thecars.classes.Model
 
 val bmwModels = listOf(
+    Model("M5", dates_bmw_m5),
     Model("1 SERIES", emptyList()),
     Model("2 SERIES", emptyList()),
     Model("2 SERIES GRAN COUPE", emptyList()),
@@ -22,7 +23,6 @@ val bmwModels = listOf(
     Model("M2", emptyList()),
     Model("M3", emptyList()),
     Model("M4", emptyList()),
-    Model("M5", dates_bmw_m5),
     Model("M6", emptyList()),
     Model("M6 GRAN COUPE", emptyList()),
     Model("M8", emptyList()),

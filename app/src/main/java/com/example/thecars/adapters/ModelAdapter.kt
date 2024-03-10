@@ -30,8 +30,14 @@ class ModelAdapter(
          return models.size
      }
 
+     @SuppressLint("ResourceAsColor")
      override fun onBindViewHolder(holder: ModelViewHolder, position: Int) {
         holder.name.text = models[position].name
+         if (models[position].list.isEmpty()) {
+             holder.name.setBackgroundColor(R.color.black_overlay)
+         } else {
+             holder.name.setBackgroundColor(android.R.color.transparent)
+         }
          holder.itemView.setOnClickListener {
              listener.onModelClick(models[position])
          }
