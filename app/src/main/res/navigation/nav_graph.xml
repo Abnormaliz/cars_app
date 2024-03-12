@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_carsFragment_to_modelsFragment"
             app:destination="@id/modelsFragment" />
+        <action
+            android:id="@+id/action_carsFragment_to_favoritesFragment"
+            app:destination="@id/favoritesFragment" />
     </fragment>
     <fragment
         android:id="@+id/modelsFragment"
@@ -22,6 +25,9 @@
         <action
             android:id="@+id/action_modelsFragment_to_dateFragment"
             app:destination="@id/dateFragment" />
+        <action
+            android:id="@+id/action_modelsFragment_to_favoritesFragment"
+            app:destination="@id/favoritesFragment" />
     </fragment>
     <fragment
         android:id="@+id/dateFragment"
@@ -31,9 +37,21 @@
         <action
             android:id="@+id/action_dateFragment_to_imagesFragment"
             app:destination="@id/imagesFragment" />
+        <action
+            android:id="@+id/action_dateFragment_to_favoritesFragment"
+            app:destination="@id/favoritesFragment" />
     </fragment>
     <fragment
         android:id="@+id/imagesFragment"
         android:name="com.example.thecars.ImagesFragment"
-        android:label="ImagesFragment" />
+        android:label="ImagesFragment" >
+        <action
+            android:id="@+id/action_imagesFragment_to_favoritesFragment"
+            app:destination="@id/favoritesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.example.thecars.FavoritesFragment"
+        android:label="fragment_favorites"
+        tools:layout="@layout/fragment_favorites" />
 </navigation>
