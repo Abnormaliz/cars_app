@@ -15,6 +15,7 @@ import com.example.thecars.adapters.ViewPagerAdapter
 import com.example.thecars.classes.Date
 import com.example.thecars.databinding.FragmentImagesBinding
 import com.example.thecars.model.ImagesViewModel
+import com.example.thecars.objects.FavoritesRepository
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -48,6 +49,11 @@ class ImagesFragment : Fragment() {
                 findNavController().navigate(R.id.action_imagesFragment_to_favoritesFragment)
                 true
             }
+            R.id.add -> {
+                arguments?.getParcelable<Date>("selectedDate")?.let { imagesViewModel.addToFavorites(it) }
+                true
+            }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

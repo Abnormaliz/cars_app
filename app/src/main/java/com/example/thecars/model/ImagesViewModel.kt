@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.thecars.classes.Date
+import com.example.thecars.objects.FavoritesRepository
 
 class ImagesViewModel : ViewModel() {
 
@@ -14,5 +15,9 @@ class ImagesViewModel : ViewModel() {
     fun setCurrentDate(date: Date) {
         selectedDate = date
         _currentImageList.value = listOf(date.frontPhoto, date.backPhoto, date.sidePhoto)
+    }
+
+    fun addToFavorites(date: Date) {
+        FavoritesRepository.favoritesList.add(date)
     }
 }

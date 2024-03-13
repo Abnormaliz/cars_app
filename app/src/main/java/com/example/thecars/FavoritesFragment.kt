@@ -10,18 +10,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import com.example.thecars.adapters.FavoritesAdapter
 import com.example.thecars.databinding.FragmentFavoritesBinding
-import com.example.thecars.lists.dates_bmw_m5
-import com.example.thecars.model.FavoritesViewModel
+import com.example.thecars.objects.FavoritesRepository
 
 
 class FavoritesFragment : Fragment() {
     private lateinit var binding: FragmentFavoritesBinding
     private lateinit var adapter: FavoritesAdapter
-    private val favoritesViewModel: FavoritesViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,15 +45,12 @@ class FavoritesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentFavoritesBinding.inflate(inflater)
-        adapter = FavoritesAdapter(emptyList())
+        adapter = FavoritesAdapter(FavoritesRepository.favoritesList)
         binding.rcViewFavorites.adapter = adapter
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        favoritesViewModel.currentFavorites.observe(viewLifecycleOwner) {
-            adapter.updateData(it)
-        }
     }
 }
