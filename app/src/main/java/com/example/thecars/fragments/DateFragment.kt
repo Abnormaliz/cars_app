@@ -1,6 +1,5 @@
-package com.example.thecars
+package com.example.thecars.fragments
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -12,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.thecars.R
 import com.example.thecars.adapters.DateAdapter
 import com.example.thecars.classes.Date
 import com.example.thecars.classes.Model

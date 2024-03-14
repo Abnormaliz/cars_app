@@ -1,4 +1,4 @@
-package com.example.thecars
+package com.example.thecars.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.thecars.R
 import com.example.thecars.adapters.ModelAdapter
 import com.example.thecars.classes.Car
 import com.example.thecars.classes.Model

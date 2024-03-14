@@ -1,4 +1,4 @@
-package com.example.thecars
+package com.example.thecars.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,11 +11,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.thecars.R
 import com.example.thecars.adapters.ViewPagerAdapter
 import com.example.thecars.classes.Date
 import com.example.thecars.databinding.FragmentImagesBinding
 import com.example.thecars.model.ImagesViewModel
-import com.example.thecars.objects.FavoritesRepository
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
