@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.thecars.R
@@ -18,6 +19,7 @@ class ModelAdapter(
 
     class ModelViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
     val name: TextView = itemView.findViewById(R.id.tv_name_model)
+        val emptyCard: FrameLayout = itemView.findViewById(R.id.empty_card)
 
     }
 
@@ -34,9 +36,9 @@ class ModelAdapter(
      override fun onBindViewHolder(holder: ModelViewHolder, position: Int) {
         holder.name.text = models[position].name
          if (models[position].list.isEmpty()) {
-             holder.name.setBackgroundColor(R.color.black_overlay)
+             holder.emptyCard.alpha = 0.5F
          } else {
-             holder.name.setBackgroundColor(android.R.color.transparent)
+             holder.emptyCard.alpha = 0F
          }
          holder.itemView.setOnClickListener {
              listener.onModelClick(models[position])

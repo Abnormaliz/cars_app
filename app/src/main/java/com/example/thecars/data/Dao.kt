@@ -1,5 +1,6 @@
 package com.example.thecars.data
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -16,6 +17,6 @@ interface Dao {
     @Delete
     suspend fun deleteItem(nameEntity: NameEntity)
     @Query("SELECT * FROM list_dates")
-    fun getAllItems(): Flow<List<NameEntity>>
+    fun getAllItems(): LiveData<List<NameEntity>>
 
 }

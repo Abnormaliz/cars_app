@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +21,7 @@ class CarAdapter(
     class CarsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val logos: ImageView = itemView.findViewById(R.id.iv_logos)
         val title: TextView = itemView.findViewById(R.id.tv_name_model)
+        val emptyCard: FrameLayout = itemView.findViewById(R.id.empty_card)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CarsViewHolder {
@@ -31,9 +33,9 @@ class CarAdapter(
     override fun onBindViewHolder(holder: CarsViewHolder, position: Int) {
         val currentCar = cars[position]
         if (cars[position].modelList.isEmpty()) {
-            holder.logos.setBackgroundColor(R.color.black_overlay)
+            holder.emptyCard.alpha = 0.5F
         } else {
-            holder.logos.setBackgroundColor(android.R.color.transparent)
+            holder.emptyCard.alpha = 0F
         }
         holder.logos.setImageResource(currentCar.imageId)
         holder.title.text = currentCar.title

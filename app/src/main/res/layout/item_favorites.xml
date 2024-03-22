@@ -45,6 +45,13 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
         </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/selected_color"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#E3B11B"
+            android:alpha="0"/>
     </androidx.cardview.widget.CardView>
 
 

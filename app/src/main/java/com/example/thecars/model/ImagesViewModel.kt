@@ -16,7 +16,6 @@ class ImagesViewModel : ViewModel() {
         selectedDate = date
         _currentImageList.value = listOf(date.frontPhoto, date.backPhoto, date.sidePhoto)
     }
-
     fun addToFavorites(date: Date) {
         FavoritesRepository.favoritesList.add(date)
     }

@@ -10,15 +10,19 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.example.thecars.App
 import com.example.thecars.R
 import com.example.thecars.adapters.ViewPagerAdapter
 import com.example.thecars.classes.Date
+import com.example.thecars.data.MainDb
+import com.example.thecars.data.NameEntity
 import com.example.thecars.databinding.FragmentImagesBinding
 import com.example.thecars.model.ImagesViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-
+import kotlinx.coroutines.launch
 
 
 class ImagesFragment : Fragment() {
@@ -34,10 +38,14 @@ class ImagesFragment : Fragment() {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.actionmenu, menu)
+        menu.findItem(R.id.remove).isVisible = false
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -50,7 +58,13 @@ class ImagesFragment : Fragment() {
                 true
             }
             R.id.add -> {
-                arguments?.getParcelable<Date>("selectedDate")?.let { imagesViewModel.addToFavorites(it) }
+               val currentDate = arguments?.getParcelable<Date>("selectedDate")
+               val newItem = NameEntity(currentDate!!.name, currentDate.previewPhoto)
+                val appContext = requireContext().applicationContext as App
+                val db = appContext.database
+               lifecycleScope.launch {
+                    db.dao.insertItem(newItem)
+                }
                 true
             }
 
@@ -61,7 +75,6 @@ class ImagesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         binding = FragmentImagesBinding.inflate(inflater)
 
         tabLayout = binding.tabLayout
@@ -75,6 +88,8 @@ class ImagesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
 
         previousTitle = (requireActivity() as AppCompatActivity).supportActionBar?.title
         if (!isTitleSet) {
@@ -99,6 +114,7 @@ class ImagesFragment : Fragment() {
                 }.attach()
             }
         }
+
     override fun onPause() {
         super.onPause()
 

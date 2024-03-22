@@ -34,6 +34,8 @@ class DateFragment : Fragment(), OnDateClickListener {
     }
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.actionmenu, menu)
+        menu.findItem(R.id.remove).isVisible = false
+        menu.findItem(R.id.add).isVisible = false
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
