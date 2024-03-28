@@ -15,7 +15,7 @@ class FavoritesViewModel(val database: MainDb) : ViewModel() {
 
     val dataList = database.dao.getAllItems()
 
-    fun removeItem(item: NameEntity) = viewModelScope.launch {
+    fun removeItem(item: MutableList<NameEntity>) = viewModelScope.launch {
         database.dao.deleteItem(item)
     }
 

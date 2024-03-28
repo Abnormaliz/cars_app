@@ -18,8 +18,8 @@ import com.example.thecars.interfaces.OnItemLongCLickListener
 class FavoritesAdapter(
     private var favorites: List<NameEntity>,
     private var longListener: OnItemLongCLickListener) : RecyclerView.Adapter<FavoritesAdapter.FavoritesViewHolder>() {
-    private var selectedPosition: MutableSet<Int> = mutableSetOf()
-    private var longClickFlag = false
+    var selectedPosition: MutableSet<Int> = mutableSetOf()
+    var longClickFlag = false
 
     class FavoritesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val photo: ImageView = itemView.findViewById(R.id.iv_photo_favorites)
@@ -39,7 +39,7 @@ class FavoritesAdapter(
 
     override fun onBindViewHolder(holder: FavoritesViewHolder, position: Int) {
         val currentFavorite = favorites[position]
-        holder.title.text = currentFavorite.name
+        holder.title.text = "${currentFavorite.brand}\n${currentFavorite.name}"
         holder.photo.setImageResource(currentFavorite.previewPhoto)
 
         val isCarSelected = selectedPosition.contains(position)
@@ -74,13 +74,24 @@ class FavoritesAdapter(
 
         }
     }
-        @SuppressLint("NotifyDataSetChanged")
-        fun updateData(favoritesList: List<NameEntity>) {
-            favorites = favoritesList
-            notifyDataSetChanged()
-        }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateData(favoritesList: List<NameEntity>) {
+        favorites = favoritesList
+        notifyDataSetChanged()
+    }
 
     fun getFlag(): Boolean {
         return longClickFlag
+    }
+
+    fun getNameEntity(positions: MutableSet<Int>): MutableList<NameEntity> {
+        val nameEntities = mutableListOf<NameEntity>()
+        for (position in positions) {
+                if (position < favorites.size) {
+                nameEntities.add(favorites[position])
+            } else break
+        }
+        return nameEntities
     }
     }

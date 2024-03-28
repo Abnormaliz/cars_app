@@ -7,6 +7,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -59,11 +60,19 @@ class ImagesFragment : Fragment() {
             }
             R.id.add -> {
                val currentDate = arguments?.getParcelable<Date>("selectedDate")
-               val newItem = NameEntity(currentDate!!.name, currentDate.previewPhoto)
+               val newItem = NameEntity(currentDate!!.brand, currentDate!!.name, currentDate!!.previewPhoto)
                 val appContext = requireContext().applicationContext as App
                 val db = appContext.database
-               lifecycleScope.launch {
-                    db.dao.insertItem(newItem)
+                lifecycleScope.launch {
+                    val existingItem = db.dao.getItemByName(newItem.name)
+                    if (existingItem == null) {
+                        db.dao.insertItem(newItem)
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Автомобиль с именем ${newItem.name} уже добавлен в Избранное",
+                            Toast.LENGTH_SHORT).show()
+                    }
                 }
                 true
             }

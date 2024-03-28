@@ -10,6 +10,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat.invalidateOptionsMenu
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
@@ -60,6 +61,14 @@ class FavoritesFragment : Fragment(), OnItemLongCLickListener {
         return when (item.itemId) {
             android.R.id.home -> {
                 findNavController().popBackStack()
+            }
+            R.id.remove -> {
+                Log.i("values", "(${adapter.getNameEntity(adapter.selectedPosition)}")
+                favoritesViewModel.removeItem(adapter.getNameEntity(adapter.selectedPosition))
+                adapter.longClickFlag = false
+                adapter.selectedPosition.clear()
+                invalidateOptionsMenu(requireActivity())
+                true
             }
             else -> super.onOptionsItemSelected(item)
         }
