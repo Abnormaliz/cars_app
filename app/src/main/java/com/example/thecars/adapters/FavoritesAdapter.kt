@@ -1,7 +1,6 @@
 package com.example.thecars.adapters
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,13 +10,13 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.thecars.R
-import com.example.thecars.classes.Date
 import com.example.thecars.data.NameEntity
-import com.example.thecars.interfaces.OnItemLongCLickListener
+import com.example.thecars.interfaces.OnItemClickListener
 
 class FavoritesAdapter(
     private var favorites: List<NameEntity>,
-    private var longListener: OnItemLongCLickListener) : RecyclerView.Adapter<FavoritesAdapter.FavoritesViewHolder>() {
+    private var listener: OnItemClickListener
+) : RecyclerView.Adapter<FavoritesAdapter.FavoritesViewHolder>() {
     var selectedPosition: MutableSet<Int> = mutableSetOf()
     var longClickFlag = false
 
@@ -59,6 +58,7 @@ class FavoritesAdapter(
         }
 
         holder.itemView.setOnClickListener {
+            listener.onItemClick(favorites[position])
             if (longClickFlag) {
                 if (selectedPosition.contains(position)) {
                     selectedPosition.remove(position)

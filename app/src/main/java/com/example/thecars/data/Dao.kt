@@ -20,4 +20,17 @@ interface Dao {
     @Query("SELECT * FROM list_dates WHERE name = :name")
     suspend fun getItemByName(name: String): NameEntity?
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertNoteItem(notesEntity: NotesEntity)
+
+//    @Query ("UPDATE list_notes SET text = :newNoteTest WHERE id = :id")
+//    suspend fun updateNote(id: Int, newNoteTest: String)
+    @Delete
+    suspend fun deleteNoteItem(notesEntity: NotesEntity)
+    @Query("SELECT * FROM list_notes")
+    fun getAllNoteItems(): LiveData<NotesEntity>
+
+    @Query("SELECT * FROM list_notes WHERE carName = :carName")
+    suspend fun getNoteByName(carName: String): NotesEntity?
+
 }

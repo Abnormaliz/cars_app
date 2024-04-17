@@ -5,12 +5,15 @@ import android.os.Parcelable
 
 data class Date(
     val brand: String,
+    val model: String,
     val name: String,
     val previewPhoto: Int = 0,
     val frontPhoto: Int = 0,
     val backPhoto: Int = 0,
-    val sidePhoto: Int = 0) : Parcelable {
+    val sidePhoto: Int = 0,
+    var isFavorite: Int = 0) : Parcelable {
     constructor(parcel: Parcel) : this(
+        parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readInt(),
@@ -23,6 +26,7 @@ data class Date(
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(brand)
         parcel.writeString(name)
+        parcel.writeString(model)
         parcel.writeInt(previewPhoto)
         parcel.writeInt(frontPhoto)
         parcel.writeInt(backPhoto)

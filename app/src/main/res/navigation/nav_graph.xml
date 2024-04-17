@@ -53,5 +53,9 @@
         android:id="@+id/favoritesFragment"
         android:name="com.example.thecars.fragments.FavoritesFragment"
         android:label="fragment_favorites"
-        tools:layout="@layout/fragment_favorites" />
+        tools:layout="@layout/fragment_favorites" >
+        <action
+            android:id="@+id/action_favoritesFragment_to_imagesFragment"
+            app:destination="@id/imagesFragment" />
+    </fragment>
 </navigation>

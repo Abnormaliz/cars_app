@@ -1,21 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
     <com.google.android.material.tabs.TabLayout
-    android:id="@+id/tab_layout"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content" />
-
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal" />
-</RelativeLayout>
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tab_layout"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tab_layout"/>
+
+    <EditText
+            android:id="@+id/edText_notes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:hint="write a note"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/viewPager"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+
+    <ImageButton
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/done"
+        android:visibility="gone"
+        android:layout_margin="5dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        app:layout_constraintTop_toTopOf="@+id/edText_notes"
+        app:layout_constraintBottom_toBottomOf="@+id/edText_notes"
+        app:layout_constraintEnd_toEndOf="@+id/edText_notes"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

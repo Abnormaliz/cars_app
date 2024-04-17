@@ -1,6 +1,7 @@
 package com.example.thecars.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -26,6 +27,7 @@ class DateFragment : Fragment(), OnDateClickListener {
     private lateinit var adapter: DateAdapter
     private val dateViewModel: DateViewModel by viewModels()
     private var isTitleSet = false
+    var savedActionBar: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,13 +68,13 @@ class DateFragment : Fragment(), OnDateClickListener {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        if (!isTitleSet) {
-            val actionBar = (requireActivity() as AppCompatActivity).supportActionBar?.title
-            val newActionBar = "$actionBar ${dateViewModel.selectedModel?.name}"
-            (requireActivity() as AppCompatActivity).supportActionBar?.title = newActionBar
-            isTitleSet = true
-        }
+            if (!isTitleSet) {
+                val actionBar = (requireActivity() as AppCompatActivity).supportActionBar?.title
+                val newActionBar = "$actionBar ${dateViewModel.selectedModel?.name}"
+                (requireActivity() as AppCompatActivity).supportActionBar?.title = newActionBar
+                savedActionBar = newActionBar
+                isTitleSet = true
+            } else (requireActivity() as AppCompatActivity ).supportActionBar?.title = savedActionBar
         dateViewModel.currentDate.observe(viewLifecycleOwner) {
             adapter.updateData(it)
         }

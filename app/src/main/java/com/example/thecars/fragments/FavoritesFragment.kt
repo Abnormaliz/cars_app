@@ -9,26 +9,23 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat.invalidateOptionsMenu
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
-import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.navigation.fragment.findNavController
 import com.example.thecars.App
 import com.example.thecars.R
 import com.example.thecars.adapters.FavoritesAdapter
-import com.example.thecars.data.MainDb
 import com.example.thecars.data.NameEntity
 import com.example.thecars.databinding.FragmentFavoritesBinding
-import com.example.thecars.interfaces.OnItemLongCLickListener
+import com.example.thecars.interfaces.OnItemClickListener
+import com.example.thecars.lists.allCarsList
 import com.example.thecars.model.FavoritesViewModel
 import com.example.thecars.model.FavoritesViewModelFactory
-import com.example.thecars.objects.FavoritesRepository
 
 
-class FavoritesFragment : Fragment(), OnItemLongCLickListener {
+class FavoritesFragment : Fragment(), OnItemClickListener {
     private lateinit var binding: FragmentFavoritesBinding
     private lateinit var adapter: FavoritesAdapter
     private lateinit var favoritesViewModel: FavoritesViewModel
@@ -37,8 +34,6 @@ class FavoritesFragment : Fragment(), OnItemLongCLickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = "Избранное"
 
         val database = (requireContext().applicationContext as App)
         favoritesViewModel = ViewModelProvider(this, FavoritesViewModelFactory(database))
@@ -46,6 +41,7 @@ class FavoritesFragment : Fragment(), OnItemLongCLickListener {
 
 
     }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.actionmenu, menu)
         menu.findItem(R.id.fav).isVisible = false
@@ -54,7 +50,6 @@ class FavoritesFragment : Fragment(), OnItemLongCLickListener {
         if (adapter.getFlag()) {
             menu.findItem(R.id.remove).isVisible = true
         }
-        Log.i("values", "${adapter.getFlag()}")
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -62,14 +57,15 @@ class FavoritesFragment : Fragment(), OnItemLongCLickListener {
             android.R.id.home -> {
                 findNavController().popBackStack()
             }
+
             R.id.remove -> {
-                Log.i("values", "(${adapter.getNameEntity(adapter.selectedPosition)}")
                 favoritesViewModel.removeItem(adapter.getNameEntity(adapter.selectedPosition))
                 adapter.longClickFlag = false
                 adapter.selectedPosition.clear()
                 invalidateOptionsMenu(requireActivity())
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -86,12 +82,29 @@ class FavoritesFragment : Fragment(), OnItemLongCLickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        favoritesViewModel.dataList.observe(viewLifecycleOwner){
+
+        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = "Избранное"
+
+        favoritesViewModel.dataList.observe(viewLifecycleOwner) {
             adapter.updateData(it)
         }
 
     }
 
-    override fun onItemLongClick(position: NameEntity) {
+    override fun onItemClick(position: NameEntity) {
+        if (!adapter.longClickFlag) {
+        val carList = allCarsList.find { it.title == position.brand }
+        val modelList = carList?.modelList
+        val date =
+            modelList?.find { it.name == position.model }?.list?.find { it.name == position.name }
+            date?.isFavorite = 1
+
+        val bundle = Bundle().apply {
+            putParcelable("selectedDate", date)
+        }
+        findNavController().navigate(R.id.action_favoritesFragment_to_imagesFragment, bundle)
     }
+    }
+
 }
