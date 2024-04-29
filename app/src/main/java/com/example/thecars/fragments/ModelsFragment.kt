@@ -24,20 +24,21 @@ import com.google.android.material.snackbar.Snackbar
 class ModelsFragment : Fragment(), OnModelClickListener {
     private lateinit var binding: FragmentModelsBinding
     private lateinit var adapter: ModelAdapter
+    private lateinit var selectedBrand: Brand
     private val modelsViewModel: ModelsViewModel by viewModels()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        selectedBrand = arguments?.getParcelable("selectedBrand")!!
     }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.actionmenu, menu)
         menu.findItem(R.id.remove).isVisible = false
         menu.findItem(R.id.add).isVisible = false
     }
-
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
@@ -51,14 +52,14 @@ class ModelsFragment : Fragment(), OnModelClickListener {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = selectedBrand.name
         binding = FragmentModelsBinding.inflate(inflater)
-
-        arguments?.getParcelable<Brand>("selectedCar")?.let { modelsViewModel.setModelList(it) }
-
+        selectedBrand.let { modelsViewModel.setModelList(it) }
         adapter = ModelAdapter(emptyList(), this)
         binding.rcViewModels.adapter = adapter
         return binding.root
@@ -66,9 +67,6 @@ class ModelsFragment : Fragment(), OnModelClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = modelsViewModel.selectedCar?.name
-
-
         modelsViewModel.modelList.observe(viewLifecycleOwner) {
             adapter.updateData(it)
         }

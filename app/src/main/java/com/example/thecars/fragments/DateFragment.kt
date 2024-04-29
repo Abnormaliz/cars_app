@@ -8,6 +8,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -25,6 +26,9 @@ import com.google.android.material.snackbar.Snackbar
 class DateFragment : Fragment(), OnDateClickListener {
     private lateinit var binding: FragmentDateBinding
     private lateinit var adapter: DateAdapter
+    private lateinit var selectedModel: Model
+    private lateinit var currentBrand: CharSequence
+    private lateinit var actionBar: ActionBar
     private val dateViewModel: DateViewModel by viewModels()
     private var isTitleSet = false
     var savedActionBar: String? = null
@@ -33,12 +37,25 @@ class DateFragment : Fragment(), OnDateClickListener {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        selectedModel = arguments?.getParcelable("selectedModel")!!
     }
+    override fun onResume() {
+        super.onResume()
+        if (!isTitleSet) {
+            actionBar = (requireActivity() as AppCompatActivity).supportActionBar!!
+            currentBrand = actionBar.title!!
+            actionBar.title = "$currentBrand ${selectedModel.name}"
+            savedActionBar = actionBar.title as String
+            isTitleSet = true
+        } else actionBar.title = savedActionBar
+    }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.actionmenu, menu)
         menu.findItem(R.id.remove).isVisible = false
         menu.findItem(R.id.add).isVisible = false
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
@@ -51,30 +68,21 @@ class DateFragment : Fragment(), OnDateClickListener {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         binding = FragmentDateBinding.inflate(inflater)
-
-        arguments?.getParcelable<Model>("selectedModel")?.let { dateViewModel.setCurrentDate(it) }
-
+        selectedModel.let { dateViewModel.setCurrentDate(it) }
         adapter = DateAdapter(emptyList(), this)
         binding.rcViewDate.adapter = adapter
-
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-            if (!isTitleSet) {
-                val actionBar = (requireActivity() as AppCompatActivity).supportActionBar?.title
-                val newActionBar = "$actionBar ${dateViewModel.selectedModel?.name}"
-                (requireActivity() as AppCompatActivity).supportActionBar?.title = newActionBar
-                savedActionBar = newActionBar
-                isTitleSet = true
-            } else (requireActivity() as AppCompatActivity ).supportActionBar?.title = savedActionBar
         dateViewModel.currentDate.observe(viewLifecycleOwner) {
             adapter.updateData(it)
         }

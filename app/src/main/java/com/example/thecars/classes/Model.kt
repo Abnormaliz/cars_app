@@ -3,7 +3,9 @@ package com.example.thecars.classes
 import android.os.Parcel
 import android.os.Parcelable
 
-data class Model(val name: String, val list: List<Date>) : Parcelable {
+data class Model(
+    val name: String,
+    val list: List<Date>) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString() ?: "",
         mutableListOf<Date>().apply {
