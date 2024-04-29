@@ -11,7 +11,7 @@ data class Date(
     val frontPhoto: Int = 0,
     val backPhoto: Int = 0,
     val sidePhoto: Int = 0,
-    var isFavorite: Int = 0) : Parcelable {
+    var isFavorite: Boolean = false) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString() ?: "",
         parcel.readString() ?: "",
@@ -20,8 +20,7 @@ data class Date(
         parcel.readInt(),
         parcel.readInt(),
         parcel.readInt()
-    ) {
-    }
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(brand)

@@ -6,25 +6,26 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import kotlinx.coroutines.flow.Flow
+import androidx.room.Transaction
 
 
 @Dao
 interface Dao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertItem(nameEntity: NameEntity)
+    suspend fun insertItem(carEntity: CarEntity)
     @Delete
-    suspend fun deleteItem(nameEntity: MutableList<NameEntity>)
+    suspend fun deleteItem(carEntity: MutableList<CarEntity>)
     @Query("SELECT * FROM list_dates")
-    fun getAllItems(): LiveData<List<NameEntity>>
-    @Query("SELECT * FROM list_dates WHERE name = :name")
-    suspend fun getItemByName(name: String): NameEntity?
+    fun getAllItems(): LiveData<List<CarAndNote>>
+    @Query("SELECT * FROM list_dates WHERE carName = :name")
+    suspend fun getItemByName(name: String): CarEntity?
+
+    @Query("SELECT * FROM list_dates WHERE carName = :name")
+    fun getItemId(name: String): CarEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertNoteItem(notesEntity: NotesEntity)
 
-//    @Query ("UPDATE list_notes SET text = :newNoteTest WHERE id = :id")
-//    suspend fun updateNote(id: Int, newNoteTest: String)
     @Delete
     suspend fun deleteNoteItem(notesEntity: NotesEntity)
     @Query("SELECT * FROM list_notes")
@@ -33,4 +34,18 @@ interface Dao {
     @Query("SELECT * FROM list_notes WHERE carName = :carName")
     suspend fun getNoteByName(carName: String): NotesEntity?
 
+    @Transaction
+    suspend fun deleteCarWithNotes(carEntities: MutableList<CarEntity>) {
+        carEntities.forEach { car ->
+            deleteNotesByCarName(car.carName)
+        }
+        deleteCars(carEntities)
+    }
+
+
+    @Query("DELETE FROM list_notes WHERE carName = :carName")
+    suspend fun deleteNotesByCarName(carName: String)
+
+    @Delete
+    suspend fun deleteCars(carEntities: MutableList<CarEntity>)
 }

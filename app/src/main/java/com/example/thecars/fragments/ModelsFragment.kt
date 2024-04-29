@@ -13,7 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.thecars.R
 import com.example.thecars.adapters.ModelAdapter
-import com.example.thecars.classes.Car
+import com.example.thecars.classes.Brand
 import com.example.thecars.classes.Model
 import com.example.thecars.model.ModelsViewModel
 import com.example.thecars.databinding.FragmentModelsBinding
@@ -57,7 +57,7 @@ class ModelsFragment : Fragment(), OnModelClickListener {
     ): View? {
         binding = FragmentModelsBinding.inflate(inflater)
 
-        arguments?.getParcelable<Car>("selectedCar")?.let { modelsViewModel.setModelList(it) }
+        arguments?.getParcelable<Brand>("selectedCar")?.let { modelsViewModel.setModelList(it) }
 
         adapter = ModelAdapter(emptyList(), this)
         binding.rcViewModels.adapter = adapter
@@ -66,7 +66,7 @@ class ModelsFragment : Fragment(), OnModelClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = modelsViewModel.selectedCar?.title
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = modelsViewModel.selectedCar?.name
 
 
         modelsViewModel.modelList.observe(viewLifecycleOwner) {

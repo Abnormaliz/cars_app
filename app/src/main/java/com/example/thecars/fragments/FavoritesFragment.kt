@@ -9,7 +9,6 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat.invalidateOptionsMenu
 import androidx.lifecycle.ViewModelProvider
@@ -17,10 +16,10 @@ import androidx.navigation.fragment.findNavController
 import com.example.thecars.App
 import com.example.thecars.R
 import com.example.thecars.adapters.FavoritesAdapter
-import com.example.thecars.data.NameEntity
+import com.example.thecars.data.CarEntity
 import com.example.thecars.databinding.FragmentFavoritesBinding
 import com.example.thecars.interfaces.OnItemClickListener
-import com.example.thecars.lists.allCarsList
+import com.example.thecars.lists.allBrandsList
 import com.example.thecars.model.FavoritesViewModel
 import com.example.thecars.model.FavoritesViewModelFactory
 
@@ -59,7 +58,11 @@ class FavoritesFragment : Fragment(), OnItemClickListener {
             }
 
             R.id.remove -> {
-                favoritesViewModel.removeItem(adapter.getNameEntity(adapter.selectedPosition))
+                val item = adapter.getCarEntity(adapter.selectedPosition)
+                item.forEachIndexed {index, carEntity ->
+                    changeFavoriteFlag(carEntity)
+                }
+                favoritesViewModel.removeItem(item)
                 adapter.longClickFlag = false
                 adapter.selectedPosition.clear()
                 invalidateOptionsMenu(requireActivity())
@@ -92,13 +95,13 @@ class FavoritesFragment : Fragment(), OnItemClickListener {
 
     }
 
-    override fun onItemClick(position: NameEntity) {
+    override fun onItemClick(position: CarEntity) {
         if (!adapter.longClickFlag) {
-        val carList = allCarsList.find { it.title == position.brand }
+        val carList = allBrandsList.find { it.name == position.brand }
         val modelList = carList?.modelList
         val date =
-            modelList?.find { it.name == position.model }?.list?.find { it.name == position.name }
-            date?.isFavorite = 1
+            modelList?.find { it.name == position.model }?.list?.find { it.name == position.carName }
+            date?.isFavorite = true
 
         val bundle = Bundle().apply {
             putParcelable("selectedDate", date)
@@ -106,5 +109,13 @@ class FavoritesFragment : Fragment(), OnItemClickListener {
         findNavController().navigate(R.id.action_favoritesFragment_to_imagesFragment, bundle)
     }
     }
+    fun changeFavoriteFlag(position: CarEntity) {
+        val carList = allBrandsList.find { it.name == position.brand }
+        val modelList = carList?.modelList
+        val date =
+            modelList?.find { it.name == position.model }?.list?.find { it.name == position.carName }
+        date?.isFavorite = false
+    }
+
 
 }

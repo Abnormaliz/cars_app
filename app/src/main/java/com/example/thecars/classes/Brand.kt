@@ -3,7 +3,7 @@ import android.os.Parcel
 import android.os.Parcelable
 
 
-data class Car(val imageId: Int, val title: String, val modelList: List<Model>) : Parcelable {
+data class Brand(val logo: Int, val name: String, val modelList: List<Model>) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readString() ?: "",
@@ -11,8 +11,8 @@ data class Car(val imageId: Int, val title: String, val modelList: List<Model>) 
             parcel.readList(this, Model::class.java.classLoader)
         } )
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(imageId)
-        parcel.writeString(title)
+        parcel.writeInt(logo)
+        parcel.writeString(name)
         parcel.writeList(modelList)
     }
 
@@ -20,12 +20,12 @@ data class Car(val imageId: Int, val title: String, val modelList: List<Model>) 
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<Car> {
-        override fun createFromParcel(parcel: Parcel): Car {
-            return Car(parcel)
+    companion object CREATOR : Parcelable.Creator<Brand> {
+        override fun createFromParcel(parcel: Parcel): Brand {
+            return Brand(parcel)
         }
 
-        override fun newArray(size: Int): Array<Car?> {
+        override fun newArray(size: Int): Array<Brand?> {
             return arrayOfNulls(size)
         }
     }

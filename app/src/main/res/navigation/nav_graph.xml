@@ -3,18 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/carsFragment">
+    app:startDestination="@id/brandsFragment">
 
     <fragment
-        android:id="@+id/carsFragment"
-        android:name="com.example.thecars.fragments.CarsFragment"
-        android:label="fragment_cars"
-        tools:layout="@layout/fragment_cars" >
+        android:id="@+id/brandsFragment"
+        android:name="com.example.thecars.fragments.BrandsFragment"
+        android:label="fragment_brands"
+        tools:layout="@layout/fragment_cars">
         <action
-            android:id="@+id/action_carsFragment_to_modelsFragment"
+            android:id="@+id/action_brandsFragment_to_modelsFragment"
             app:destination="@id/modelsFragment" />
         <action
-            android:id="@+id/action_carsFragment_to_favoritesFragment"
+            android:id="@+id/action_brandsFragment_to_favoritesFragment"
             app:destination="@id/favoritesFragment" />
     </fragment>
     <fragment

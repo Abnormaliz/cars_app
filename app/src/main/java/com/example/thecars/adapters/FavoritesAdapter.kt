@@ -10,11 +10,11 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.thecars.R
-import com.example.thecars.data.NameEntity
+import com.example.thecars.data.CarEntity
 import com.example.thecars.interfaces.OnItemClickListener
 
 class FavoritesAdapter(
-    private var favorites: List<NameEntity>,
+    private var favorites: List<CarEntity>,
     private var listener: OnItemClickListener
 ) : RecyclerView.Adapter<FavoritesAdapter.FavoritesViewHolder>() {
     var selectedPosition: MutableSet<Int> = mutableSetOf()
@@ -38,7 +38,7 @@ class FavoritesAdapter(
 
     override fun onBindViewHolder(holder: FavoritesViewHolder, position: Int) {
         val currentFavorite = favorites[position]
-        holder.title.text = "${currentFavorite.brand}\n${currentFavorite.name}"
+        holder.title.text = "${currentFavorite.brand}\n${currentFavorite.carName}"
         holder.photo.setImageResource(currentFavorite.previewPhoto)
 
         val isCarSelected = selectedPosition.contains(position)
@@ -76,7 +76,7 @@ class FavoritesAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateData(favoritesList: List<NameEntity>) {
+    fun updateData(favoritesList: List<CarEntity>) {
         favorites = favoritesList
         notifyDataSetChanged()
     }
@@ -85,8 +85,8 @@ class FavoritesAdapter(
         return longClickFlag
     }
 
-    fun getNameEntity(positions: MutableSet<Int>): MutableList<NameEntity> {
-        val nameEntities = mutableListOf<NameEntity>()
+    fun getCarEntity(positions: MutableSet<Int>): MutableList<CarEntity> {
+        val nameEntities = mutableListOf<CarEntity>()
         for (position in positions) {
                 if (position < favorites.size) {
                 nameEntities.add(favorites[position])

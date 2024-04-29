@@ -5,11 +5,10 @@ import androidx.room.PrimaryKey
 
 
 @Entity(tableName = "list_dates")
-data class NameEntity(
+data class CarEntity(
     val brand: String,
     val model: String,
-    val name: String,
+    @PrimaryKey(autoGenerate = false)
+    val carName: String,
     val previewPhoto: Int = 0,
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0
 )

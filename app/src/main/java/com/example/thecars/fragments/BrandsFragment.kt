@@ -12,18 +12,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.thecars.R
-import com.example.thecars.adapters.CarAdapter
-import com.example.thecars.classes.Car
-import com.example.thecars.model.CarViewModel
+import com.example.thecars.adapters.BrandsAdapter
+import com.example.thecars.classes.Brand
+import com.example.thecars.model.BrandsViewModel
 import com.example.thecars.databinding.FragmentCarsBinding
-import com.example.thecars.interfaces.OnCarClickListener
+import com.example.thecars.interfaces.OnBrandClickListener
 import com.google.android.material.snackbar.Snackbar
 
 
-class  CarsFragment : Fragment(), OnCarClickListener {
+class  BrandsFragment : Fragment(), OnBrandClickListener {
     private lateinit var binding: FragmentCarsBinding
-    private lateinit var adapter: CarAdapter
-    private val carViewModel: CarViewModel by viewModels()
+    private lateinit var adapter: BrandsAdapter
+    private val brandsViewModel: BrandsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +42,7 @@ class  CarsFragment : Fragment(), OnCarClickListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.fav -> {
-                findNavController().navigate(R.id.action_carsFragment_to_favoritesFragment)
+                findNavController().navigate(R.id.action_brandsFragment_to_favoritesFragment)
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -56,7 +56,7 @@ class  CarsFragment : Fragment(), OnCarClickListener {
     ): View?
     {
        binding = FragmentCarsBinding.inflate(inflater)
-        adapter = CarAdapter(emptyList(), this)
+        adapter = BrandsAdapter(emptyList(), this)
         binding.rcViewCars.adapter = adapter
         return binding.root
     }
@@ -65,18 +65,18 @@ class  CarsFragment : Fragment(), OnCarClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         (requireActivity() as AppCompatActivity).supportActionBar?.title = "Марка автомобиля"
-        carViewModel.carList.observe(viewLifecycleOwner) {
+        brandsViewModel.carList.observe(viewLifecycleOwner) {
             adapter.updateData(it)
         }
     }
-        override fun onCarClick(car: Car) {
-            if (car.modelList.isEmpty()) {
+        override fun onBrandClick(brand: Brand) {
+            if (brand.modelList.isEmpty()) {
                 Snackbar.make(binding.root, "No data at the moment", Snackbar.LENGTH_SHORT).show()
             } else {
                 val bundle = Bundle().apply {
-                    putParcelable("selectedCar", car)
+                    putParcelable("selectedCar", brand)
                 }
-                findNavController().navigate(R.id.action_carsFragment_to_modelsFragment, bundle)
+                findNavController().navigate(R.id.action_brandsFragment_to_modelsFragment, bundle)
             }
     }
 }

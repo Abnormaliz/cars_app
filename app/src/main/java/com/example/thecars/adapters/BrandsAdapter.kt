@@ -8,15 +8,15 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.thecars.classes.Car
 import com.example.thecars.R
-import com.example.thecars.interfaces.OnCarClickListener
+import com.example.thecars.classes.Brand
+import com.example.thecars.interfaces.OnBrandClickListener
 
-class CarAdapter(
-    private var cars: List<Car>,
-    private val listener: OnCarClickListener
+class BrandsAdapter(
+    private var brands: List<Brand>,
+    private val listener: OnBrandClickListener
 ) :
-    RecyclerView.Adapter<CarAdapter.CarsViewHolder>() {
+    RecyclerView.Adapter<BrandsAdapter.CarsViewHolder>() {
 
     class CarsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val logos: ImageView = itemView.findViewById(R.id.iv_logos)
@@ -31,25 +31,25 @@ class CarAdapter(
 
     @SuppressLint("ResourceAsColor")
     override fun onBindViewHolder(holder: CarsViewHolder, position: Int) {
-        val currentCar = cars[position]
-        if (cars[position].modelList.isEmpty()) {
+        val currentBrand = brands[position]
+        if (brands[position].modelList.isEmpty()) {
             holder.emptyCard.alpha = 0.5F
         } else {
             holder.emptyCard.alpha = 0F
         }
-        holder.logos.setImageResource(currentCar.imageId)
-        holder.title.text = currentCar.title
+        holder.logos.setImageResource(currentBrand.logo)
+        holder.title.text = currentBrand.name
         holder.itemView.setOnClickListener() {
-            listener.onCarClick(currentCar)
+            listener.onBrandClick(currentBrand)
         }
     }
 
     override fun getItemCount(): Int {
-        return cars.size
+        return brands.size
     }
     @SuppressLint("NotifyDataSetChanged")
-    fun updateData(newCarList: List<Car>) {
-        cars = newCarList
+    fun updateData(newCarList: List<Brand>) {
+        brands = newCarList
         notifyDataSetChanged()
     }
 }

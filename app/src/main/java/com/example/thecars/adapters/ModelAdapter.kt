@@ -9,7 +9,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.thecars.R
 import com.example.thecars.classes.Model
-import com.example.thecars.interfaces.OnCarClickListener
 import com.example.thecars.interfaces.OnModelClickListener
 
 class ModelAdapter(

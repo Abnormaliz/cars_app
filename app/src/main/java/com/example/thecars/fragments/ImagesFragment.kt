@@ -3,8 +3,6 @@ package com.example.thecars.fragments
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
@@ -13,16 +11,10 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
-import android.widget.RelativeLayout
-import android.widget.ScrollView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -31,13 +23,10 @@ import com.example.thecars.App
 import com.example.thecars.R
 import com.example.thecars.adapters.ViewPagerAdapter
 import com.example.thecars.classes.Date
-import com.example.thecars.data.MainDb
-import com.example.thecars.data.NameEntity
+import com.example.thecars.data.CarEntity
 import com.example.thecars.data.NotesEntity
 import com.example.thecars.databinding.FragmentImagesBinding
-import com.example.thecars.lists.EMPTY_DATA
 import com.example.thecars.model.ImagesViewModel
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.launch
@@ -56,8 +45,6 @@ class ImagesFragment : Fragment() {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -79,7 +66,7 @@ class ImagesFragment : Fragment() {
 
             R.id.add -> {
                 val currentDate = arguments?.getParcelable<Date>("selectedDate")
-                val newItem = NameEntity(
+                val newItem = CarEntity(
                     currentDate!!.brand,
                     currentDate!!.model,
                     currentDate!!.name,
@@ -88,13 +75,13 @@ class ImagesFragment : Fragment() {
                 val appContext = requireContext().applicationContext as App
                 val db = appContext.database
                 lifecycleScope.launch {
-                    val existingItem = db.dao.getItemByName(newItem.name)
+                    val existingItem = db.dao.getItemByName(newItem.carName)
                     if (existingItem == null) {
                         db.dao.insertItem(newItem)
                     } else {
                         Toast.makeText(
                             requireContext(),
-                            "Автомобиль с именем ${newItem.name} уже добавлен в Избранное",
+                            "Автомобиль с именем ${newItem.carName} уже добавлен в Избранное",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
@@ -121,7 +108,7 @@ class ImagesFragment : Fragment() {
         val appContext = requireContext().applicationContext as App
         val db = appContext.database
 
-        if (arguments?.getParcelable<Date>("selectedDate")?.isFavorite == 1) {
+        if (arguments?.getParcelable<Date>("selectedDate")?.isFavorite == true) {
             editText.visibility = View.VISIBLE
             button.visibility = View.VISIBLE
 
@@ -144,7 +131,9 @@ class ImagesFragment : Fragment() {
                     val newNote = if (existingNote != null) {
                         existingNote!!.copy(text = text)
                     } else {
-                        NotesEntity(text, arguments?.getParcelable<Date>("selectedDate")!!.name)
+                        NotesEntity(text,
+                            arguments?.getParcelable<Date>("selectedDate")!!.name
+                        )
                     }
 
                     lifecycleScope.launch() {

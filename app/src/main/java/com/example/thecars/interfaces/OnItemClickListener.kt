@@ -1,7 +1,7 @@
 package com.example.thecars.interfaces
 
-import com.example.thecars.data.NameEntity
+import com.example.thecars.data.CarEntity
 
 interface OnItemClickListener {
-    fun onItemClick(position: NameEntity)
+    fun onItemClick(position: CarEntity)
 }
