@@ -15,13 +15,13 @@ import com.example.thecars.R
 import com.example.thecars.adapters.BrandsAdapter
 import com.example.thecars.classes.Brand
 import com.example.thecars.model.BrandsViewModel
-import com.example.thecars.databinding.FragmentCarsBinding
+import com.example.thecars.databinding.FragmentBrandsBinding
 import com.example.thecars.interfaces.OnBrandClickListener
 import com.google.android.material.snackbar.Snackbar
 
 
 class BrandsFragment : Fragment(), OnBrandClickListener {
-    private lateinit var binding: FragmentCarsBinding
+    private lateinit var binding: FragmentBrandsBinding
     private lateinit var adapter: BrandsAdapter
     private val brandsViewModel: BrandsViewModel by viewModels()
 
@@ -57,9 +57,9 @@ class BrandsFragment : Fragment(), OnBrandClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentCarsBinding.inflate(inflater)
+        binding = FragmentBrandsBinding.inflate(inflater)
         adapter = BrandsAdapter(emptyList(), this)
-        binding.rcViewCars.adapter = adapter
+        binding.rcViewBrands.adapter = adapter
         (requireActivity() as AppCompatActivity).supportActionBar?.title = "Марка автомобиля"
         return binding.root
     }

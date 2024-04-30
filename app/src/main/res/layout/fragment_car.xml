@@ -5,10 +5,10 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#A6A4A4"
-    tools:context=".fragments.DateFragment">
+    tools:context=".fragments.CarFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rc_view_date"
+        android:id="@+id/rc_view_car"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

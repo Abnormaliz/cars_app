@@ -1,7 +1,6 @@
 package com.example.thecars.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.Menu
@@ -99,14 +98,14 @@ class FavoritesFragment : Fragment(), OnItemClickListener {
         if (!adapter.longClickFlag) {
         val carList = allBrandsList.find { it.name == position.brand }
         val modelList = carList?.modelList
-        val date =
+        val car =
             modelList?.find { it.name == position.model }?.list?.find { it.name == position.carName }
-            date?.isFavorite = true
+            car?.isFavorite = true
 
         val bundle = Bundle().apply {
-            putParcelable("selectedDate", date)
+            putParcelable("selectedCar", car)
         }
-        findNavController().navigate(R.id.action_favoritesFragment_to_imagesFragment, bundle)
+        findNavController().navigate(R.id.action_favoritesFragment_to_carDetailsFragment, bundle)
     }
     }
     fun changeFavoriteFlag(position: CarEntity) {

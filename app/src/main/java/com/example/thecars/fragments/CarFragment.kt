@@ -1,7 +1,6 @@
 package com.example.thecars.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -14,22 +13,22 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.thecars.R
-import com.example.thecars.adapters.DateAdapter
-import com.example.thecars.classes.Date
+import com.example.thecars.adapters.CarAdapter
+import com.example.thecars.classes.Car
 import com.example.thecars.classes.Model
-import com.example.thecars.model.DateViewModel
-import com.example.thecars.databinding.FragmentDateBinding
-import com.example.thecars.interfaces.OnDateClickListener
+import com.example.thecars.databinding.FragmentCarBinding
+import com.example.thecars.model.CarViewModel
+import com.example.thecars.interfaces.OnCarClickListener
 import com.example.thecars.lists.EMPTY_DATA
 import com.google.android.material.snackbar.Snackbar
 
-class DateFragment : Fragment(), OnDateClickListener {
-    private lateinit var binding: FragmentDateBinding
-    private lateinit var adapter: DateAdapter
+class CarFragment : Fragment(), OnCarClickListener {
+    private lateinit var binding: FragmentCarBinding
+    private lateinit var adapter: CarAdapter
     private lateinit var selectedModel: Model
     private lateinit var currentBrand: CharSequence
     private lateinit var actionBar: ActionBar
-    private val dateViewModel: DateViewModel by viewModels()
+    private val carViewModel: CarViewModel by viewModels()
     private var isTitleSet = false
     var savedActionBar: String? = null
 
@@ -39,6 +38,7 @@ class DateFragment : Fragment(), OnDateClickListener {
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
         selectedModel = arguments?.getParcelable("selectedModel")!!
     }
+
     override fun onResume() {
         super.onResume()
         if (!isTitleSet) {
@@ -61,10 +61,12 @@ class DateFragment : Fragment(), OnDateClickListener {
             android.R.id.home -> {
                 findNavController().popBackStack()
             }
+
             R.id.fav -> {
-                findNavController().navigate(R.id.action_dateFragment_to_favoritesFragment)
+                findNavController().navigate(R.id.action_carFragment_to_favoritesFragment)
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -73,30 +75,29 @@ class DateFragment : Fragment(), OnDateClickListener {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentDateBinding.inflate(inflater)
-        selectedModel.let { dateViewModel.setCurrentDate(it) }
-        adapter = DateAdapter(emptyList(), this)
-        binding.rcViewDate.adapter = adapter
+    ): View {
+        binding = FragmentCarBinding.inflate(inflater)
+        selectedModel.let { carViewModel.setCurrentCars(it) }
+        adapter = CarAdapter(emptyList(), this)
+        binding.rcViewCar.adapter = adapter
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dateViewModel.currentDate.observe(viewLifecycleOwner) {
+        carViewModel.currentCars.observe(viewLifecycleOwner) {
             adapter.updateData(it)
         }
     }
 
-    override fun onDateClick(date: Date) {
-        if (date.frontPhoto == 0) {
+    override fun onCarClick(car: Car) {
+        if (car.frontPhoto == 0) {
             Snackbar.make(binding.root, EMPTY_DATA, Snackbar.LENGTH_SHORT).show()
         } else {
             val bundle = Bundle().apply {
-                putParcelable("selectedDate", date)
+                putParcelable("selectedCar", car)
             }
-            findNavController().navigate(R.id.action_dateFragment_to_imagesFragment, bundle)
+            findNavController().navigate(R.id.action_carFragment_to_carDetailsFragment, bundle)
         }
     }
-
 }

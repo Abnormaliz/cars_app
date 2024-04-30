@@ -3,7 +3,7 @@ package com.example.thecars.classes
 import android.os.Parcel
 import android.os.Parcelable
 
-data class Date(
+data class Car(
     val brand: String,
     val model: String,
     val name: String,
@@ -36,12 +36,12 @@ data class Date(
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<Date> {
-        override fun createFromParcel(parcel: Parcel): Date {
-            return Date(parcel)
+    companion object CREATOR : Parcelable.Creator<Car> {
+        override fun createFromParcel(parcel: Parcel): Car {
+            return Car(parcel)
         }
 
-        override fun newArray(size: Int): Array<Date?> {
+        override fun newArray(size: Int): Array<Car?> {
             return arrayOfNulls(size)
         }
     }

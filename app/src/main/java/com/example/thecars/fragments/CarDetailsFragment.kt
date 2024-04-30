@@ -3,7 +3,6 @@ package com.example.thecars.fragments
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -14,6 +13,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -22,35 +22,39 @@ import androidx.navigation.fragment.findNavController
 import com.example.thecars.App
 import com.example.thecars.R
 import com.example.thecars.adapters.ViewPagerAdapter
-import com.example.thecars.classes.Date
+import com.example.thecars.classes.Car
 import com.example.thecars.data.CarEntity
 import com.example.thecars.data.NotesEntity
-import com.example.thecars.databinding.FragmentImagesBinding
-import com.example.thecars.model.ImagesViewModel
+import com.example.thecars.databinding.FragmentCarDetailsBinding
+import com.example.thecars.model.CarDetailsViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.launch
 
 
-class ImagesFragment : Fragment() {
+class CarDetailsFragment : Fragment() {
 
-    private lateinit var binding: FragmentImagesBinding
+    private lateinit var binding: FragmentCarDetailsBinding
     private lateinit var adapter: ViewPagerAdapter
     private lateinit var tabLayout: TabLayout
     private lateinit var editText: EditText
     private lateinit var button: ImageButton
-    private val imagesViewModel: ImagesViewModel by viewModels()
+    private lateinit var selectedCar: Car
+    private lateinit var actionBar: ActionBar
+    private val carDetailsViewModel: CarDetailsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        selectedCar = arguments?.getParcelable("selectedCar")!!
+        actionBar = (requireActivity() as AppCompatActivity).supportActionBar!!
+        actionBar.title = "${selectedCar.brand} ${selectedCar.model} ${selectedCar.name}"
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.actionmenu, menu)
         menu.findItem(R.id.remove).isVisible = false
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -60,17 +64,16 @@ class ImagesFragment : Fragment() {
             }
 
             R.id.fav -> {
-                findNavController().navigate(R.id.action_imagesFragment_to_favoritesFragment)
+                findNavController().navigate(R.id.action_carDetailsFragment_to_favoritesFragment)
                 true
             }
 
             R.id.add -> {
-                val currentDate = arguments?.getParcelable<Date>("selectedDate")
                 val newItem = CarEntity(
-                    currentDate!!.brand,
-                    currentDate!!.model,
-                    currentDate!!.name,
-                    currentDate!!.previewPhoto
+                    selectedCar.brand,
+                    selectedCar.model,
+                    selectedCar.name,
+                    selectedCar.previewPhoto
                 )
                 val appContext = requireContext().applicationContext as App
                 val db = appContext.database
@@ -97,9 +100,8 @@ class ImagesFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentImagesBinding.inflate(inflater)
-
+    ): View {
+        binding = FragmentCarDetailsBinding.inflate(inflater)
         tabLayout = binding.tabLayout
         adapter = ViewPagerAdapter(emptyList())
         binding.viewPager.adapter = adapter
@@ -108,51 +110,56 @@ class ImagesFragment : Fragment() {
         val appContext = requireContext().applicationContext as App
         val db = appContext.database
 
-        if (arguments?.getParcelable<Date>("selectedDate")?.isFavorite == true) {
+        if (selectedCar.isFavorite) {
             editText.visibility = View.VISIBLE
             button.visibility = View.VISIBLE
 
             var existingNote: NotesEntity? = null
             lifecycleScope.launch {
 
-                existingNote = db.dao.getNoteByName(arguments?.getParcelable<Date>("selectedDate")!!.name)
+                existingNote =
+                    db.dao.getNoteByName(selectedCar.name)
                 if (existingNote != null) {
                     editText.setText(existingNote!!.text)
                 }
 
-            val currentNote = db.dao.getNoteByName(arguments?.getParcelable<Date>("selectedDate")!!.name)?.text
+                val currentNote =
+                    db.dao.getNoteByName(selectedCar.name)?.text
                 if (currentNote != null)
-                editText.setText(currentNote)
+                    editText.setText(currentNote)
             }
 
-            button.setOnClickListener() {
+            button.setOnClickListener {
                 val text = editText.text.toString()
                 if (text.isNotEmpty()) {
                     val newNote = if (existingNote != null) {
                         existingNote!!.copy(text = text)
                     } else {
-                        NotesEntity(text,
-                            arguments?.getParcelable<Date>("selectedDate")!!.name
+                        NotesEntity(
+                            text,
+                            selectedCar.name
                         )
                     }
 
-                    lifecycleScope.launch() {
+                    lifecycleScope.launch {
                         db.dao.insertNoteItem(newNote)
                         existingNote = newNote
                     }
-                } else { lifecycleScope.launch() {
-                    if (existingNote != null)
-                    db.dao.deleteNoteItem(existingNote!!)
+                } else {
+                    lifecycleScope.launch {
+                        if (existingNote != null)
+                            db.dao.deleteNoteItem(existingNote!!)
+                    }
                 }
-                }
-                val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                val imm =
+                    requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.hideSoftInputFromWindow(editText.windowToken, 0)
                 editText.clearFocus()
             }
 
         }
 
-        arguments?.getParcelable<Date>("selectedDate")?.let { imagesViewModel.setCurrentDate(it) }
+        selectedCar.let { carDetailsViewModel.setCurrentCar(it) }
 
 
 
@@ -162,25 +169,21 @@ class ImagesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-            val newActionBar = "${imagesViewModel.selectedDate?.brand} ${imagesViewModel.selectedDate?.model} ${imagesViewModel.selectedDate?.name}"
-            (requireActivity() as AppCompatActivity).supportActionBar?.title = newActionBar
+        carDetailsViewModel.currentImageList.observe(viewLifecycleOwner) {
+            adapter.updateData(it)
 
-
-            imagesViewModel.currentImageList.observe(viewLifecycleOwner) {
-                adapter.updateData(it)
-
-                TabLayoutMediator(tabLayout, binding.viewPager) { tab, position ->
-                    tab.text =
-                        when (position) {
-                            0 -> "Front"
-                            1 -> "Back"
-                            2 -> "Side"
-                            else -> "else"
-                        }
-                }.attach()
-            }
-
+            TabLayoutMediator(tabLayout, binding.viewPager) { tab, position ->
+                tab.text =
+                    when (position) {
+                        0 -> "Front"
+                        1 -> "Back"
+                        2 -> "Side"
+                        else -> "else"
+                    }
+            }.attach()
         }
+
     }
+}
 
 

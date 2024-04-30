@@ -30,7 +30,6 @@
             android:id="@+id/edText_notes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:hint="write a note"
             android:textColor="#FFFFFF"
             android:textColorHint="#FFFFFF"

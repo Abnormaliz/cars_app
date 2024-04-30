@@ -5,11 +5,11 @@ import android.os.Parcelable
 
 data class Model(
     val name: String,
-    val list: List<Date>) : Parcelable {
+    val list: List<Car>) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString() ?: "",
-        mutableListOf<Date>().apply {
-            parcel.readList(this, Date::class.java.classLoader)
+        mutableListOf<Car>().apply {
+            parcel.readList(this, Car::class.java.classLoader)
         }
     )
 

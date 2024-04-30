@@ -9,7 +9,7 @@
         android:id="@+id/brandsFragment"
         android:name="com.example.thecars.fragments.BrandsFragment"
         android:label="fragment_brands"
-        tools:layout="@layout/fragment_cars">
+        tools:layout="@layout/fragment_brands">
         <action
             android:id="@+id/action_brandsFragment_to_modelsFragment"
             app:destination="@id/modelsFragment" />
@@ -23,30 +23,30 @@
         android:label="fragment_models"
         tools:layout="@layout/fragment_models" >
         <action
-            android:id="@+id/action_modelsFragment_to_dateFragment"
-            app:destination="@id/dateFragment" />
+            android:id="@+id/action_modelsFragment_to_carDetailsFragment"
+            app:destination="@id/carFragment" />
         <action
             android:id="@+id/action_modelsFragment_to_favoritesFragment"
             app:destination="@id/favoritesFragment" />
     </fragment>
     <fragment
-        android:id="@+id/dateFragment"
-        android:name="com.example.thecars.fragments.DateFragment"
+        android:id="@+id/carFragment"
+        android:name="com.example.thecars.fragments.CarFragment"
         android:label="fragment_date"
-        tools:layout="@layout/fragment_date" >
+        tools:layout="@layout/fragment_car" >
         <action
-            android:id="@+id/action_dateFragment_to_imagesFragment"
-            app:destination="@id/imagesFragment" />
+            android:id="@+id/action_carFragment_to_carDetailsFragment"
+            app:destination="@id/carDetailsFragment" />
         <action
-            android:id="@+id/action_dateFragment_to_favoritesFragment"
+            android:id="@+id/action_carFragment_to_favoritesFragment"
             app:destination="@id/favoritesFragment" />
     </fragment>
     <fragment
-        android:id="@+id/imagesFragment"
-        android:name="com.example.thecars.fragments.ImagesFragment"
-        android:label="ImagesFragment" >
+        android:id="@+id/carDetailsFragment"
+        android:name="com.example.thecars.fragments.CarDetailsFragment"
+        android:label="carDetailsFragment">
         <action
-            android:id="@+id/action_imagesFragment_to_favoritesFragment"
+            android:id="@+id/action_carDetailsFragment_to_favoritesFragment"
             app:destination="@id/favoritesFragment" />
     </fragment>
     <fragment
@@ -55,7 +55,7 @@
         android:label="fragment_favorites"
         tools:layout="@layout/fragment_favorites" >
         <action
-            android:id="@+id/action_favoritesFragment_to_imagesFragment"
-            app:destination="@id/imagesFragment" />
+            android:id="@+id/action_favoritesFragment_to_carDetailsFragment"
+            app:destination="@id/carDetailsFragment" />
     </fragment>
 </navigation>

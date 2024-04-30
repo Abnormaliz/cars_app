@@ -25,7 +25,7 @@ class BrandsAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CarsViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_car, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_brand, parent, false)
         return CarsViewHolder(itemView)
     }
 

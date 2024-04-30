@@ -80,7 +80,7 @@ class ModelsFragment : Fragment(), OnModelClickListener {
             val bundle = Bundle().apply {
                 putParcelable("selectedModel", model)
             }
-            findNavController().navigate(R.id.action_modelsFragment_to_dateFragment, bundle)
+            findNavController().navigate(R.id.action_modelsFragment_to_carDetailsFragment, bundle)
         }
     }
 }
