@@ -17,6 +17,7 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.thecars.App
@@ -41,15 +42,21 @@ class CarDetailsFragment : Fragment() {
     private lateinit var button: ImageButton
     private lateinit var selectedCar: Car
     private lateinit var actionBar: ActionBar
-    private val carDetailsViewModel: CarDetailsViewModel by viewModels()
+    private lateinit var database: App
+    private lateinit var carDetailsViewModel: CarDetailsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
         selectedCar = arguments?.getParcelable("selectedCar")!!
         actionBar = (requireActivity() as AppCompatActivity).supportActionBar!!
         actionBar.title = "${selectedCar.brand} ${selectedCar.model} ${selectedCar.name}"
+        actionBar.setDisplayHomeAsUpEnabled(true)
+        database = (requireContext().applicationContext as App)
+        carDetailsViewModel = ViewModelProvider(
+            this,
+            CarDetailsViewModel.Companion.CarDetailsViewModelFactory(database))
+            .get(CarDetailsViewModel::class.java)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
