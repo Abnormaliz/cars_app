@@ -7,6 +7,8 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
+import com.example.thecars.classes.Car
+import com.example.thecars.lists.allBrandsList
 
 
 @Dao
@@ -16,36 +18,17 @@ interface Dao {
     @Delete
     suspend fun deleteItem(carEntity: MutableList<CarEntity>)
     @Query("SELECT * FROM list_dates")
-    fun getAllItems(): LiveData<List<CarAndNote>>
-    @Query("SELECT * FROM list_dates WHERE carName = :name")
-    suspend fun getItemByName(name: String): CarEntity?
-
-    @Query("SELECT * FROM list_dates WHERE carName = :name")
-    fun getItemId(name: String): CarEntity?
+    fun getAllItems(): LiveData<List<CarEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertNoteItem(notesEntity: NotesEntity)
 
     @Delete
     suspend fun deleteNoteItem(notesEntity: NotesEntity)
-    @Query("SELECT * FROM list_notes")
-    fun getAllNoteItems(): LiveData<NotesEntity>
 
     @Query("SELECT * FROM list_notes WHERE carName = :carName")
-    suspend fun getNoteByName(carName: String): NotesEntity?
+    fun getNoteByName(carName: String): LiveData<NotesEntity?>
 
-    @Transaction
-    suspend fun deleteCarWithNotes(carEntities: MutableList<CarEntity>) {
-        carEntities.forEach { car ->
-            deleteNotesByCarName(car.carName)
-        }
-        deleteCars(carEntities)
-    }
-
-
-    @Query("DELETE FROM list_notes WHERE carName = :carName")
-    suspend fun deleteNotesByCarName(carName: String)
-
-    @Delete
-    suspend fun deleteCars(carEntities: MutableList<CarEntity>)
+    @Query("SELECT EXISTS(SELECT 1 FROM list_dates WHERE carName = :carName LIMIT 1)")
+    fun doesCarExist(carName: String): LiveData<Boolean>
 }

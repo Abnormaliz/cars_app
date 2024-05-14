@@ -18,10 +18,8 @@ import com.example.thecars.adapters.FavoritesAdapter
 import com.example.thecars.data.CarEntity
 import com.example.thecars.databinding.FragmentFavoritesBinding
 import com.example.thecars.interfaces.OnItemClickListener
-import com.example.thecars.lists.allBrandsList
 import com.example.thecars.model.FavoritesViewModel
 import com.example.thecars.model.FavoritesViewModelFactory
-
 
 class FavoritesFragment : Fragment(), OnItemClickListener {
     private lateinit var binding: FragmentFavoritesBinding
@@ -57,11 +55,10 @@ class FavoritesFragment : Fragment(), OnItemClickListener {
             }
 
             R.id.remove -> {
-                val item = adapter.getCarEntity(adapter.selectedPosition)
-                item.forEachIndexed {index, carEntity ->
-                    changeFavoriteFlag(carEntity)
+                val car = adapter.getCarEntity(adapter.selectedPosition)
+                car.forEachIndexed {index, carEntity ->
                 }
-                favoritesViewModel.removeItem(item)
+                favoritesViewModel.removeItem(car)
                 adapter.longClickFlag = false
                 adapter.selectedPosition.clear()
                 invalidateOptionsMenu(requireActivity())
@@ -96,25 +93,12 @@ class FavoritesFragment : Fragment(), OnItemClickListener {
 
     override fun onItemClick(position: CarEntity) {
         if (!adapter.longClickFlag) {
-        val carList = allBrandsList.find { it.name == position.brand }
-        val modelList = carList?.modelList
-        val car =
-            modelList?.find { it.name == position.model }?.list?.find { it.name == position.carName }
-            car?.isFavorite = true
+            val car = favoritesViewModel.getCarFromCarEntity(position)
 
-        val bundle = Bundle().apply {
-            putParcelable("selectedCar", car)
+            val bundle = Bundle().apply {
+                putParcelable("selectedCar", car)
+            }
+            findNavController().navigate(R.id.action_favoritesFragment_to_carDetailsFragment, bundle)
         }
-        findNavController().navigate(R.id.action_favoritesFragment_to_carDetailsFragment, bundle)
     }
-    }
-    fun changeFavoriteFlag(position: CarEntity) {
-        val carList = allBrandsList.find { it.name == position.brand }
-        val modelList = carList?.modelList
-        val date =
-            modelList?.find { it.name == position.model }?.list?.find { it.name == position.carName }
-        date?.isFavorite = false
-    }
-
-
 }

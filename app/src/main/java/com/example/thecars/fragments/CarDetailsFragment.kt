@@ -3,6 +3,7 @@ package com.example.thecars.fragments
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -12,11 +13,9 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageButton
-import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -24,7 +23,6 @@ import com.example.thecars.App
 import com.example.thecars.R
 import com.example.thecars.adapters.ViewPagerAdapter
 import com.example.thecars.classes.Car
-import com.example.thecars.data.CarEntity
 import com.example.thecars.data.NotesEntity
 import com.example.thecars.databinding.FragmentCarDetailsBinding
 import com.example.thecars.model.CarDetailsViewModel
@@ -40,7 +38,6 @@ class CarDetailsFragment : Fragment() {
     private lateinit var tabLayout: TabLayout
     private lateinit var editText: EditText
     private lateinit var button: ImageButton
-    private lateinit var selectedCar: Car
     private lateinit var actionBar: ActionBar
     private lateinit var database: App
     private lateinit var carDetailsViewModel: CarDetailsViewModel
@@ -48,15 +45,23 @@ class CarDetailsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        selectedCar = arguments?.getParcelable("selectedCar")!!
-        actionBar = (requireActivity() as AppCompatActivity).supportActionBar!!
-        actionBar.title = "${selectedCar.brand} ${selectedCar.model} ${selectedCar.name}"
-        actionBar.setDisplayHomeAsUpEnabled(true)
+        val selectedCar = arguments?.getParcelable<Car>("selectedCar")!!
         database = (requireContext().applicationContext as App)
         carDetailsViewModel = ViewModelProvider(
             this,
-            CarDetailsViewModel.Companion.CarDetailsViewModelFactory(database))
+            CarDetailsViewModel.Companion.CarDetailsViewModelFactory(
+                database,
+                selectedCar
+            )
+        )
             .get(CarDetailsViewModel::class.java)
+
+        actionBar =
+            (requireActivity() as AppCompatActivity).supportActionBar!! // мутка с заголовком
+        actionBar.title = "${selectedCar.brand} ${selectedCar.model} ${selectedCar.name}"
+        actionBar.setDisplayHomeAsUpEnabled(true)
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -76,26 +81,7 @@ class CarDetailsFragment : Fragment() {
             }
 
             R.id.add -> {
-                val newItem = CarEntity(
-                    selectedCar.brand,
-                    selectedCar.model,
-                    selectedCar.name,
-                    selectedCar.previewPhoto
-                )
-                val appContext = requireContext().applicationContext as App
-                val db = appContext.database
-                lifecycleScope.launch {
-                    val existingItem = db.dao.getItemByName(newItem.carName)
-                    if (existingItem == null) {
-                        db.dao.insertItem(newItem)
-                    } else {
-                        Toast.makeText(
-                            requireContext(),
-                            "Автомобиль с именем ${newItem.carName} уже добавлен в Избранное",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
+                carDetailsViewModel.addItemToDatabase()
                 true
             }
 
@@ -114,70 +100,47 @@ class CarDetailsFragment : Fragment() {
         binding.viewPager.adapter = adapter
         editText = binding.edTextNotes
         button = binding.button1
-        val appContext = requireContext().applicationContext as App
-        val db = appContext.database
-
-        if (selectedCar.isFavorite) {
-            editText.visibility = View.VISIBLE
-            button.visibility = View.VISIBLE
-
-            var existingNote: NotesEntity? = null
-            lifecycleScope.launch {
-
-                existingNote =
-                    db.dao.getNoteByName(selectedCar.name)
-                if (existingNote != null) {
-                    editText.setText(existingNote!!.text)
-                }
-
-                val currentNote =
-                    db.dao.getNoteByName(selectedCar.name)?.text
-                if (currentNote != null)
-                    editText.setText(currentNote)
-            }
-
-            button.setOnClickListener {
-                val text = editText.text.toString()
-                if (text.isNotEmpty()) {
-                    val newNote = if (existingNote != null) {
-                        existingNote!!.copy(text = text)
-                    } else {
-                        NotesEntity(
-                            text,
-                            selectedCar.name
-                        )
-                    }
-
-                    lifecycleScope.launch {
-                        db.dao.insertNoteItem(newNote)
-                        existingNote = newNote
-                    }
-                } else {
-                    lifecycleScope.launch {
-                        if (existingNote != null)
-                            db.dao.deleteNoteItem(existingNote!!)
-                    }
-                }
-                val imm =
-                    requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(editText.windowToken, 0)
-                editText.clearFocus()
-            }
-
-        }
-
-        selectedCar.let { carDetailsViewModel.setCurrentCar(it) }
-
-
 
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        carDetailsViewModel.isCarExists.observe(viewLifecycleOwner) {
+            if (it) {
+                editText.visibility = View.VISIBLE
+                button.visibility = View.VISIBLE
+
+                button.setOnClickListener {
+                    val text = editText.text.toString()
+                    carDetailsViewModel.setOrUpdateNote(text)
+
+                    val imm =
+                        requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm.hideSoftInputFromWindow(editText.windowToken, 0)
+                    editText.clearFocus()
+                }
+
+            } else
+                editText.visibility = View.GONE
+                button.visibility = View.GONE
+
+            Log.i("values", "${carDetailsViewModel.isCarExists.value}")
+        }
+        carDetailsViewModel.existingNote.observe(viewLifecycleOwner) {
+            if (it != null) {
+                editText.setText(it.text)
+            } else {
+                editText.setText("")
+            }
+        }
+
+
         carDetailsViewModel.currentImageList.observe(viewLifecycleOwner) {
             adapter.updateData(it)
+
 
             TabLayoutMediator(tabLayout, binding.viewPager) { tab, position ->
                 tab.text =

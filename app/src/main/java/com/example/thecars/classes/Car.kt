@@ -10,8 +10,7 @@ data class Car(
     val previewPhoto: Int = 0,
     val frontPhoto: Int = 0,
     val backPhoto: Int = 0,
-    val sidePhoto: Int = 0,
-    var isFavorite: Boolean = false) : Parcelable {
+    val sidePhoto: Int = 0) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString() ?: "",
         parcel.readString() ?: "",

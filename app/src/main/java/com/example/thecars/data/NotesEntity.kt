@@ -10,7 +10,7 @@ import androidx.room.PrimaryKey
     onDelete = ForeignKey.CASCADE
 )))
 data class NotesEntity(
-    val text: String,
+    val text: String?,
     @PrimaryKey(autoGenerate = false)
     val carName: String,
 )
