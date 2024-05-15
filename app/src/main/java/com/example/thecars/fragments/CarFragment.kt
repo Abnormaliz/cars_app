@@ -11,6 +11,7 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.thecars.R
 import com.example.thecars.adapters.CarAdapter
@@ -25,18 +26,22 @@ import com.google.android.material.snackbar.Snackbar
 class CarFragment : Fragment(), OnCarClickListener {
     private lateinit var binding: FragmentCarBinding
     private lateinit var adapter: CarAdapter
-    private lateinit var selectedModel: Model
     private lateinit var currentBrand: CharSequence
     private lateinit var actionBar: ActionBar
-    private val carViewModel: CarViewModel by viewModels()
+    private lateinit var carViewModel: CarViewModel
     private var isTitleSet = false
     var savedActionBar: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+        val selectedModel = arguments?.getParcelable<Model>("selectedModel")!!
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        selectedModel = arguments?.getParcelable("selectedModel")!!
+        carViewModel = ViewModelProvider(
+            this,
+            CarViewModel.Companion.CarViewModelFactory(selectedModel)
+        ).get(CarViewModel::class.java)
+
     }
 
     override fun onResume() {
@@ -44,7 +49,7 @@ class CarFragment : Fragment(), OnCarClickListener {
         if (!isTitleSet) {
             actionBar = (requireActivity() as AppCompatActivity).supportActionBar!!
             currentBrand = actionBar.title!!
-            actionBar.title = "$currentBrand ${selectedModel.name}"
+            actionBar.title = "$currentBrand ${carViewModel.modelName}"
             savedActionBar = actionBar.title as String
             isTitleSet = true
         } else actionBar.title = savedActionBar
@@ -77,7 +82,6 @@ class CarFragment : Fragment(), OnCarClickListener {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCarBinding.inflate(inflater)
-        selectedModel.let { carViewModel.setCurrentCars(it) }
         adapter = CarAdapter(emptyList(), this)
         binding.rcViewCar.adapter = adapter
         return binding.root

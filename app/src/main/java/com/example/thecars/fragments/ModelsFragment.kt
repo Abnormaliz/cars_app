@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.thecars.R
 import com.example.thecars.adapters.ModelAdapter
@@ -24,14 +25,18 @@ import com.google.android.material.snackbar.Snackbar
 class ModelsFragment : Fragment(), OnModelClickListener {
     private lateinit var binding: FragmentModelsBinding
     private lateinit var adapter: ModelAdapter
-    private lateinit var selectedBrand: Brand
-    private val modelsViewModel: ModelsViewModel by viewModels()
+    private lateinit var modelsViewModel: ModelsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+        val selectedBrand = arguments?.getParcelable<Brand>("selectedBrand")!!
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        selectedBrand = arguments?.getParcelable("selectedBrand")!!
+        modelsViewModel = ViewModelProvider(
+            this,
+            ModelsViewModel.Companion.ModelViewModelFactory(selectedBrand))
+            .get(ModelsViewModel::class.java)
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -56,10 +61,9 @@ class ModelsFragment : Fragment(), OnModelClickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = selectedBrand.name
+    ): View {
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = modelsViewModel.brandName
         binding = FragmentModelsBinding.inflate(inflater)
-        selectedBrand.let { modelsViewModel.setModelList(it) }
         adapter = ModelAdapter(emptyList(), this)
         binding.rcViewModels.adapter = adapter
         return binding.root

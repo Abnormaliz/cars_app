@@ -1,6 +1,5 @@
 package com.example.thecars.fragments
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -17,18 +16,15 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.thecars.App
 import com.example.thecars.R
 import com.example.thecars.adapters.ViewPagerAdapter
 import com.example.thecars.classes.Car
-import com.example.thecars.data.NotesEntity
 import com.example.thecars.databinding.FragmentCarDetailsBinding
 import com.example.thecars.model.CarDetailsViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.coroutines.launch
 
 
 class CarDetailsFragment : Fragment() {
@@ -89,7 +85,6 @@ class CarDetailsFragment : Fragment() {
         }
     }
 
-    @SuppressLint("SuspiciousIndentation")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -112,7 +107,6 @@ class CarDetailsFragment : Fragment() {
             if (it) {
                 editText.visibility = View.VISIBLE
                 button.visibility = View.VISIBLE
-
                 button.setOnClickListener {
                     val text = editText.text.toString()
                     carDetailsViewModel.setOrUpdateNote(text)
@@ -123,11 +117,11 @@ class CarDetailsFragment : Fragment() {
                     editText.clearFocus()
                 }
 
-            } else
+            } else {
                 editText.visibility = View.GONE
                 button.visibility = View.GONE
+            }
 
-            Log.i("values", "${carDetailsViewModel.isCarExists.value}")
         }
         carDetailsViewModel.existingNote.observe(viewLifecycleOwner) {
             if (it != null) {
