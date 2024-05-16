@@ -17,6 +17,8 @@ interface Dao {
     suspend fun insertItem(carEntity: CarEntity)
     @Delete
     suspend fun deleteItem(carEntity: MutableList<CarEntity>)
+    @Delete
+    suspend fun deleteOneItem(carEntity: CarEntity)
     @Query("SELECT * FROM list_dates")
     fun getAllItems(): LiveData<List<CarEntity>>
 

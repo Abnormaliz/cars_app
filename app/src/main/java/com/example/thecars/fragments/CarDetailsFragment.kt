@@ -62,7 +62,10 @@ class CarDetailsFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.actionmenu, menu)
-        menu.findItem(R.id.remove).isVisible = false
+        carDetailsViewModel.isCarExists.observe(viewLifecycleOwner) {
+            menu.findItem(R.id.remove).isVisible = it
+            menu.findItem(R.id.add).isVisible = !it
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -78,6 +81,10 @@ class CarDetailsFragment : Fragment() {
 
             R.id.add -> {
                 carDetailsViewModel.addItemToDatabase()
+                true
+            }
+            R.id.remove -> {
+                carDetailsViewModel.removeItemFromDatabase()
                 true
             }
 

@@ -56,6 +56,12 @@ class CarDetailsViewModel(val database: MainDb, val selectedCar: Car) : ViewMode
         }
     }
 
+    fun removeItemFromDatabase() {
+        viewModelScope.launch(Dispatchers.IO) {
+            database.dao.deleteOneItem(setCarEntityFromCar(selectedCar))
+        }
+    }
+
 
     companion object {
         class CarDetailsViewModelFactory(private val app: App, private val car: Car) : ViewModelProvider.Factory {
