@@ -4,17 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CarsFragment">
+    tools:context=".fragments.BrandsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rc_view_cars"
+        android:id="@+id/rc_view_brands"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#A6A4A4"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="2"
-        tools:listitem="@layout/item_car" />
+        tools:listitem="@layout/item_brand" />
 
 </FrameLayout>

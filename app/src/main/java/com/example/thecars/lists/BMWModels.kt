@@ -1,0 +1,41 @@
+package com.example.thecars.lists
+
+import com.example.thecars.classes.Model
+
+val bmwModels = listOf(
+    Model("M5", dates_bmw_m5s),
+    Model("1 SERIES", emptyList()),
+    Model("2 SERIES", emptyList()),
+    Model("2 SERIES GRAN COUPE", emptyList()),
+    Model("3 SERIES", emptyList()),
+    Model("3 SERIES GT", emptyList()),
+    Model("4 SERIES", emptyList()),
+    Model("4 SERIES GRAN COUPE", emptyList()),
+    Model("5 SERIES", emptyList()),
+    Model("5 SERIES GT", emptyList()),
+    Model("6 SERIES", emptyList()),
+    Model("7 SERIES", emptyList()),
+    Model("8 SERIES", emptyList()),
+    Model("I3", emptyList()),
+    Model("I8", emptyList()),
+    Model("IX", emptyList()),
+    Model("M1", emptyList()),
+    Model("M2", emptyList()),
+    Model("M3", emptyList()),
+    Model("M4", emptyList()),
+    Model("M6", emptyList()),
+    Model("M6 GRAN COUPE", emptyList()),
+    Model("M8", emptyList()),
+    Model("X1", emptyList()),
+    Model("X2", emptyList()),
+    Model("X3", emptyList()),
+    Model("X3 M", emptyList()),
+    Model("X4", emptyList()),
+    Model("X4 M", emptyList()),
+    Model("X5", emptyList()),
+    Model("X5 M", emptyList()),
+    Model("X6", emptyList()),
+    Model("X6 M", emptyList()),
+    Model("X7", emptyList()),
+    Model("Z4", emptyList())
+)

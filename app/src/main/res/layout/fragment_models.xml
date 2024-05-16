@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#A6A4A4"
-    tools:context=".ModelsFragment">
+
+    tools:context=".fragments.ModelsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rc_view_models"
