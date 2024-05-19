@@ -2,7 +2,6 @@ package com.example.thecars.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -16,6 +15,7 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.thecars.App
 import com.example.thecars.R
@@ -25,6 +25,7 @@ import com.example.thecars.databinding.FragmentCarDetailsBinding
 import com.example.thecars.model.CarDetailsViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.coroutines.launch
 
 
 class CarDetailsFragment : Fragment() {
@@ -138,20 +139,19 @@ class CarDetailsFragment : Fragment() {
             }
         }
 
-
-        carDetailsViewModel.currentImageList.observe(viewLifecycleOwner) {
-            adapter.updateData(it)
-
-
-            TabLayoutMediator(tabLayout, binding.viewPager) { tab, position ->
-                tab.text =
-                    when (position) {
-                        0 -> "Front"
-                        1 -> "Back"
-                        2 -> "Side"
-                        else -> "else"
-                    }
-            }.attach()
+        lifecycleScope.launch {
+            carDetailsViewModel.currentImageList.collect {
+                adapter.updateData(it)
+                TabLayoutMediator(tabLayout, binding.viewPager) { tab, position ->
+                    tab.text =
+                        when (position) {
+                            0 -> "Front"
+                            1 -> "Back"
+                            2 -> "Side"
+                            else -> "else"
+                        }
+                }.attach()
+            }
         }
 
     }

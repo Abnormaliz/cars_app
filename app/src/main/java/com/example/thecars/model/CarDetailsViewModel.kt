@@ -1,7 +1,5 @@
 package com.example.thecars.model
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -11,15 +9,17 @@ import com.example.thecars.data.CarEntity
 import com.example.thecars.data.MainDb
 import com.example.thecars.data.NotesEntity
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class CarDetailsViewModel(val database: MainDb, val selectedCar: Car) : ViewModel() {
 
-    private val _currentImageList = MutableLiveData(
+    private val _currentImageList = MutableStateFlow<List<Int>>(
         listOf(selectedCar.frontPhoto,
             selectedCar.backPhoto,
             selectedCar.sidePhoto))
-    val currentImageList: LiveData<List<Int>>
+    val currentImageList: StateFlow<List<Int>>
         get() = _currentImageList
 
     val isCarExists = database.dao.doesCarExist(selectedCar.name)
