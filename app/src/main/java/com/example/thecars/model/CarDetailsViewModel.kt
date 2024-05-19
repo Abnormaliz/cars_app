@@ -1,9 +1,7 @@
 package com.example.thecars.model
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.thecars.App
 import com.example.thecars.classes.Car
 import com.example.thecars.data.CarEntity
 import com.example.thecars.data.MainDb
@@ -16,9 +14,12 @@ import kotlinx.coroutines.launch
 class CarDetailsViewModel(val database: MainDb, val selectedCar: Car) : ViewModel() {
 
     private val _currentImageList = MutableStateFlow<List<Int>>(
-        listOf(selectedCar.frontPhoto,
+        listOf(
+            selectedCar.frontPhoto,
             selectedCar.backPhoto,
-            selectedCar.sidePhoto))
+            selectedCar.sidePhoto
+        )
+    )
     val currentImageList: StateFlow<List<Int>>
         get() = _currentImageList
 
@@ -27,15 +28,15 @@ class CarDetailsViewModel(val database: MainDb, val selectedCar: Car) : ViewMode
     val existingNote = database.dao.getNoteByName(selectedCar.name)
 
     fun setOrUpdateNote(text: String) {
-        if(text.isNotEmpty()) {
+        if (text.isNotEmpty()) {
             val newNote = NotesEntity(text, selectedCar.name)
             viewModelScope.launch(Dispatchers.IO) {
                 database.dao.insertNoteItem(newNote)
             }
-            } else {
-                    viewModelScope.launch(Dispatchers.IO) {
-                        database.dao.deleteNoteItem(existingNote.value!!)
-                    }
+        } else {
+            viewModelScope.launch(Dispatchers.IO) {
+                database.dao.deleteNoteItem(existingNote.value!!)
+            }
 
 
         }
@@ -52,26 +53,13 @@ class CarDetailsViewModel(val database: MainDb, val selectedCar: Car) : ViewMode
 
     fun addItemToDatabase() {
         viewModelScope.launch(Dispatchers.IO) {
-                database.dao.insertItem(setCarEntityFromCar(selectedCar))
+            database.dao.insertItem(setCarEntityFromCar(selectedCar))
         }
     }
 
     fun removeItemFromDatabase() {
         viewModelScope.launch(Dispatchers.IO) {
             database.dao.deleteOneItem(setCarEntityFromCar(selectedCar))
-        }
-    }
-
-
-    companion object {
-        class CarDetailsViewModelFactory(private val app: App, private val car: Car) : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                if (modelClass.isAssignableFrom(CarDetailsViewModel::class.java)) {
-                    @Suppress("UNCHECKED_CAST")
-                    return CarDetailsViewModel(app.database, car) as T
-                }
-                throw IllegalArgumentException("Unknown ViewModel class")
-            }
         }
     }
 }

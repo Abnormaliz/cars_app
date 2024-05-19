@@ -1,7 +1,6 @@
 package com.example.thecars.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -10,32 +9,25 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat.invalidateOptionsMenu
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.thecars.App
 import com.example.thecars.R
 import com.example.thecars.adapters.FavoritesAdapter
 import com.example.thecars.data.CarEntity
 import com.example.thecars.databinding.FragmentFavoritesBinding
 import com.example.thecars.interfaces.OnItemClickListener
 import com.example.thecars.model.FavoritesViewModel
-import com.example.thecars.model.FavoritesViewModelFactory
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FavoritesFragment : Fragment(), OnItemClickListener {
     private lateinit var binding: FragmentFavoritesBinding
     private lateinit var adapter: FavoritesAdapter
-    private lateinit var favoritesViewModel: FavoritesViewModel
+    private val favoritesViewModel: FavoritesViewModel by viewModel()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-
-        val database = (requireContext().applicationContext as App)
-        favoritesViewModel = ViewModelProvider(this, FavoritesViewModelFactory(database))
-            .get(FavoritesViewModel::class.java)
-
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -56,7 +48,7 @@ class FavoritesFragment : Fragment(), OnItemClickListener {
 
             R.id.remove -> {
                 val car = adapter.getCarEntity(adapter.selectedPosition)
-                car.forEachIndexed {index, carEntity ->
+                car.forEachIndexed { index, carEntity ->
                 }
                 favoritesViewModel.removeItem(car)
                 adapter.longClickFlag = false
@@ -98,7 +90,10 @@ class FavoritesFragment : Fragment(), OnItemClickListener {
             val bundle = Bundle().apply {
                 putParcelable("selectedCar", car)
             }
-            findNavController().navigate(R.id.action_favoritesFragment_to_carDetailsFragment, bundle)
+            findNavController().navigate(
+                R.id.action_favoritesFragment_to_carDetailsFragment,
+                bundle
+            )
         }
     }
 }

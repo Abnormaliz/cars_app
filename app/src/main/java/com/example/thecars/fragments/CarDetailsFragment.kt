@@ -14,10 +14,8 @@ import android.widget.ImageButton
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.example.thecars.App
 import com.example.thecars.R
 import com.example.thecars.adapters.ViewPagerAdapter
 import com.example.thecars.classes.Car
@@ -26,6 +24,8 @@ import com.example.thecars.model.CarDetailsViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 
 class CarDetailsFragment : Fragment() {
@@ -36,22 +36,16 @@ class CarDetailsFragment : Fragment() {
     private lateinit var editText: EditText
     private lateinit var button: ImageButton
     private lateinit var actionBar: ActionBar
-    private lateinit var database: App
-    private lateinit var carDetailsViewModel: CarDetailsViewModel
+
+    private val selectedCar: Car by lazy { arguments?.getParcelable<Car>("selectedCar")!! }
+
+    private val carDetailsViewModel: CarDetailsViewModel by viewModel {
+        parametersOf(selectedCar)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        val selectedCar = arguments?.getParcelable<Car>("selectedCar")!!
-        database = (requireContext().applicationContext as App)
-        carDetailsViewModel = ViewModelProvider(
-            this,
-            CarDetailsViewModel.Companion.CarDetailsViewModelFactory(
-                database,
-                selectedCar
-            )
-        )
-            .get(CarDetailsViewModel::class.java)
 
         actionBar =
             (requireActivity() as AppCompatActivity).supportActionBar!! // мутка с заголовком
@@ -84,6 +78,7 @@ class CarDetailsFragment : Fragment() {
                 carDetailsViewModel.addItemToDatabase()
                 true
             }
+
             R.id.remove -> {
                 carDetailsViewModel.removeItemFromDatabase()
                 true
