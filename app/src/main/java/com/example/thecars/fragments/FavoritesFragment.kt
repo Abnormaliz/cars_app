@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat.invalidateOptionsMenu
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.thecars.R
 import com.example.thecars.adapters.FavoritesAdapter
@@ -17,6 +18,8 @@ import com.example.thecars.data.CarEntity
 import com.example.thecars.databinding.FragmentFavoritesBinding
 import com.example.thecars.interfaces.OnItemClickListener
 import com.example.thecars.model.FavoritesViewModel
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FavoritesFragment : Fragment(), OnItemClickListener {
@@ -47,10 +50,8 @@ class FavoritesFragment : Fragment(), OnItemClickListener {
             }
 
             R.id.remove -> {
-                val car = adapter.getCarEntity(adapter.selectedPosition)
-                car.forEachIndexed { index, carEntity ->
-                }
-                favoritesViewModel.removeItem(car)
+                val cars = adapter.getCarEntity(adapter.selectedPosition)
+                favoritesViewModel.removeCars(cars)
                 adapter.longClickFlag = false
                 adapter.selectedPosition.clear()
                 invalidateOptionsMenu(requireActivity())
@@ -77,8 +78,10 @@ class FavoritesFragment : Fragment(), OnItemClickListener {
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
         (requireActivity() as AppCompatActivity).supportActionBar?.title = "Избранное"
 
-        favoritesViewModel.dataList.observe(viewLifecycleOwner) {
-            adapter.updateData(it)
+        lifecycleScope.launch {
+            favoritesViewModel.cars.collectLatest {
+                adapter.updateData(it)
+            }
         }
 
     }

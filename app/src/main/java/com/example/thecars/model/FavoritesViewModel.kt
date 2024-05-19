@@ -7,16 +7,21 @@ import com.example.thecars.classes.Car
 import com.example.thecars.data.CarEntity
 import com.example.thecars.data.MainDb
 import com.example.thecars.lists.allBrandsList
+import com.example.thecars.usecases.ObserveAllCarsUseCase
+import com.example.thecars.usecases.RemoveCarFromFavouritesUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class FavoritesViewModel(private val database: MainDb) : ViewModel() {
+class FavoritesViewModel(
+    observeAllCarsUseCase: ObserveAllCarsUseCase,
+    private val removeCarFromFavouritesUseCase: RemoveCarFromFavouritesUseCase,
+) : ViewModel() {
 
-    val dataList = database.dao.getAllItems()
+    val cars = observeAllCarsUseCase.observeCars()
 
-    fun removeItem(item: MutableList<CarEntity>) {
+    fun removeCars(items: List<CarEntity>) {
         viewModelScope.launch(Dispatchers.IO) {
-            database.dao.deleteItem(item)
+            removeCarFromFavouritesUseCase.removeCars(items)
         }
     }
 

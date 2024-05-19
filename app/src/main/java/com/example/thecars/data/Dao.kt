@@ -9,6 +9,7 @@ import androidx.room.Query
 import androidx.room.Transaction
 import com.example.thecars.classes.Car
 import com.example.thecars.lists.allBrandsList
+import kotlinx.coroutines.flow.Flow
 
 
 @Dao
@@ -16,11 +17,11 @@ interface Dao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertItem(carEntity: CarEntity)
     @Delete
-    suspend fun deleteItem(carEntity: MutableList<CarEntity>)
+    suspend fun deleteCarsFromFavourites(carEntity: List<CarEntity>)
     @Delete
     suspend fun deleteOneItem(carEntity: CarEntity)
     @Query("SELECT * FROM list_dates")
-    fun getAllItems(): LiveData<List<CarEntity>>
+    fun getAllCars(): Flow<List<CarEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertNoteItem(notesEntity: NotesEntity)
