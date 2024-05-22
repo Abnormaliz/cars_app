@@ -7,12 +7,14 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.thecars.App
 import com.example.thecars.classes.Car
 import com.example.thecars.classes.Model
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
 class CarViewModel(val model: Model) : ViewModel() {
 
-    private val _currentCars = MutableLiveData(model.list)
-    val currentCars: LiveData<List<Car>>
-        get() = _currentCars
+    private val _currentCars = MutableStateFlow(model.list)
+    val currentCars: StateFlow<List<Car>> = _currentCars.asStateFlow()
 
     val modelName = model.name
 

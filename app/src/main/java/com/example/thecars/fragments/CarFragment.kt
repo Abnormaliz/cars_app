@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.thecars.R
 import com.example.thecars.adapters.CarAdapter
@@ -22,6 +23,7 @@ import com.example.thecars.model.CarViewModel
 import com.example.thecars.interfaces.OnCarClickListener
 import com.example.thecars.lists.EMPTY_DATA
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
 
 class CarFragment : Fragment(), OnCarClickListener {
     private lateinit var binding: FragmentCarBinding
@@ -89,8 +91,11 @@ class CarFragment : Fragment(), OnCarClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        carViewModel.currentCars.observe(viewLifecycleOwner) {
-            adapter.updateData(it)
+
+        lifecycleScope.launch {
+            carViewModel.currentCars.collect {
+                adapter.updateData(it)
+            }
         }
     }
 

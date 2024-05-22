@@ -8,12 +8,15 @@ import com.example.thecars.data.MainDb
 import com.example.thecars.data.NotesEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class CarDetailsViewModel(val database: MainDb, val selectedCar: Car) : ViewModel() {
 
-    private val _currentImageList = MutableStateFlow<List<Int>>(
+    private val _currentImageList = MutableStateFlow(
         listOf(
             selectedCar.frontPhoto,
             selectedCar.backPhoto,
@@ -25,7 +28,11 @@ class CarDetailsViewModel(val database: MainDb, val selectedCar: Car) : ViewMode
 
     val isCarExists = database.dao.doesCarExist(selectedCar.name)
 
-    val existingNote = database.dao.getNoteByName(selectedCar.name)
+    val existingNote: StateFlow<NotesEntity?> = database.dao.getNoteByName(selectedCar.name).stateIn(
+        viewModelScope,
+        SharingStarted.Eagerly,
+        null)
+
 
     fun setOrUpdateNote(text: String) {
         if (text.isNotEmpty()) {
@@ -33,12 +40,10 @@ class CarDetailsViewModel(val database: MainDb, val selectedCar: Car) : ViewMode
             viewModelScope.launch(Dispatchers.IO) {
                 database.dao.insertNoteItem(newNote)
             }
-        } else {
+        } else if (existingNote.value != null) {
             viewModelScope.launch(Dispatchers.IO) {
-                database.dao.deleteNoteItem(existingNote.value!!)
+                database.dao.deleteNoteItem(existingNote.value)
             }
-
-
         }
     }
 

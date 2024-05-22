@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.thecars.R
 import com.example.thecars.adapters.BrandsAdapter
@@ -18,6 +19,7 @@ import com.example.thecars.model.BrandsViewModel
 import com.example.thecars.databinding.FragmentBrandsBinding
 import com.example.thecars.interfaces.OnBrandClickListener
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
 
 
 class BrandsFragment : Fragment(), OnBrandClickListener {
@@ -67,9 +69,12 @@ class BrandsFragment : Fragment(), OnBrandClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        brandsViewModel.carList.observe(viewLifecycleOwner) {
-            adapter.updateData(it)
+        lifecycleScope.launch {
+            brandsViewModel.carList.collect {
+                adapter.updateData(it)
+            }
         }
+
     }
 
     override fun onBrandClick(brand: Brand) {

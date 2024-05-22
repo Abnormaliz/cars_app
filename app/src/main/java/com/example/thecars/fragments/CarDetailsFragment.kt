@@ -23,6 +23,7 @@ import com.example.thecars.databinding.FragmentCarDetailsBinding
 import com.example.thecars.model.CarDetailsViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -57,9 +58,11 @@ class CarDetailsFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.actionmenu, menu)
-        carDetailsViewModel.isCarExists.observe(viewLifecycleOwner) {
-            menu.findItem(R.id.remove).isVisible = it
-            menu.findItem(R.id.add).isVisible = !it
+        lifecycleScope.launch {
+            carDetailsViewModel.isCarExists.collect {
+                menu.findItem(R.id.remove).isVisible = it
+                menu.findItem(R.id.add).isVisible = !it
+            }
         }
     }
 
@@ -106,7 +109,8 @@ class CarDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        carDetailsViewModel.isCarExists.observe(viewLifecycleOwner) {
+        lifecycleScope.launch {
+        carDetailsViewModel.isCarExists.collect {
             if (it) {
                 editText.visibility = View.VISIBLE
                 button.visibility = View.VISIBLE
@@ -124,16 +128,18 @@ class CarDetailsFragment : Fragment() {
                 editText.visibility = View.GONE
                 button.visibility = View.GONE
             }
+        }
 
         }
-        carDetailsViewModel.existingNote.observe(viewLifecycleOwner) {
+        lifecycleScope.launch {
+        carDetailsViewModel.existingNote.collect {
             if (it != null) {
                 editText.setText(it.text)
             } else {
                 editText.setText("")
             }
         }
-
+    }
         lifecycleScope.launch {
             carDetailsViewModel.currentImageList.collect {
                 adapter.updateData(it)

@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.thecars.R
 import com.example.thecars.adapters.ModelAdapter
@@ -20,6 +21,7 @@ import com.example.thecars.model.ModelsViewModel
 import com.example.thecars.databinding.FragmentModelsBinding
 import com.example.thecars.interfaces.OnModelClickListener
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
 
 
 class ModelsFragment : Fragment(), OnModelClickListener {
@@ -71,9 +73,13 @@ class ModelsFragment : Fragment(), OnModelClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        modelsViewModel.modelList.observe(viewLifecycleOwner) {
-            adapter.updateData(it)
+
+        lifecycleScope.launch {
+            modelsViewModel.modelList.collect {
+                adapter.updateData(it)
+            }
         }
+
     }
 
 

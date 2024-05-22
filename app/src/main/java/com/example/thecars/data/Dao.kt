@@ -1,15 +1,12 @@
 package com.example.thecars.data
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Transaction
-import com.example.thecars.classes.Car
-import com.example.thecars.lists.allBrandsList
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 
 
 @Dao
@@ -27,11 +24,11 @@ interface Dao {
     suspend fun insertNoteItem(notesEntity: NotesEntity)
 
     @Delete
-    suspend fun deleteNoteItem(notesEntity: NotesEntity)
+    suspend fun deleteNoteItem(notesEntity: NotesEntity?)
 
     @Query("SELECT * FROM list_notes WHERE carName = :carName")
-    fun getNoteByName(carName: String): LiveData<NotesEntity?>
+    fun getNoteByName(carName: String): Flow<NotesEntity?>
 
     @Query("SELECT EXISTS(SELECT 1 FROM list_dates WHERE carName = :carName LIMIT 1)")
-    fun doesCarExist(carName: String): LiveData<Boolean>
+    fun doesCarExist(carName: String): Flow<Boolean>
 }
