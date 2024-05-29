@@ -1,7 +1,5 @@
-package com.example.thecars.model
+package com.example.thecars.vm
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.thecars.classes.Brand
 import com.example.thecars.lists.allBrandsList

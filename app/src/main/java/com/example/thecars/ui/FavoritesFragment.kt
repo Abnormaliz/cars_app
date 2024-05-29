@@ -1,4 +1,4 @@
-package com.example.thecars.fragments
+package com.example.thecars.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,7 +17,7 @@ import com.example.thecars.adapters.FavoritesAdapter
 import com.example.thecars.data.CarEntity
 import com.example.thecars.databinding.FragmentFavoritesBinding
 import com.example.thecars.interfaces.OnItemClickListener
-import com.example.thecars.model.FavoritesViewModel
+import com.example.thecars.vm.FavoritesViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel

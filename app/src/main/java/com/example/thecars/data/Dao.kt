@@ -24,11 +24,11 @@ interface Dao {
     suspend fun insertNoteItem(notesEntity: NotesEntity)
 
     @Delete
-    suspend fun deleteNoteItem(notesEntity: NotesEntity?)
+    suspend fun deleteNoteItem(notesEntity: NotesEntity)
 
     @Query("SELECT * FROM list_notes WHERE carName = :carName")
     fun getNoteByName(carName: String): Flow<NotesEntity?>
 
     @Query("SELECT EXISTS(SELECT 1 FROM list_dates WHERE carName = :carName LIMIT 1)")
-    fun doesCarExist(carName: String): Flow<Boolean>
+    fun checkCar(carName: String): Flow<Boolean>
 }

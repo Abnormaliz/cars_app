@@ -1,4 +1,4 @@
-package com.example.thecars.fragments
+package com.example.thecars.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,8 +10,6 @@ import android.view.ViewGroup
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.thecars.R
@@ -19,31 +17,30 @@ import com.example.thecars.adapters.CarAdapter
 import com.example.thecars.classes.Car
 import com.example.thecars.classes.Model
 import com.example.thecars.databinding.FragmentCarBinding
-import com.example.thecars.model.CarViewModel
+import com.example.thecars.vm.CarViewModel
 import com.example.thecars.interfaces.OnCarClickListener
 import com.example.thecars.lists.EMPTY_DATA
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class CarFragment : Fragment(), OnCarClickListener {
     private lateinit var binding: FragmentCarBinding
     private lateinit var adapter: CarAdapter
     private lateinit var currentBrand: CharSequence
     private lateinit var actionBar: ActionBar
-    private lateinit var carViewModel: CarViewModel
     private var isTitleSet = false
     var savedActionBar: String? = null
+
+    private val selectedModel: Model by lazy { arguments?.getParcelable<Model>("selectedModel")!! }
+    private val carViewModel: CarViewModel by viewModel {
+        parametersOf(selectedModel)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        val selectedModel = arguments?.getParcelable<Model>("selectedModel")!!
-        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        carViewModel = ViewModelProvider(
-            this,
-            CarViewModel.Companion.CarViewModelFactory(selectedModel)
-        ).get(CarViewModel::class.java)
-
     }
 
     override fun onResume() {

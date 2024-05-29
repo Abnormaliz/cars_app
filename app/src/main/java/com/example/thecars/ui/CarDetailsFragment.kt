@@ -1,4 +1,4 @@
-package com.example.thecars.fragments
+package com.example.thecars.ui
 
 import android.content.Context
 import android.os.Bundle
@@ -20,10 +20,9 @@ import com.example.thecars.R
 import com.example.thecars.adapters.ViewPagerAdapter
 import com.example.thecars.classes.Car
 import com.example.thecars.databinding.FragmentCarDetailsBinding
-import com.example.thecars.model.CarDetailsViewModel
+import com.example.thecars.vm.CarDetailsViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -78,12 +77,12 @@ class CarDetailsFragment : Fragment() {
             }
 
             R.id.add -> {
-                carDetailsViewModel.addItemToDatabase()
+                carDetailsViewModel.addCar()
                 true
             }
 
             R.id.remove -> {
-                carDetailsViewModel.removeItemFromDatabase()
+                carDetailsViewModel.removeCar()
                 true
             }
 

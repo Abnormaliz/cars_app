@@ -1,4 +1,4 @@
-package com.example.thecars.fragments
+package com.example.thecars.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,23 +9,23 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.thecars.R
 import com.example.thecars.adapters.BrandsAdapter
 import com.example.thecars.classes.Brand
-import com.example.thecars.model.BrandsViewModel
+import com.example.thecars.vm.BrandsViewModel
 import com.example.thecars.databinding.FragmentBrandsBinding
 import com.example.thecars.interfaces.OnBrandClickListener
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class BrandsFragment : Fragment(), OnBrandClickListener {
     private lateinit var binding: FragmentBrandsBinding
     private lateinit var adapter: BrandsAdapter
-    private val brandsViewModel: BrandsViewModel by viewModels()
+    private val brandsViewModel: BrandsViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

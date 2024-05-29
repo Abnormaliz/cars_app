@@ -1,4 +1,4 @@
-package com.example.thecars.fragments
+package com.example.thecars.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,35 +9,34 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.thecars.R
 import com.example.thecars.adapters.ModelAdapter
 import com.example.thecars.classes.Brand
 import com.example.thecars.classes.Model
-import com.example.thecars.model.ModelsViewModel
+import com.example.thecars.vm.ModelsViewModel
 import com.example.thecars.databinding.FragmentModelsBinding
 import com.example.thecars.interfaces.OnModelClickListener
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 
 class ModelsFragment : Fragment(), OnModelClickListener {
     private lateinit var binding: FragmentModelsBinding
     private lateinit var adapter: ModelAdapter
-    private lateinit var modelsViewModel: ModelsViewModel
+
+    private val selectedBrand: Brand by lazy { arguments?.getParcelable<Brand>("selectedBrand")!! }
+
+    private val modelsViewModel: ModelsViewModel by viewModel {
+        parametersOf(selectedBrand)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        val selectedBrand = arguments?.getParcelable<Brand>("selectedBrand")!!
-        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        modelsViewModel = ViewModelProvider(
-            this,
-            ModelsViewModel.Companion.ModelViewModelFactory(selectedBrand))
-            .get(ModelsViewModel::class.java)
 
     }
 

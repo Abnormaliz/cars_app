@@ -1,20 +1,32 @@
-package com.example.thecars.model
+package com.example.thecars.vm
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.thecars.classes.Car
 import com.example.thecars.data.CarEntity
-import com.example.thecars.data.MainDb
 import com.example.thecars.data.NotesEntity
+import com.example.thecars.domain.usecases.AddCarToDatabaseUseCase
+import com.example.thecars.domain.usecases.AddNoteToDatabaseUseCase
+import com.example.thecars.domain.usecases.CheckCarUseCase
+import com.example.thecars.domain.usecases.GetNoteByNameUseCase
+import com.example.thecars.domain.usecases.RemoveCarFromDatabaseUseCase
+import com.example.thecars.domain.usecases.RemoveNoteFromDatabaseUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-class CarDetailsViewModel(val database: MainDb, val selectedCar: Car) : ViewModel() {
+class CarDetailsViewModel(
+    private val selectedCar: Car,
+    private val removeCarFromDatabaseUseCase: RemoveCarFromDatabaseUseCase,
+    private val addCarToDatabaseUseCase: AddCarToDatabaseUseCase,
+    private val addNoteToDatabaseUseCase: AddNoteToDatabaseUseCase,
+    private val removeNoteFromDatabaseUseCase: RemoveNoteFromDatabaseUseCase,
+    checkCarUseCase: CheckCarUseCase,
+    getNoteByNameUseCase: GetNoteByNameUseCase
+) : ViewModel() {
 
     private val _currentImageList = MutableStateFlow(
         listOf(
@@ -26,9 +38,9 @@ class CarDetailsViewModel(val database: MainDb, val selectedCar: Car) : ViewMode
     val currentImageList: StateFlow<List<Int>>
         get() = _currentImageList
 
-    val isCarExists = database.dao.doesCarExist(selectedCar.name)
+    val isCarExists = checkCarUseCase.checkCar(selectedCar.name)
 
-    val existingNote: StateFlow<NotesEntity?> = database.dao.getNoteByName(selectedCar.name).stateIn(
+    val existingNote: StateFlow<NotesEntity?> = getNoteByNameUseCase.getNote(selectedCar.name).stateIn(
         viewModelScope,
         SharingStarted.Eagerly,
         null)
@@ -38,11 +50,11 @@ class CarDetailsViewModel(val database: MainDb, val selectedCar: Car) : ViewMode
         if (text.isNotEmpty()) {
             val newNote = NotesEntity(text, selectedCar.name)
             viewModelScope.launch(Dispatchers.IO) {
-                database.dao.insertNoteItem(newNote)
+                addNoteToDatabaseUseCase.addNote(newNote)
             }
         } else if (existingNote.value != null) {
             viewModelScope.launch(Dispatchers.IO) {
-                database.dao.deleteNoteItem(existingNote.value)
+                removeNoteFromDatabaseUseCase.removeNote(existingNote.value!!)
             }
         }
     }
@@ -56,15 +68,15 @@ class CarDetailsViewModel(val database: MainDb, val selectedCar: Car) : ViewMode
         )
     }
 
-    fun addItemToDatabase() {
+    fun addCar() {
         viewModelScope.launch(Dispatchers.IO) {
-            database.dao.insertItem(setCarEntityFromCar(selectedCar))
+            addCarToDatabaseUseCase.addCar(setCarEntityFromCar(selectedCar))
         }
     }
 
-    fun removeItemFromDatabase() {
+    fun removeCar() {
         viewModelScope.launch(Dispatchers.IO) {
-            database.dao.deleteOneItem(setCarEntityFromCar(selectedCar))
+            removeCarFromDatabaseUseCase.removeCar(setCarEntityFromCar(selectedCar))
         }
     }
 }
