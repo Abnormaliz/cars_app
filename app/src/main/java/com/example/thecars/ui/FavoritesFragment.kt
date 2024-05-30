@@ -1,7 +1,6 @@
-package com.example.thecars.fragments
+package com.example.thecars.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -10,32 +9,28 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat.invalidateOptionsMenu
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.example.thecars.App
 import com.example.thecars.R
 import com.example.thecars.adapters.FavoritesAdapter
 import com.example.thecars.data.CarEntity
 import com.example.thecars.databinding.FragmentFavoritesBinding
 import com.example.thecars.interfaces.OnItemClickListener
-import com.example.thecars.model.FavoritesViewModel
-import com.example.thecars.model.FavoritesViewModelFactory
+import com.example.thecars.vm.FavoritesViewModel
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FavoritesFragment : Fragment(), OnItemClickListener {
     private lateinit var binding: FragmentFavoritesBinding
     private lateinit var adapter: FavoritesAdapter
-    private lateinit var favoritesViewModel: FavoritesViewModel
+    private val favoritesViewModel: FavoritesViewModel by viewModel()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-
-        val database = (requireContext().applicationContext as App)
-        favoritesViewModel = ViewModelProvider(this, FavoritesViewModelFactory(database))
-            .get(FavoritesViewModel::class.java)
-
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -55,10 +50,8 @@ class FavoritesFragment : Fragment(), OnItemClickListener {
             }
 
             R.id.remove -> {
-                val car = adapter.getCarEntity(adapter.selectedPosition)
-                car.forEachIndexed {index, carEntity ->
-                }
-                favoritesViewModel.removeItem(car)
+                val cars = adapter.getCarEntity(adapter.selectedPosition)
+                favoritesViewModel.removeCars(cars)
                 adapter.longClickFlag = false
                 adapter.selectedPosition.clear()
                 invalidateOptionsMenu(requireActivity())
@@ -85,8 +78,10 @@ class FavoritesFragment : Fragment(), OnItemClickListener {
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
         (requireActivity() as AppCompatActivity).supportActionBar?.title = "Избранное"
 
-        favoritesViewModel.dataList.observe(viewLifecycleOwner) {
-            adapter.updateData(it)
+        lifecycleScope.launch {
+            favoritesViewModel.cars.collectLatest {
+                adapter.updateData(it)
+            }
         }
 
     }
@@ -98,7 +93,10 @@ class FavoritesFragment : Fragment(), OnItemClickListener {
             val bundle = Bundle().apply {
                 putParcelable("selectedCar", car)
             }
-            findNavController().navigate(R.id.action_favoritesFragment_to_carDetailsFragment, bundle)
+            findNavController().navigate(
+                R.id.action_favoritesFragment_to_carDetailsFragment,
+                bundle
+            )
         }
     }
 }

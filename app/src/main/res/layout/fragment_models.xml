@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#A6A4A4"
 
-    tools:context=".fragments.ModelsFragment">
+    tools:context=".ui.ModelsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rc_view_models"

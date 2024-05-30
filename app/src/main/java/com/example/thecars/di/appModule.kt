@@ -1,0 +1,45 @@
+package com.example.thecars.di
+
+import com.example.thecars.classes.Brand
+import com.example.thecars.classes.Car
+import com.example.thecars.classes.Model
+import com.example.thecars.data.MainDb
+import com.example.thecars.vm.BrandsViewModel
+import com.example.thecars.vm.CarDetailsViewModel
+import com.example.thecars.vm.CarViewModel
+import com.example.thecars.vm.FavoritesViewModel
+import com.example.thecars.vm.ModelsViewModel
+import com.example.thecars.repositories.CarsRepository
+import com.example.thecars.domain.usecases.AddCarToDatabaseUseCase
+import com.example.thecars.domain.usecases.AddNoteToDatabaseUseCase
+import com.example.thecars.domain.usecases.CheckCarUseCase
+import com.example.thecars.domain.usecases.GetNoteByNameUseCase
+import com.example.thecars.domain.usecases.ObserveAllCarsUseCase
+import com.example.thecars.domain.usecases.RemoveCarFromDatabaseUseCase
+import com.example.thecars.domain.usecases.RemoveCarFromFavouritesUseCase
+import com.example.thecars.domain.usecases.RemoveNoteFromDatabaseUseCase
+import org.koin.android.ext.koin.androidContext
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
+
+
+val appModule = module {
+    single<MainDb> { MainDb.createDatabase(androidContext()) }
+    single { CarsRepository(get()) }
+
+    viewModel<CarDetailsViewModel> { (selectedCar: Car) -> CarDetailsViewModel(selectedCar, get(), get(), get(), get(), get(), get()) }
+    viewModel<FavoritesViewModel> { FavoritesViewModel(get(), get()) }
+    viewModel<BrandsViewModel> {BrandsViewModel()}
+    viewModel<ModelsViewModel> { (selectedBrand: Brand) -> ModelsViewModel(selectedBrand) }
+    viewModel<CarViewModel> { (selectedModel: Model) -> CarViewModel(selectedModel) }
+
+    //Usecases
+    factory { ObserveAllCarsUseCase(get()) }
+    factory { RemoveCarFromFavouritesUseCase(get()) }
+    factory { RemoveCarFromDatabaseUseCase(get()) }
+    factory { AddCarToDatabaseUseCase(get()) }
+    factory { AddNoteToDatabaseUseCase(get()) }
+    factory { RemoveNoteFromDatabaseUseCase(get()) }
+    factory { CheckCarUseCase(get()) }
+    factory { GetNoteByNameUseCase(get()) }
+}
