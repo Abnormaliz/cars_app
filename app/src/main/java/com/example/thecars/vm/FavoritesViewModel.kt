@@ -3,9 +3,9 @@ package com.example.thecars.vm
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.thecars.classes.Car
+import com.example.thecars.domain.models.classes.Car
 import com.example.thecars.data.CarEntity
-import com.example.thecars.lists.allBrandsList
+import com.example.thecars.domain.models.lists.allBrandsList
 import com.example.thecars.domain.usecases.ObserveAllCarsUseCase
 import com.example.thecars.domain.usecases.RemoveCarFromFavouritesUseCase
 import kotlinx.coroutines.Dispatchers

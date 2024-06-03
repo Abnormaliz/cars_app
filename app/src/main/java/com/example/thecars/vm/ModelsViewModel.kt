@@ -1,8 +1,8 @@
 package com.example.thecars.vm
 
 import androidx.lifecycle.ViewModel
-import com.example.thecars.classes.Brand
-import com.example.thecars.classes.Model
+import com.example.thecars.domain.models.classes.Brand
+import com.example.thecars.domain.models.classes.Model
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

@@ -2,7 +2,7 @@ package com.example.thecars.vm
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.thecars.classes.Car
+import com.example.thecars.domain.models.classes.Car
 import com.example.thecars.data.CarEntity
 import com.example.thecars.data.NotesEntity
 import com.example.thecars.domain.usecases.AddCarToDatabaseUseCase
