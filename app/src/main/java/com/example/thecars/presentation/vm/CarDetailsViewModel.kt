@@ -2,15 +2,14 @@ package com.example.thecars.presentation.vm
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.thecars.domain.models.classes.Car
 import com.example.thecars.data.CarEntity
 import com.example.thecars.data.NotesEntity
-import com.example.thecars.domain.usecases.AddCarToDatabaseUseCase
-import com.example.thecars.domain.usecases.AddNoteToDatabaseUseCase
-import com.example.thecars.domain.usecases.CheckCarUseCase
-import com.example.thecars.domain.usecases.GetNoteByNameUseCase
-import com.example.thecars.domain.usecases.RemoveCarFromDatabaseUseCase
-import com.example.thecars.domain.usecases.RemoveNoteFromDatabaseUseCase
+import com.example.thecars.data.usecase.AddCarToDatabaseUseCaseImpl
+import com.example.thecars.data.usecase.AddNoteToDatabaseUseCaseImpl
+import com.example.thecars.data.usecase.CheckCarUseCaseImpl
+import com.example.thecars.data.usecase.GetNoteByNameUseCaseImpl
+import com.example.thecars.data.usecase.RemoveCarFromDatabaseUseCaseImpl
+import com.example.thecars.data.usecase.RemoveNoteFromDatabaseUseCaseImpl
 import com.example.thecars.presentation.models.CarUi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,12 +20,12 @@ import kotlinx.coroutines.launch
 
 class CarDetailsViewModel(
     private val selectedCar: CarUi,
-    private val removeCarFromDatabaseUseCase: RemoveCarFromDatabaseUseCase,
-    private val addCarToDatabaseUseCase: AddCarToDatabaseUseCase,
-    private val addNoteToDatabaseUseCase: AddNoteToDatabaseUseCase,
-    private val removeNoteFromDatabaseUseCase: RemoveNoteFromDatabaseUseCase,
-    checkCarUseCase: CheckCarUseCase,
-    getNoteByNameUseCase: GetNoteByNameUseCase
+    private val removeCarFromDatabaseUseCase: RemoveCarFromDatabaseUseCaseImpl,
+    private val addCarToDatabaseUseCase: AddCarToDatabaseUseCaseImpl,
+    private val addNoteToDatabaseUseCase: AddNoteToDatabaseUseCaseImpl,
+    private val removeNoteFromDatabaseUseCase: RemoveNoteFromDatabaseUseCaseImpl,
+    checkCarUseCase: CheckCarUseCaseImpl,
+    getNoteByNameUseCase: GetNoteByNameUseCaseImpl
 ) : ViewModel() {
 
     private val _currentImageList = MutableStateFlow(

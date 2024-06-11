@@ -1,8 +1,5 @@
 package com.example.thecars.di
 
-import com.example.thecars.domain.models.classes.Brand
-import com.example.thecars.domain.models.classes.Car
-import com.example.thecars.domain.models.classes.Model
 import com.example.thecars.data.MainDb
 import com.example.thecars.presentation.vm.BrandsViewModel
 import com.example.thecars.presentation.vm.CarDetailsViewModel
@@ -10,14 +7,14 @@ import com.example.thecars.presentation.vm.CarViewModel
 import com.example.thecars.presentation.vm.FavoritesViewModel
 import com.example.thecars.presentation.vm.ModelsViewModel
 import com.example.thecars.data.repository.CarsRepositoryImpl
-import com.example.thecars.domain.usecases.AddCarToDatabaseUseCase
-import com.example.thecars.domain.usecases.AddNoteToDatabaseUseCase
-import com.example.thecars.domain.usecases.CheckCarUseCase
-import com.example.thecars.domain.usecases.GetNoteByNameUseCase
-import com.example.thecars.domain.usecases.ObserveAllCarsUseCase
-import com.example.thecars.domain.usecases.RemoveCarFromDatabaseUseCase
-import com.example.thecars.domain.usecases.RemoveCarFromFavouritesUseCase
-import com.example.thecars.domain.usecases.RemoveNoteFromDatabaseUseCase
+import com.example.thecars.data.usecase.AddCarToDatabaseUseCaseImpl
+import com.example.thecars.data.usecase.AddNoteToDatabaseUseCaseImpl
+import com.example.thecars.data.usecase.CheckCarUseCaseImpl
+import com.example.thecars.data.usecase.GetNoteByNameUseCaseImpl
+import com.example.thecars.data.usecase.ObserveAllCarsUseCaseImpl
+import com.example.thecars.data.usecase.RemoveCarFromDatabaseUseCaseImpl
+import com.example.thecars.data.usecase.RemoveCarFromFavouritesUseCaseImpl
+import com.example.thecars.data.usecase.RemoveNoteFromDatabaseUseCaseImpl
 import com.example.thecars.presentation.models.BrandUi
 import com.example.thecars.presentation.models.CarUi
 import com.example.thecars.presentation.models.ModelUi
@@ -37,12 +34,12 @@ val appModule = module {
     viewModel<CarViewModel> { (selectedModel: ModelUi) -> CarViewModel(selectedModel) }
 
     //Usecases
-    factory { ObserveAllCarsUseCase(get()) }
-    factory { RemoveCarFromFavouritesUseCase(get()) }
-    factory { RemoveCarFromDatabaseUseCase(get()) }
-    factory { AddCarToDatabaseUseCase(get()) }
-    factory { AddNoteToDatabaseUseCase(get()) }
-    factory { RemoveNoteFromDatabaseUseCase(get()) }
-    factory { CheckCarUseCase(get()) }
-    factory { GetNoteByNameUseCase(get()) }
+    factory { ObserveAllCarsUseCaseImpl(get()) }
+    factory { RemoveCarFromFavouritesUseCaseImpl(get()) }
+    factory { RemoveCarFromDatabaseUseCaseImpl(get()) }
+    factory { AddCarToDatabaseUseCaseImpl(get()) }
+    factory { AddNoteToDatabaseUseCaseImpl(get()) }
+    factory { RemoveNoteFromDatabaseUseCaseImpl(get()) }
+    factory { CheckCarUseCaseImpl(get()) }
+    factory { GetNoteByNameUseCaseImpl(get()) }
 }

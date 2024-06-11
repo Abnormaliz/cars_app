@@ -1,11 +1,9 @@
 package com.example.thecars.domain.usecases
 
 import com.example.thecars.data.NotesEntity
-import com.example.thecars.data.repository.CarsRepositoryImpl
 
-class RemoveNoteFromDatabaseUseCase(private val repository: CarsRepositoryImpl) {
+interface RemoveNoteFromDatabaseUseCase {
 
-    suspend fun removeNote(note: NotesEntity) {
-        repository.removeNoteFromDatabase(note)
-    }
+    suspend fun removeNote(note: NotesEntity)
+
 }

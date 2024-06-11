@@ -12,7 +12,6 @@ interface CarsRepository {
 
     fun getNoteByName(carName: String): Flow<NotesEntity?>
 
-
     suspend fun removeCarsFromFavourites(cars: List<CarEntity>)
 
     suspend fun removeCarFromDatabase(car: CarEntity)

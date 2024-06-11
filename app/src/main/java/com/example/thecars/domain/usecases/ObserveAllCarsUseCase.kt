@@ -1,11 +1,10 @@
 package com.example.thecars.domain.usecases
 
 import com.example.thecars.data.CarEntity
-import com.example.thecars.data.repository.CarsRepositoryImpl
 import kotlinx.coroutines.flow.Flow
 
-class ObserveAllCarsUseCase(private val repository: CarsRepositoryImpl) {
+interface ObserveAllCarsUseCase {
 
-    fun observeCars(): Flow<List<CarEntity>> = repository.getAllCars()
+    fun observeCars(): Flow<List<CarEntity>>
 
 }
