@@ -1,4 +1,4 @@
-package com.example.thecars.domain.models.adapters
+package com.example.thecars.presentation.adapters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -9,10 +9,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.thecars.R
 import com.example.thecars.domain.models.classes.Model
-import com.example.thecars.domain.models.interfaces.OnModelClickListener
+import com.example.thecars.presentation.interfaces.OnModelClickListener
+import com.example.thecars.presentation.models.ModelUi
 
 class ModelAdapter(
-    private var models: List<Model>,
+    private var models: List<ModelUi>,
     private val listener: OnModelClickListener
 ):
      RecyclerView.Adapter<ModelAdapter.ModelViewHolder>() {
@@ -45,7 +46,7 @@ class ModelAdapter(
          }
      }
     @SuppressLint("NotifyDataSetChanged")
-    fun updateData(newModelList: List<Model>) {
+    fun updateData(newModelList: List<ModelUi>) {
         models = newModelList
         notifyDataSetChanged()
     }

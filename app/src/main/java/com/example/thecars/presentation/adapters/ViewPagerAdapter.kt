@@ -1,4 +1,4 @@
-package com.example.thecars.domain.models.adapters
+package com.example.thecars.presentation.adapters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

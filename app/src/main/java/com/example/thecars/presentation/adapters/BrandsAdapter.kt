@@ -1,4 +1,4 @@
-package com.example.thecars.domain.models.adapters
+package com.example.thecars.presentation.adapters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -10,10 +10,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.thecars.R
 import com.example.thecars.domain.models.classes.Brand
-import com.example.thecars.domain.models.interfaces.OnBrandClickListener
+import com.example.thecars.presentation.interfaces.OnBrandClickListener
+import com.example.thecars.presentation.models.BrandUi
 
 class BrandsAdapter(
-    private var brands: List<Brand>,
+    private var brands: List<BrandUi>,
     private val listener: OnBrandClickListener
 ) :
     RecyclerView.Adapter<BrandsAdapter.CarsViewHolder>() {
@@ -48,7 +49,7 @@ class BrandsAdapter(
         return brands.size
     }
     @SuppressLint("NotifyDataSetChanged")
-    fun updateData(newCarList: List<Brand>) {
+    fun updateData(newCarList: List<BrandUi>) {
         brands = newCarList
         notifyDataSetChanged()
     }

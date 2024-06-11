@@ -1,4 +1,4 @@
-package com.example.thecars.domain.models.adapters
+package com.example.thecars.presentation.adapters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.thecars.R
 import com.example.thecars.data.CarEntity
-import com.example.thecars.domain.models.interfaces.OnItemClickListener
+import com.example.thecars.presentation.interfaces.OnItemClickListener
 
 class FavoritesAdapter(
     private var favorites: List<CarEntity>,

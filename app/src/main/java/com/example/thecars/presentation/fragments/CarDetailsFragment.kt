@@ -17,10 +17,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.thecars.R
-import com.example.thecars.domain.models.adapters.ViewPagerAdapter
-import com.example.thecars.domain.models.classes.Car
 import com.example.thecars.databinding.FragmentCarDetailsBinding
-import com.example.thecars.vm.CarDetailsViewModel
+import com.example.thecars.presentation.adapters.ViewPagerAdapter
+import com.example.thecars.presentation.models.CarUi
+import com.example.thecars.presentation.vm.CarDetailsViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.launch
@@ -37,7 +37,7 @@ class CarDetailsFragment : Fragment() {
     private lateinit var button: ImageButton
     private lateinit var actionBar: ActionBar
 
-    private val selectedCar: Car by lazy { arguments?.getParcelable<Car>("selectedCar")!! }
+    private val selectedCar: CarUi by lazy { arguments?.getParcelable("selectedCar")!! }
 
     private val carDetailsViewModel: CarDetailsViewModel by viewModel {
         parametersOf(selectedCar)

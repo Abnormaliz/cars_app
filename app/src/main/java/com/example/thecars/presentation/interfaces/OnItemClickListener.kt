@@ -1,4 +1,4 @@
-package com.example.thecars.domain.models.interfaces
+package com.example.thecars.presentation.interfaces
 
 import com.example.thecars.data.CarEntity
 

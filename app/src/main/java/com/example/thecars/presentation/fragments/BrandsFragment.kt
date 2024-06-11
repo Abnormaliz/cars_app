@@ -12,11 +12,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.thecars.R
-import com.example.thecars.domain.models.adapters.BrandsAdapter
+import com.example.thecars.presentation.adapters.BrandsAdapter
 import com.example.thecars.domain.models.classes.Brand
-import com.example.thecars.vm.BrandsViewModel
+import com.example.thecars.presentation.vm.BrandsViewModel
 import com.example.thecars.databinding.FragmentBrandsBinding
-import com.example.thecars.domain.models.interfaces.OnBrandClickListener
+import com.example.thecars.presentation.interfaces.OnBrandClickListener
+import com.example.thecars.presentation.models.BrandUi
+import com.example.thecars.presentation.models.toBrandUi
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -77,7 +79,7 @@ class BrandsFragment : Fragment(), OnBrandClickListener {
 
     }
 
-    override fun onBrandClick(brand: Brand) {
+    override fun onBrandClick(brand: BrandUi) {
         if (brand.modelList.isEmpty()) {
             Snackbar.make(binding.root, "No data at the moment", Snackbar.LENGTH_SHORT).show()
         } else {

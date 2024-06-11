@@ -1,4 +1,4 @@
-package com.example.thecars.domain.models.adapters
+package com.example.thecars.presentation.adapters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -10,10 +10,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.thecars.domain.models.classes.Car
 import com.example.thecars.R
-import com.example.thecars.domain.models.interfaces.OnCarClickListener
+import com.example.thecars.presentation.interfaces.OnCarClickListener
+import com.example.thecars.presentation.models.CarUi
 
 class CarAdapter (
-    private var cars: List<Car>,
+    private var
+    cars: List<CarUi>,
     private val listener: OnCarClickListener
 ): RecyclerView.Adapter<CarAdapter.CarViewHolder>() {
 
@@ -44,7 +46,7 @@ class CarAdapter (
         holder.itemView.setOnClickListener { listener.onCarClick(currentCar) }
     }
     @SuppressLint("NotifyDataSetChanged")
-    fun updateData(newCarList: List<Car>) {
+    fun updateData(newCarList: List<CarUi>) {
         cars = newCarList
         notifyDataSetChanged()
     }

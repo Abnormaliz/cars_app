@@ -1,6 +1,7 @@
 package com.example.thecars.presentation.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.Menu
@@ -12,12 +13,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.thecars.R
-import com.example.thecars.domain.models.adapters.ModelAdapter
+import com.example.thecars.presentation.adapters.ModelAdapter
 import com.example.thecars.domain.models.classes.Brand
 import com.example.thecars.domain.models.classes.Model
-import com.example.thecars.vm.ModelsViewModel
+import com.example.thecars.presentation.vm.ModelsViewModel
 import com.example.thecars.databinding.FragmentModelsBinding
-import com.example.thecars.domain.models.interfaces.OnModelClickListener
+import com.example.thecars.presentation.interfaces.OnModelClickListener
+import com.example.thecars.presentation.models.BrandUi
+import com.example.thecars.presentation.models.ModelUi
+import com.example.thecars.presentation.models.toModelUi
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -28,7 +32,7 @@ class ModelsFragment : Fragment(), OnModelClickListener {
     private lateinit var binding: FragmentModelsBinding
     private lateinit var adapter: ModelAdapter
 
-    private val selectedBrand: Brand by lazy { arguments?.getParcelable<Brand>("selectedBrand")!! }
+    private val selectedBrand: BrandUi by lazy { arguments?.getParcelable("selectedBrand")!! }
 
     private val modelsViewModel: ModelsViewModel by viewModel {
         parametersOf(selectedBrand)
@@ -82,7 +86,7 @@ class ModelsFragment : Fragment(), OnModelClickListener {
     }
 
 
-    override fun onModelClick(model: Model) {
+    override fun onModelClick(model: ModelUi) {
         if (model.list.isEmpty()) {
             Snackbar.make(binding.root, "No data at the moment", Snackbar.LENGTH_SHORT).show()
         } else {

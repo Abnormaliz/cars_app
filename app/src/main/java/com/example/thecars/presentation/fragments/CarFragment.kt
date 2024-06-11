@@ -13,13 +13,16 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.thecars.R
-import com.example.thecars.domain.models.adapters.CarAdapter
+import com.example.thecars.presentation.adapters.CarAdapter
 import com.example.thecars.domain.models.classes.Car
 import com.example.thecars.domain.models.classes.Model
 import com.example.thecars.databinding.FragmentCarBinding
-import com.example.thecars.vm.CarViewModel
-import com.example.thecars.domain.models.interfaces.OnCarClickListener
+import com.example.thecars.presentation.vm.CarViewModel
+import com.example.thecars.presentation.interfaces.OnCarClickListener
 import com.example.thecars.domain.models.lists.EMPTY_DATA
+import com.example.thecars.presentation.models.CarUi
+import com.example.thecars.presentation.models.ModelUi
+import com.example.thecars.presentation.models.toCarUi
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -33,7 +36,7 @@ class CarFragment : Fragment(), OnCarClickListener {
     private var isTitleSet = false
     var savedActionBar: String? = null
 
-    private val selectedModel: Model by lazy { arguments?.getParcelable<Model>("selectedModel")!! }
+    private val selectedModel: ModelUi by lazy { arguments?.getParcelable("selectedModel")!! }
     private val carViewModel: CarViewModel by viewModel {
         parametersOf(selectedModel)
     }
@@ -96,7 +99,7 @@ class CarFragment : Fragment(), OnCarClickListener {
         }
     }
 
-    override fun onCarClick(car: Car) {
+    override fun onCarClick(car: CarUi) {
         if (car.frontPhoto == 0) {
             Snackbar.make(binding.root, EMPTY_DATA, Snackbar.LENGTH_SHORT).show()
         } else {

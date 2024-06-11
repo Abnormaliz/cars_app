@@ -3,7 +3,7 @@ package com.example.thecars.domain.models.lists
 import com.example.thecars.R
 import com.example.thecars.domain.models.classes.Car
 
-val dates_acura_mdxes = listOf(
+val dates_acura_mdx = listOf(
     Car(
         ACURA_BRAND,
         "MDX",

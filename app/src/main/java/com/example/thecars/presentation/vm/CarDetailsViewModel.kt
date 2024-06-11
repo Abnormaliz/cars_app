@@ -1,4 +1,4 @@
-package com.example.thecars.vm
+package com.example.thecars.presentation.vm
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,6 +11,7 @@ import com.example.thecars.domain.usecases.CheckCarUseCase
 import com.example.thecars.domain.usecases.GetNoteByNameUseCase
 import com.example.thecars.domain.usecases.RemoveCarFromDatabaseUseCase
 import com.example.thecars.domain.usecases.RemoveNoteFromDatabaseUseCase
+import com.example.thecars.presentation.models.CarUi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -19,7 +20,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class CarDetailsViewModel(
-    private val selectedCar: Car,
+    private val selectedCar: CarUi,
     private val removeCarFromDatabaseUseCase: RemoveCarFromDatabaseUseCase,
     private val addCarToDatabaseUseCase: AddCarToDatabaseUseCase,
     private val addNoteToDatabaseUseCase: AddNoteToDatabaseUseCase,
@@ -59,7 +60,7 @@ class CarDetailsViewModel(
         }
     }
 
-    private fun setCarEntityFromCar(car: Car): CarEntity {
+    private fun setCarEntityFromCar(car: CarUi): CarEntity {
         return CarEntity(
             car.brand,
             car.model,

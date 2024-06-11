@@ -1,4 +1,4 @@
-package com.example.thecars
+package com.example.thecars.app
 
 import android.app.Application
 import com.example.thecars.di.appModule

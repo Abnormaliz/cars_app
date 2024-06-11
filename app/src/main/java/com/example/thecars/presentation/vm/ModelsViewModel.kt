@@ -1,16 +1,18 @@
-package com.example.thecars.vm
+package com.example.thecars.presentation.vm
 
 import androidx.lifecycle.ViewModel
 import com.example.thecars.domain.models.classes.Brand
 import com.example.thecars.domain.models.classes.Model
+import com.example.thecars.presentation.models.BrandUi
+import com.example.thecars.presentation.models.ModelUi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-class ModelsViewModel(brand: Brand) : ViewModel() {
+class ModelsViewModel(brand: BrandUi) : ViewModel() {
 
     private val _modelList = MutableStateFlow(brand.modelList)
-    val modelList: StateFlow<List<Model>> = _modelList.asStateFlow()
+    val modelList: StateFlow<List<ModelUi>> = _modelList.asStateFlow()
 
     val brandName = brand.name
 

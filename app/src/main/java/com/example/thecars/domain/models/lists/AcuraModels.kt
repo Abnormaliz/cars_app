@@ -3,7 +3,7 @@ package com.example.thecars.domain.models.lists
 import com.example.thecars.domain.models.classes.Model
 
 val acuraModels = listOf(
-    Model("MDX", dates_acura_mdxes),
+    Model("MDX", dates_acura_mdx),
     Model("EL", emptyList()),
     Model("ILX", emptyList()),
     Model("RDX", emptyList()),

@@ -13,11 +13,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.thecars.R
-import com.example.thecars.domain.models.adapters.FavoritesAdapter
+import com.example.thecars.presentation.adapters.FavoritesAdapter
 import com.example.thecars.data.CarEntity
 import com.example.thecars.databinding.FragmentFavoritesBinding
-import com.example.thecars.domain.models.interfaces.OnItemClickListener
-import com.example.thecars.vm.FavoritesViewModel
+import com.example.thecars.presentation.interfaces.OnItemClickListener
+import com.example.thecars.presentation.vm.FavoritesViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
