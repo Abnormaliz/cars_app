@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/brandsFragment"
-        android:name="com.example.thecars.presentation.fragments.BrandsFragment"
+        android:name="com.example.thecars.app.presentation.fragments.BrandsFragment"
         android:label="fragment_brands"
         tools:layout="@layout/fragment_brands">
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/modelsFragment"
-        android:name="com.example.thecars.presentation.fragments.ModelsFragment"
+        android:name="com.example.thecars.app.presentation.fragments.ModelsFragment"
         android:label="fragment_models"
         tools:layout="@layout/fragment_models" >
         <action
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/carFragment"
-        android:name="com.example.thecars.presentation.fragments.CarFragment"
+        android:name="com.example.thecars.app.presentation.fragments.CarFragment"
         android:label="fragment_date"
         tools:layout="@layout/fragment_car" >
         <action
@@ -43,7 +43,7 @@
     </fragment>
     <fragment
         android:id="@+id/carDetailsFragment"
-        android:name="com.example.thecars.presentation.fragments.CarDetailsFragment"
+        android:name="com.example.thecars.app.presentation.fragments.CarDetailsFragment"
         android:label="carDetailsFragment">
         <action
             android:id="@+id/action_carDetailsFragment_to_favoritesFragment"
@@ -51,7 +51,7 @@
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="com.example.thecars.presentation.fragments.FavoritesFragment"
+        android:name="com.example.thecars.app.presentation.fragments.FavoritesFragment"
         android:label="fragment_favorites"
         tools:layout="@layout/fragment_favorites" >
         <action
