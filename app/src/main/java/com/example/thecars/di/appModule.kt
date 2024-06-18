@@ -34,12 +34,12 @@ val appModule = module {
     viewModel<CarViewModel> { (selectedModel: ModelUi) -> CarViewModel(selectedModel) }
 
     //Usecases
-    factory { ObserveAllCarsUseCaseImpl(get()) }
-    factory { RemoveCarFromFavouritesUseCaseImpl(get()) }
-    factory { RemoveCarFromDatabaseUseCaseImpl(get()) }
-    factory { AddCarToDatabaseUseCaseImpl(get()) }
-    factory { AddNoteToDatabaseUseCaseImpl(get()) }
-    factory { RemoveNoteFromDatabaseUseCaseImpl(get()) }
-    factory { CheckCarUseCaseImpl(get()) }
-    factory { GetNoteByNameUseCaseImpl(get()) }
+    factory { com.example.thecars.domain.usecaseImpl.ObserveAllCarsUseCaseImpl(get()) }
+    factory { com.example.thecars.domain.usecaseImpl.RemoveCarFromFavouritesUseCaseImpl(get()) }
+    factory { com.example.thecars.domain.usecaseImpl.RemoveCarFromDatabaseUseCaseImpl(get()) }
+    factory { com.example.thecars.domain.usecaseImpl.AddCarToDatabaseUseCaseImpl(get()) }
+    factory { com.example.thecars.domain.usecaseImpl.AddNoteToDatabaseUseCaseImpl(get()) }
+    factory { com.example.thecars.domain.usecaseImpl.RemoveNoteFromDatabaseUseCaseImpl(get()) }
+    factory { com.example.thecars.domain.usecaseImpl.CheckCarUseCaseImpl(get()) }
+    factory { com.example.thecars.domain.usecaseImpl.GetNoteByNameUseCaseImpl(get()) }
 }

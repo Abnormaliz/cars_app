@@ -20,12 +20,12 @@ import kotlinx.coroutines.launch
 
 class CarDetailsViewModel(
     private val selectedCar: CarUi,
-    private val removeCarFromDatabaseUseCase: RemoveCarFromDatabaseUseCaseImpl,
-    private val addCarToDatabaseUseCase: AddCarToDatabaseUseCaseImpl,
-    private val addNoteToDatabaseUseCase: AddNoteToDatabaseUseCaseImpl,
-    private val removeNoteFromDatabaseUseCase: RemoveNoteFromDatabaseUseCaseImpl,
-    checkCarUseCase: CheckCarUseCaseImpl,
-    getNoteByNameUseCase: GetNoteByNameUseCaseImpl
+    private val removeCarFromDatabaseUseCase: com.example.thecars.domain.usecaseImpl.RemoveCarFromDatabaseUseCaseImpl,
+    private val addCarToDatabaseUseCase: com.example.thecars.domain.usecaseImpl.AddCarToDatabaseUseCaseImpl,
+    private val addNoteToDatabaseUseCase: com.example.thecars.domain.usecaseImpl.AddNoteToDatabaseUseCaseImpl,
+    private val removeNoteFromDatabaseUseCase: com.example.thecars.domain.usecaseImpl.RemoveNoteFromDatabaseUseCaseImpl,
+    checkCarUseCase: com.example.thecars.domain.usecaseImpl.CheckCarUseCaseImpl,
+    getNoteByNameUseCase: com.example.thecars.domain.usecaseImpl.GetNoteByNameUseCaseImpl
 ) : ViewModel() {
 
     private val _currentImageList = MutableStateFlow(

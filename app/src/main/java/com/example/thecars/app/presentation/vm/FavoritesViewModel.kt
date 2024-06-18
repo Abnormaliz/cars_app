@@ -6,9 +6,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.thecars.app.presentation.models.CarUi
 import com.example.thecars.app.presentation.models.toBrandUi
 import com.example.thecars.data.CarEntity
+import com.example.thecars.data.lists.allBrandsList
 import com.example.thecars.domain.usecaseImpl.ObserveAllCarsUseCaseImpl
 import com.example.thecars.domain.usecaseImpl.RemoveCarFromFavouritesUseCaseImpl
-import com.example.thecars.domain.models.lists.allBrandsList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -19,7 +19,7 @@ class FavoritesViewModel(
 
     val cars = observeAllCarsUseCase.observeCars()
 
-    fun removeCars(items: List<com.example.thecars.data.CarEntity>) {
+    fun removeCars(items: List<CarEntity>) {
         viewModelScope.launch(Dispatchers.IO) {
             removeCarFromFavouritesUseCase.removeCars(items)
         }

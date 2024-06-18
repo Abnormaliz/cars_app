@@ -1,4 +1,4 @@
-package com.example.thecars.domain.models.classes
+package com.example.thecars.data.classes
 
 
 data class Brand(

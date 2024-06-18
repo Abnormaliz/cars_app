@@ -1,7 +1,7 @@
 package com.example.thecars.app.presentation.models
 
 import android.os.Parcelable
-import com.example.thecars.domain.models.classes.Model
+import com.example.thecars.data.classes.Model
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

@@ -3,7 +3,7 @@ package com.example.thecars.app.presentation.vm
 import androidx.lifecycle.ViewModel
 import com.example.thecars.app.presentation.models.BrandUi
 import com.example.thecars.app.presentation.models.toBrandUi
-import com.example.thecars.domain.models.lists.allBrandsList
+import com.example.thecars.data.lists.allBrandsList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

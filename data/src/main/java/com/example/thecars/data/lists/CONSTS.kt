@@ -1,4 +1,4 @@
-package com.example.thecars.domain.models.lists
+package com.example.thecars.data.lists
 
 
 const val EMPTY_DATA = "Empty data"

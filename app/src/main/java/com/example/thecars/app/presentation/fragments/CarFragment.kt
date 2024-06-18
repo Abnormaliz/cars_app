@@ -18,8 +18,8 @@ import com.example.thecars.app.presentation.interfaces.OnCarClickListener
 import com.example.thecars.app.presentation.models.CarUi
 import com.example.thecars.app.presentation.models.ModelUi
 import com.example.thecars.app.presentation.vm.CarViewModel
+import com.example.thecars.data.lists.EMPTY_DATA
 import com.example.thecars.databinding.FragmentCarBinding
-import com.example.thecars.domain.models.lists.EMPTY_DATA
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
