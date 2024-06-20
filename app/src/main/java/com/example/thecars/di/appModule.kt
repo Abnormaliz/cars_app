@@ -8,24 +8,16 @@ import com.example.thecars.app.presentation.vm.CarDetailsViewModel
 import com.example.thecars.app.presentation.vm.CarViewModel
 import com.example.thecars.app.presentation.vm.FavoritesViewModel
 import com.example.thecars.app.presentation.vm.ModelsViewModel
-import com.example.thecars.data.MainDb
+import com.example.thecars.data.CarDatabase
 import com.example.thecars.data.repositoryImpl.CarsRepositoryImpl
-import com.example.thecars.domain.usecaseImpl.AddCarToDatabaseUseCaseImpl
-import com.example.thecars.domain.usecaseImpl.AddNoteToDatabaseUseCaseImpl
-import com.example.thecars.domain.usecaseImpl.CheckCarUseCaseImpl
-import com.example.thecars.domain.usecaseImpl.GetNoteByNameUseCaseImpl
-import com.example.thecars.domain.usecaseImpl.ObserveAllCarsUseCaseImpl
-import com.example.thecars.domain.usecaseImpl.RemoveCarFromDatabaseUseCaseImpl
-import com.example.thecars.domain.usecaseImpl.RemoveCarFromFavouritesUseCaseImpl
-import com.example.thecars.domain.usecaseImpl.RemoveNoteFromDatabaseUseCaseImpl
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 
 val appModule = module {
-    single<com.example.thecars.data.MainDb> { com.example.thecars.data.MainDb.createDatabase(androidContext()) }
-    single { com.example.thecars.data.repositoryImpl.CarsRepositoryImpl(get()) }
+    single { CarDatabase.createDatabase(androidContext()) }
+    single { CarsRepositoryImpl(get()) }
 
     viewModel<CarDetailsViewModel> { (selectedCar: CarUi) -> CarDetailsViewModel(selectedCar, get(), get(), get(), get(), get(), get()) }
     viewModel<FavoritesViewModel> { FavoritesViewModel(get(), get()) }

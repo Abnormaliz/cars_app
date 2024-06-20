@@ -26,3 +26,16 @@ fun Car.toCarUi(): CarUi {
         sidePhoto = this.sidePhoto
     )
 }
+
+fun CarUi.toCar(): Car {
+    return Car(
+        brand = this.brand,
+        model = this.model,
+        name = this.name,
+        previewPhoto = this.previewPhoto,
+        frontPhoto = this.frontPhoto,
+        backPhoto = this.backPhoto,
+        sidePhoto = this.sidePhoto
+    )
+}
+

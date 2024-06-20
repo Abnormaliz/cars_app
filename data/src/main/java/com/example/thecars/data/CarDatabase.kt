@@ -4,22 +4,23 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.thecars.data.classes.Car
 
 @Database(
     entities = [
-        CarEntity::class,
-        NotesEntity::class,
+        Note::class,
+        Car::class,
     ],
     version = 1
 )
-abstract class MainDb : RoomDatabase() {
-    abstract val dao: Dao
+abstract class CarDatabase : RoomDatabase() {
+    abstract val dao: CarDao
 companion object{
-    fun createDatabase(context: Context) : MainDb {
+    fun createDatabase(context: Context) : CarDatabase {
         return Room.databaseBuilder(
             context,
-            MainDb::class.java,
-            "test.db"
+            CarDatabase::class.java,
+            "car.db"
         ).build()
     }
 }

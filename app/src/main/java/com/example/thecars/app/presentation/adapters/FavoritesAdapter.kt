@@ -11,10 +11,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.thecars.R
 import com.example.thecars.app.presentation.interfaces.OnItemClickListener
-import com.example.thecars.data.CarEntity
+import com.example.thecars.data.classes.Car
 
 class FavoritesAdapter(
-    private var favorites: List<com.example.thecars.data.CarEntity>,
+    private var favorites: List<Car>,
     private var listener: OnItemClickListener
 ) : RecyclerView.Adapter<FavoritesAdapter.FavoritesViewHolder>() {
     var selectedPosition: MutableSet<Int> = mutableSetOf()
@@ -38,7 +38,7 @@ class FavoritesAdapter(
 
     override fun onBindViewHolder(holder: FavoritesViewHolder, position: Int) {
         val currentFavorite = favorites[position]
-        holder.title.text = "${currentFavorite.brand}\n${currentFavorite.carName}"
+        holder.title.text = "${currentFavorite.brand}\n${currentFavorite.name}"
         holder.photo.setImageResource(currentFavorite.previewPhoto)
 
         val isCarSelected = selectedPosition.contains(position)
@@ -76,7 +76,7 @@ class FavoritesAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateData(favoritesList: List<com.example.thecars.data.CarEntity>) {
+    fun updateData(favoritesList: List<Car>) {
         favorites = favoritesList
         notifyDataSetChanged()
     }
@@ -85,13 +85,13 @@ class FavoritesAdapter(
         return longClickFlag
     }
 
-    fun getCarEntity(positions: MutableSet<Int>): MutableList<com.example.thecars.data.CarEntity> {
-        val nameEntities = mutableListOf<com.example.thecars.data.CarEntity>()
+    fun getCarEntity(positions: MutableSet<Int>): MutableList<Car> {
+        val nameEntities = mutableListOf<Car>()
         for (position in positions) {
-                if (position < favorites.size) {
+            if (position < favorites.size) {
                 nameEntities.add(favorites[position])
             } else break
         }
         return nameEntities
     }
-    }
+}

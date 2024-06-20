@@ -16,7 +16,7 @@ import com.example.thecars.R
 import com.example.thecars.app.presentation.adapters.FavoritesAdapter
 import com.example.thecars.app.presentation.interfaces.OnItemClickListener
 import com.example.thecars.app.presentation.vm.FavoritesViewModel
-import com.example.thecars.data.CarEntity
+import com.example.thecars.data.classes.Car
 import com.example.thecars.databinding.FragmentFavoritesBinding
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -86,7 +86,7 @@ class FavoritesFragment : Fragment(), OnItemClickListener {
 
     }
 
-    override fun onItemClick(position: com.example.thecars.data.CarEntity) {
+    override fun onItemClick(position: Car) {
         if (!adapter.longClickFlag) {
             val car = favoritesViewModel.getCarFromCarEntity(position)
 

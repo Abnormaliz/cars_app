@@ -1,25 +1,25 @@
 package com.example.thecars.data.repositories
 
-import com.example.thecars.data.CarEntity
-import com.example.thecars.data.NotesEntity
+import com.example.thecars.data.Note
+import com.example.thecars.data.classes.Car
 import kotlinx.coroutines.flow.Flow
 
 interface CarsRepository {
 
-    fun getAllCars(): Flow<List<CarEntity>>
+    fun getAllCars(): Flow<List<Car>>
 
     fun checkCar(carName: String): Flow<Boolean>
 
-    fun getNoteByName(carName: String): Flow<NotesEntity?>
+    fun getNoteByName(carName: String): Flow<Note?>
 
-    suspend fun removeCarsFromFavourites(cars: List<CarEntity>)
+    suspend fun removeCarsFromFavourites(cars: List<Car>)
 
-    suspend fun removeCarFromDatabase(car: CarEntity)
+    suspend fun removeCarFromDatabase(car: Car)
 
-    suspend fun addCarToDatabase(car: CarEntity)
+    suspend fun addCarToDatabase(car: Car)
 
-    suspend fun removeNoteFromDatabase(note: NotesEntity)
+    suspend fun removeNoteFromDatabase(note: Note)
 
-    suspend fun addNoteToDatabase(note: NotesEntity)
+    suspend fun addNoteToDatabase(note: Note)
 
 }

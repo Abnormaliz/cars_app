@@ -1,7 +1,7 @@
 package com.example.thecars.domain.usecases
 
-import com.example.thecars.data.CarEntity
+import com.example.thecars.data.classes.Car
 
 interface AddCarToDatabaseUseCase {
-    suspend fun addCar(car: CarEntity)
+    suspend fun addCar(car: Car)
 }

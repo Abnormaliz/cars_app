@@ -1,9 +1,9 @@
 package com.example.thecars.domain.usecases
 
-import com.example.thecars.data.CarEntity
+import com.example.thecars.data.classes.Car
 
 interface RemoveCarFromDatabaseUseCase {
 
-    suspend fun removeCar(car: CarEntity)
+    suspend fun removeCar(car: Car)
 
 }
