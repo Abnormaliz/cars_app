@@ -15,6 +15,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.thecars.R
 import com.example.thecars.app.presentation.adapters.FavoritesAdapter
 import com.example.thecars.app.presentation.interfaces.OnItemClickListener
+import com.example.thecars.app.presentation.models.CarUi
+import com.example.thecars.app.presentation.models.toCarUi
 import com.example.thecars.app.presentation.vm.FavoritesViewModel
 import com.example.thecars.data.classes.Car
 import com.example.thecars.databinding.FragmentFavoritesBinding
@@ -80,16 +82,14 @@ class FavoritesFragment : Fragment(), OnItemClickListener {
 
         lifecycleScope.launch {
             favoritesViewModel.cars.collectLatest {
-                adapter.updateData(it)
+                adapter.updateData(it.map { it.toCarUi() })
             }
         }
 
     }
 
-    override fun onItemClick(position: Car) {
+    override fun onItemClick(car: CarUi) {
         if (!adapter.longClickFlag) {
-            val car = favoritesViewModel.getCarFromCarEntity(position)
-
             val bundle = Bundle().apply {
                 putParcelable("selectedCar", car)
             }

@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.thecars.app.presentation.models.CarUi
 import com.example.thecars.app.presentation.models.toBrandUi
+import com.example.thecars.app.presentation.models.toCar
 import com.example.thecars.data.classes.Car
 import com.example.thecars.data.lists.allBrandsList
 import com.example.thecars.domain.usecaseImpl.ObserveAllCarsUseCaseImpl
@@ -19,15 +20,9 @@ class FavoritesViewModel(
 
     val cars = observeAllCarsUseCase.observeCars()
 
-    fun removeCars(items: List<Car>) {
+    fun removeCars(items: List<CarUi>) {
         viewModelScope.launch(Dispatchers.IO) {
-            removeCarFromFavouritesUseCase.removeCars(items)
+            removeCarFromFavouritesUseCase.removeCars(items.map { it.toCar() })
         }
-    }
-
-    fun getCarFromCarEntity(selectedCar: Car): CarUi? {
-        val carList = allBrandsList.map { brand -> brand.toBrandUi() }.find { it.name == selectedCar.brand }
-        val modelList = carList?.modelList
-        return modelList?.find { it.name == selectedCar.model }?.list?.find { it.name == selectedCar.name }
     }
 }

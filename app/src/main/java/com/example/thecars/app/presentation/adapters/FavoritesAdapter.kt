@@ -11,10 +11,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.thecars.R
 import com.example.thecars.app.presentation.interfaces.OnItemClickListener
-import com.example.thecars.data.classes.Car
+import com.example.thecars.app.presentation.models.CarUi
 
 class FavoritesAdapter(
-    private var favorites: List<Car>,
+    private var favorites: List<CarUi>,
     private var listener: OnItemClickListener
 ) : RecyclerView.Adapter<FavoritesAdapter.FavoritesViewHolder>() {
     var selectedPosition: MutableSet<Int> = mutableSetOf()
@@ -76,7 +76,7 @@ class FavoritesAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateData(favoritesList: List<Car>) {
+    fun updateData(favoritesList: List<CarUi>) {
         favorites = favoritesList
         notifyDataSetChanged()
     }
@@ -85,8 +85,8 @@ class FavoritesAdapter(
         return longClickFlag
     }
 
-    fun getCarEntity(positions: MutableSet<Int>): MutableList<Car> {
-        val nameEntities = mutableListOf<Car>()
+    fun getCarEntity(positions: MutableSet<Int>): MutableList<CarUi> {
+        val nameEntities = mutableListOf<CarUi>()
         for (position in positions) {
             if (position < favorites.size) {
                 nameEntities.add(favorites[position])
