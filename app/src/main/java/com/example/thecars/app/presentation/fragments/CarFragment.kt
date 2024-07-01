@@ -55,7 +55,7 @@ class CarFragment : Fragment(), OnCarClickListener {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.actionmenu, menu)
+        inflater.inflate(R.menu.fragmentstoolbar, menu)
         menu.findItem(R.id.remove).isVisible = false
         menu.findItem(R.id.add).isVisible = false
     }

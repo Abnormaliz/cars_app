@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.thecars.R
 import com.example.thecars.app.presentation.interfaces.OnItemClickListener
@@ -15,10 +15,10 @@ import com.example.thecars.app.presentation.models.CarUi
 
 class FavoritesAdapter(
     private var favorites: List<CarUi>,
-    private var listener: OnItemClickListener
+    private var listener: OnItemClickListener,
 ) : RecyclerView.Adapter<FavoritesAdapter.FavoritesViewHolder>() {
-    var selectedPosition: MutableSet<Int> = mutableSetOf()
-    var longClickFlag = false
+    var selectedCars: MutableList<CarUi> = mutableListOf()
+    var longClickFlag: MutableLiveData<Boolean> = MutableLiveData<Boolean>(false)
 
     class FavoritesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val photo: ImageView = itemView.findViewById(R.id.iv_photo_favorites)
@@ -41,7 +41,7 @@ class FavoritesAdapter(
         holder.title.text = "${currentFavorite.brand}\n${currentFavorite.name}"
         holder.photo.setImageResource(currentFavorite.previewPhoto)
 
-        val isCarSelected = selectedPosition.contains(position)
+        val isCarSelected = selectedCars.contains(currentFavorite)
         holder.itemView.isSelected = isCarSelected
         if (isCarSelected) {
             holder.selectedColor.alpha = 0.5F
@@ -49,29 +49,26 @@ class FavoritesAdapter(
             holder.selectedColor.alpha = 0F
         }
         holder.itemView.setOnLongClickListener {
-            selectedPosition.clear()
-            selectedPosition.add(position)
-            longClickFlag = true
+            selectedCars.clear()
+            selectedCars.add(currentFavorite)
+            longClickFlag.value = true
             notifyDataSetChanged()
-            (holder.itemView.context as AppCompatActivity).invalidateOptionsMenu()
             true
         }
 
         holder.itemView.setOnClickListener {
             listener.onItemClick(favorites[position])
-            if (longClickFlag) {
-                if (selectedPosition.contains(position)) {
-                    selectedPosition.remove(position)
-                    if (selectedPosition.isEmpty()) {
-                        longClickFlag = false
+            if (longClickFlag.value == true) {
+                if (selectedCars.contains(currentFavorite)) {
+                    selectedCars.remove(currentFavorite)
+                    if (selectedCars.isEmpty()) {
+                        longClickFlag.value = false
                     }
                 } else {
-                    selectedPosition.add(position)
+                    selectedCars.add(currentFavorite)
                 }
                 notifyDataSetChanged()
-                (holder.itemView.context as AppCompatActivity).invalidateOptionsMenu()
             }
-
         }
     }
 
@@ -79,19 +76,5 @@ class FavoritesAdapter(
     fun updateData(favoritesList: List<CarUi>) {
         favorites = favoritesList
         notifyDataSetChanged()
-    }
-
-    fun getFlag(): Boolean {
-        return longClickFlag
-    }
-
-    fun getCarEntity(positions: MutableSet<Int>): MutableList<CarUi> {
-        val nameEntities = mutableListOf<CarUi>()
-        for (position in positions) {
-            if (position < favorites.size) {
-                nameEntities.add(favorites[position])
-            } else break
-        }
-        return nameEntities
     }
 }

@@ -38,9 +38,7 @@ class BrandsFragment : Fragment(), OnBrandClickListener {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.actionmenu, menu)
-        menu.findItem(R.id.remove).isVisible = false
-        menu.findItem(R.id.add).isVisible = false
+        inflater.inflate(R.menu.fragmentstoolbar, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -58,7 +56,7 @@ class BrandsFragment : Fragment(), OnBrandClickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentBrandsBinding.inflate(inflater)
         adapter = BrandsAdapter(
             emptyList(),

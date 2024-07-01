@@ -37,13 +37,12 @@ class ModelsFragment : Fragment(), OnModelClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.actionmenu, menu)
-        menu.findItem(R.id.remove).isVisible = false
-        menu.findItem(R.id.add).isVisible = false
+        inflater.inflate(R.menu.fragmentstoolbar, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

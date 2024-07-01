@@ -36,6 +36,8 @@ class CarDetailsFragment : Fragment() {
     private lateinit var editText: EditText
     private lateinit var button: ImageButton
     private lateinit var actionBar: ActionBar
+    private var removeButton: MenuItem? = null
+    private var addButton: MenuItem? = null
 
     private val selectedCar: CarUi by lazy { arguments?.getParcelable("selectedCar")!! }
 
@@ -56,13 +58,9 @@ class CarDetailsFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.actionmenu, menu)
-        lifecycleScope.launch {
-            carDetailsViewModel.isCarExists.collect {
-                menu.findItem(R.id.remove).isVisible = it
-                menu.findItem(R.id.add).isVisible = !it
-            }
-        }
+        inflater.inflate(R.menu.fragmentstoolbar, menu)
+        removeButton = menu.findItem(R.id.remove)
+        addButton = menu.findItem(R.id.add)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -100,6 +98,13 @@ class CarDetailsFragment : Fragment() {
         binding.viewPager.adapter = adapter
         editText = binding.edTextNotes
         button = binding.button1
+
+        lifecycleScope.launch {
+            carDetailsViewModel.isCarExists.collect {
+                removeButton?.isVisible = it
+                addButton?.isVisible = !it
+            }
+        }
 
         return binding.root
     }

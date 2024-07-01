@@ -8,7 +8,6 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat.invalidateOptionsMenu
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -18,7 +17,6 @@ import com.example.thecars.app.presentation.interfaces.OnItemClickListener
 import com.example.thecars.app.presentation.models.CarUi
 import com.example.thecars.app.presentation.models.toCarUi
 import com.example.thecars.app.presentation.vm.FavoritesViewModel
-import com.example.thecars.data.classes.Car
 import com.example.thecars.databinding.FragmentFavoritesBinding
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -28,7 +26,7 @@ class FavoritesFragment : Fragment(), OnItemClickListener {
     private lateinit var binding: FragmentFavoritesBinding
     private lateinit var adapter: FavoritesAdapter
     private val favoritesViewModel: FavoritesViewModel by viewModel()
-
+    private var removeButton: MenuItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,13 +34,8 @@ class FavoritesFragment : Fragment(), OnItemClickListener {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.actionmenu, menu)
-        menu.findItem(R.id.fav).isVisible = false
-        menu.findItem(R.id.remove).isVisible = false
-        menu.findItem(R.id.add).isVisible = false
-        if (adapter.getFlag()) {
-            menu.findItem(R.id.remove).isVisible = true
-        }
+        inflater.inflate(R.menu.favtoolbar, menu)
+        removeButton = menu.findItem(R.id.remove)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -50,16 +43,10 @@ class FavoritesFragment : Fragment(), OnItemClickListener {
             android.R.id.home -> {
                 findNavController().popBackStack()
             }
-
             R.id.remove -> {
-                val cars = adapter.getCarEntity(adapter.selectedPosition)
-                favoritesViewModel.removeCars(cars)
-                adapter.longClickFlag = false
-                adapter.selectedPosition.clear()
-                invalidateOptionsMenu(requireActivity())
+                favoritesViewModel.removeCars(adapter.selectedCars)
                 true
             }
-
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -71,6 +58,9 @@ class FavoritesFragment : Fragment(), OnItemClickListener {
         binding = FragmentFavoritesBinding.inflate(inflater)
         adapter = FavoritesAdapter(emptyList(), this)
         binding.rcViewFavorites.adapter = adapter
+        adapter.longClickFlag.observe(viewLifecycleOwner) {
+            removeButton?.isVisible = it
+        }
         return binding.root
     }
 
@@ -83,13 +73,14 @@ class FavoritesFragment : Fragment(), OnItemClickListener {
         lifecycleScope.launch {
             favoritesViewModel.cars.collectLatest {
                 adapter.updateData(it.map { it.toCarUi() })
+                removeButton?.isVisible = false
             }
         }
 
     }
 
     override fun onItemClick(car: CarUi) {
-        if (!adapter.longClickFlag) {
+        if (!adapter.longClickFlag.value!!) {
             val bundle = Bundle().apply {
                 putParcelable("selectedCar", car)
             }
