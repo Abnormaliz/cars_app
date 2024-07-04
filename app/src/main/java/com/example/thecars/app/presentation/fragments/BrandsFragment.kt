@@ -8,7 +8,11 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.thecars.R
@@ -25,50 +29,46 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class BrandsFragment : Fragment(), OnBrandClickListener {
     private lateinit var binding: FragmentBrandsBinding
     private lateinit var adapter: BrandsAdapter
+    private lateinit var toolBar: Toolbar
     private val brandsViewModel: BrandsViewModel by viewModel()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.fragmentstoolbar, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.fav -> {
-                findNavController().navigate(R.id.action_brandsFragment_to_favoritesFragment)
-                true
-            }
-
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentBrandsBinding.inflate(inflater)
         adapter = BrandsAdapter(
-            emptyList(),
-            this
+            emptyList(), this
         )
         binding.rcViewBrands.adapter = adapter
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = "Марка автомобиля"
+        toolBar = binding.toolbar
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val menuHost: MenuHost = requireActivity()
+
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.fragmentmenu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
+                    R.id.fav -> {
+                        findNavController().navigate(R.id.action_brandsFragment_to_favoritesFragment)
+                        true
+                    }
+
+                    else -> false
+                }
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
+        (activity as AppCompatActivity).setSupportActionBar(toolBar)
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = "Марка автомобиля"
+
 
         lifecycleScope.launch {
             brandsViewModel.carList.collect {

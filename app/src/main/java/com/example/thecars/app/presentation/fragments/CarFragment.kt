@@ -7,9 +7,12 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.thecars.R
@@ -28,66 +31,52 @@ import org.koin.core.parameter.parametersOf
 class CarFragment : Fragment(), OnCarClickListener {
     private lateinit var binding: FragmentCarBinding
     private lateinit var adapter: CarAdapter
-    private lateinit var currentBrand: CharSequence
-    private lateinit var actionBar: ActionBar
-    private var isTitleSet = false
-    var savedActionBar: String? = null
+    private lateinit var toolBar: Toolbar
 
     private val selectedModel: ModelUi by lazy { arguments?.getParcelable("selectedModel")!! }
     private val carViewModel: CarViewModel by viewModel {
         parametersOf(selectedModel)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        if (!isTitleSet) {
-            actionBar = (requireActivity() as AppCompatActivity).supportActionBar!!
-            currentBrand = actionBar.title!!
-            actionBar.title = "$currentBrand ${carViewModel.modelName}"
-            savedActionBar = actionBar.title as String
-            isTitleSet = true
-        } else actionBar.title = savedActionBar
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.fragmentstoolbar, menu)
-        menu.findItem(R.id.remove).isVisible = false
-        menu.findItem(R.id.add).isVisible = false
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                findNavController().popBackStack()
-            }
-
-            R.id.fav -> {
-                findNavController().navigate(R.id.action_carFragment_to_favoritesFragment)
-                true
-            }
-
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentCarBinding.inflate(inflater)
         adapter = CarAdapter(emptyList(), this)
         binding.rcViewCar.adapter = adapter
+        toolBar = binding.toolbar
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val menuHost: MenuHost = requireActivity()
+
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.fragmentmenu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
+                    android.R.id.home -> {
+                        findNavController().popBackStack()
+                    }
+
+                    R.id.fav -> {
+                        findNavController().navigate(R.id.action_carFragment_to_favoritesFragment)
+                        true
+                    }
+
+                    else -> false
+                }
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
+        (activity as AppCompatActivity).setSupportActionBar(toolBar)
+        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = carViewModel.modelName
 
         lifecycleScope.launch {
             carViewModel.currentCars.collect {

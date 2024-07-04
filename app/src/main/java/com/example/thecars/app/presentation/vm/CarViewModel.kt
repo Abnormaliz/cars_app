@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-class CarViewModel(val model: ModelUi) : ViewModel() {
+class CarViewModel(model: ModelUi) : ViewModel() {
 
     private val _currentCars = MutableStateFlow(model.list)
     val currentCars: StateFlow<List<CarUi>> = _currentCars.asStateFlow()

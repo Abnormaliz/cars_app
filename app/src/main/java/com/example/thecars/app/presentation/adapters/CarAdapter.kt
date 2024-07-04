@@ -12,13 +12,13 @@ import com.example.thecars.R
 import com.example.thecars.app.presentation.interfaces.OnCarClickListener
 import com.example.thecars.app.presentation.models.CarUi
 
-class CarAdapter (
+class CarAdapter(
     private var
     cars: List<CarUi>,
     private val listener: OnCarClickListener
-): RecyclerView.Adapter<CarAdapter.CarViewHolder>() {
+) : RecyclerView.Adapter<CarAdapter.CarViewHolder>() {
 
-    class CarViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    class CarViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val title: TextView = itemView.findViewById(R.id.title_car)
         val image: ImageView = itemView.findViewById(R.id.item_car_image)
         val emptyCard: FrameLayout = itemView.findViewById(R.id.empty_card)
@@ -26,7 +26,14 @@ class CarAdapter (
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CarViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_car, parent, false)
-        return CarViewHolder(itemView)
+        val viewHolder = CarViewHolder(itemView)
+
+        itemView.setOnClickListener {
+            val position = viewHolder.bindingAdapterPosition
+            listener.onCarClick(cars[position])
+        }
+
+        return viewHolder
     }
 
     override fun getItemCount(): Int {
@@ -42,8 +49,8 @@ class CarAdapter (
         }
         holder.title.text = currentCar.name
         holder.image.setImageResource(currentCar.previewPhoto)
-        holder.itemView.setOnClickListener { listener.onCarClick(currentCar) }
     }
+
     @SuppressLint("NotifyDataSetChanged")
     fun updateData(newCarList: List<CarUi>) {
         cars = newCarList

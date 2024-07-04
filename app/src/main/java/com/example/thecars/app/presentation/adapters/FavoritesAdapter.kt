@@ -29,7 +29,39 @@ class FavoritesAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoritesViewHolder {
         val itemView =
             LayoutInflater.from(parent.context).inflate(R.layout.item_favorites, parent, false)
-        return FavoritesViewHolder(itemView)
+        val viewHolder = FavoritesViewHolder(itemView)
+
+
+        itemView.setOnClickListener {
+            val position = viewHolder.bindingAdapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+                listener.onItemClick(favorites[position])
+                if (longClickFlag.value == true) {
+                    if (selectedCars.contains(favorites[position])) {
+                        selectedCars.remove(favorites[position])
+                        if (selectedCars.isEmpty()) {
+                            longClickFlag.value = false
+                        }
+                    } else {
+                        selectedCars.add(favorites[position])
+                    }
+                    notifyDataSetChanged()
+                }
+            }
+        }
+
+        itemView.setOnLongClickListener {
+            val position = viewHolder.bindingAdapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+                selectedCars.clear()
+                selectedCars.add(favorites[position])
+                longClickFlag.value = true
+                notifyDataSetChanged()
+                true
+            } else
+            false
+        }
+        return viewHolder
     }
 
     override fun getItemCount(): Int {
@@ -47,28 +79,6 @@ class FavoritesAdapter(
             holder.selectedColor.alpha = 0.5F
         } else {
             holder.selectedColor.alpha = 0F
-        }
-        holder.itemView.setOnLongClickListener {
-            selectedCars.clear()
-            selectedCars.add(currentFavorite)
-            longClickFlag.value = true
-            notifyDataSetChanged()
-            true
-        }
-
-        holder.itemView.setOnClickListener {
-            listener.onItemClick(favorites[position])
-            if (longClickFlag.value == true) {
-                if (selectedCars.contains(currentFavorite)) {
-                    selectedCars.remove(currentFavorite)
-                    if (selectedCars.isEmpty()) {
-                        longClickFlag.value = false
-                    }
-                } else {
-                    selectedCars.add(currentFavorite)
-                }
-                notifyDataSetChanged()
-            }
         }
     }
 

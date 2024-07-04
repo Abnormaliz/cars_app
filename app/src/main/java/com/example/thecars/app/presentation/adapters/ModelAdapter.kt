@@ -25,7 +25,14 @@ class ModelAdapter(
 
      override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ModelViewHolder {
          val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_model, parent,false )
-         return ModelViewHolder(itemView)
+         val viewHolder = ModelViewHolder(itemView)
+
+         itemView.setOnClickListener {
+             val position = viewHolder.bindingAdapterPosition
+             listener.onModelClick(models[position])
+         }
+
+         return viewHolder
      }
 
      override fun getItemCount(): Int {
@@ -39,9 +46,6 @@ class ModelAdapter(
              holder.emptyCard.alpha = 0.5F
          } else {
              holder.emptyCard.alpha = 0F
-         }
-         holder.itemView.setOnClickListener {
-             listener.onModelClick(models[position])
          }
      }
     @SuppressLint("NotifyDataSetChanged")

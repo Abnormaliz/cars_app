@@ -26,9 +26,14 @@ class BrandsAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CarsViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_brand, parent, false)
-        return CarsViewHolder(
-            itemView
-        )
+        val viewHolder = CarsViewHolder(itemView)
+
+        itemView.setOnClickListener{
+            val position = viewHolder.bindingAdapterPosition
+            listener.onBrandClick(brands[position])
+        }
+
+        return viewHolder
     }
 
     @SuppressLint("ResourceAsColor")
@@ -41,9 +46,6 @@ class BrandsAdapter(
         }
         holder.logos.setImageResource(currentBrand.logo)
         holder.title.text = currentBrand.name
-        holder.itemView.setOnClickListener() {
-            listener.onBrandClick(currentBrand)
-        }
     }
 
     override fun getItemCount(): Int {
