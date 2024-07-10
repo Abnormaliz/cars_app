@@ -70,7 +70,7 @@ class FavoritesAdapter(
 
     override fun onBindViewHolder(holder: FavoritesViewHolder, position: Int) {
         val currentFavorite = favorites[position]
-        holder.title.text = "${currentFavorite.brand}\n${currentFavorite.name}"
+        holder.title.text = "${currentFavorite.brand} ${currentFavorite.model}\n${currentFavorite.car}"
         holder.photo.setImageResource(currentFavorite.previewPhoto)
 
         val isCarSelected = selectedCars.contains(currentFavorite)

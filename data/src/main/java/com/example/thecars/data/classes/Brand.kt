@@ -3,6 +3,6 @@ package com.example.thecars.data.classes
 
 data class Brand(
     val logo: Int,
-    val name: String,
+    val brand: String,
     val modelList: List<Model>
 )

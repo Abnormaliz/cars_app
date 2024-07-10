@@ -8,7 +8,8 @@ import kotlinx.parcelize.Parcelize
 data class CarUi(
     val brand: String,
     val model: String,
-    val name: String,
+    val car: String,
+    val release: String,
     val previewPhoto: Int = 0,
     val frontPhoto: Int = 0,
     val backPhoto: Int = 0,
@@ -19,7 +20,8 @@ fun Car.toCarUi(): CarUi {
     return CarUi(
         brand = this.brand,
         model = this.model,
-        name = this.name,
+        car = this.car,
+        release = this.release,
         previewPhoto = this.previewPhoto,
         frontPhoto = this.frontPhoto,
         backPhoto = this.backPhoto,
@@ -31,7 +33,8 @@ fun CarUi.toCar(): Car {
     return Car(
         brand = this.brand,
         model = this.model,
-        name = this.name,
+        car = this.car,
+        release = this.release,
         previewPhoto = this.previewPhoto,
         frontPhoto = this.frontPhoto,
         backPhoto = this.backPhoto,

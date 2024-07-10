@@ -8,7 +8,8 @@ data class Car(
     val brand: String,
     val model: String,
     @PrimaryKey (autoGenerate = false)
-    val name: String,
+    val car: String,
+    val release: String,
     val previewPhoto: Int = 0,
     val frontPhoto: Int = 0,
     val backPhoto: Int = 0,

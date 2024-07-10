@@ -38,9 +38,9 @@ class CarDetailsViewModel(
     val currentImageList: StateFlow<List<Int>>
         get() = _currentImageList
 
-    val isCarExists = checkCarUseCase.checkCar(selectedCar.name)
+    val isCarExists = checkCarUseCase.checkCar(selectedCar.car)
 
-    val existingNote: StateFlow<Note?> = getNoteByNameUseCase.getNote(selectedCar.name).stateIn(
+    val existingNote: StateFlow<Note?> = getNoteByNameUseCase.getNote(selectedCar.car).stateIn(
         viewModelScope,
         SharingStarted.Eagerly,
         null
@@ -49,7 +49,7 @@ class CarDetailsViewModel(
 
     fun setOrUpdateNote(text: String) {
         if (text.isNotEmpty()) {
-            val newNote = Note(text, selectedCar.name)
+            val newNote = Note(text, selectedCar.car)
             viewModelScope.launch(Dispatchers.IO) {
                 addNoteToDatabaseUseCase.addNote(newNote)
             }

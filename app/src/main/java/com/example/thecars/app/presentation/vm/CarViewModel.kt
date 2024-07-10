@@ -12,6 +12,6 @@ class CarViewModel(model: ModelUi) : ViewModel() {
     private val _currentCars = MutableStateFlow(model.list)
     val currentCars: StateFlow<List<CarUi>> = _currentCars.asStateFlow()
 
-    val modelName = model.name
+    val modelName = model.brand + " " + model.model
 
 }

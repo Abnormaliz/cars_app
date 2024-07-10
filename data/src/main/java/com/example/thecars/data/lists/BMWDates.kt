@@ -8,7 +8,8 @@ val dates_bmw_m5 = listOf(
     Car(
         BMW_BRAND,
         "M5",
-        "E39 1998-2003",
+        "E39",
+        "1998-2003",
         R.drawable.bmw_m5_e39,
         R.drawable.bmw_m5_e39_front,
         R.drawable.bmw_m5_e39_back,
@@ -17,7 +18,8 @@ val dates_bmw_m5 = listOf(
     Car(
         BMW_BRAND,
         "M5",
-        "E60_E61 2007-2010",
+        "E60_E61",
+        "2007-2010",
         R.drawable.bmw_m5_e60,
         R.drawable.bmw_m5_e60_front,
         R.drawable.bmw_m5_e60_back,
@@ -26,7 +28,8 @@ val dates_bmw_m5 = listOf(
     Car(
         BMW_BRAND,
         "M5",
-        "F10 2011-2017",
+        "F10",
+        "2011-2017",
         R.drawable.bmw_m5_f10,
         R.drawable.bmw_m5_f10_front,
         R.drawable.bmw_m5_f10_back,
@@ -35,7 +38,9 @@ val dates_bmw_m5 = listOf(
     Car(
         BMW_BRAND,
         "M5",
-        "F90 2018-NOW", R.drawable.bmw_m5_f90,
+        "F90",
+        "2018-2023",
+        R.drawable.bmw_m5_f90,
         R.drawable.bmw_m5_f90_front,
         R.drawable.bmw_m5_f90_back,
         R.drawable.bmw_m5_f90_side

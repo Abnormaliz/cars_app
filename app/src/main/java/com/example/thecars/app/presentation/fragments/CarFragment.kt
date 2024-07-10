@@ -2,19 +2,12 @@ package com.example.thecars.app.presentation.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import androidx.core.view.MenuHost
-import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.thecars.R
 import com.example.thecars.app.presentation.adapters.CarAdapter
 import com.example.thecars.app.presentation.interfaces.OnCarClickListener
@@ -31,9 +24,10 @@ import org.koin.core.parameter.parametersOf
 class CarFragment : Fragment(), OnCarClickListener {
     private lateinit var binding: FragmentCarBinding
     private lateinit var adapter: CarAdapter
-    private lateinit var toolBar: Toolbar
+    private val args : CarFragmentArgs by navArgs()
 
-    private val selectedModel: ModelUi by lazy { arguments?.getParcelable("selectedModel")!! }
+    private val selectedModel: ModelUi by lazy { args.model }
+
     private val carViewModel: CarViewModel by viewModel {
         parametersOf(selectedModel)
     }
@@ -44,39 +38,19 @@ class CarFragment : Fragment(), OnCarClickListener {
         binding = FragmentCarBinding.inflate(inflater)
         adapter = CarAdapter(emptyList(), this)
         binding.rcViewCar.adapter = adapter
-        toolBar = binding.toolbar
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val menuHost: MenuHost = requireActivity()
-
-        menuHost.addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                menuInflater.inflate(R.menu.fragmentmenu, menu)
-            }
-
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                return when (menuItem.itemId) {
-                    android.R.id.home -> {
-                        findNavController().popBackStack()
-                    }
-
-                    R.id.fav -> {
-                        findNavController().navigate(R.id.action_carFragment_to_favoritesFragment)
-                        true
-                    }
-
-                    else -> false
-                }
-            }
-        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
-
-        (activity as AppCompatActivity).setSupportActionBar(toolBar)
-        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = carViewModel.modelName
+        binding.toolbarHomeButton.setOnClickListener {
+            findNavController().popBackStack()
+        }
+        binding.toolbarFavButton.setOnClickListener {
+            findNavController().navigate(R.id.action_carFragment_to_favoritesFragment)
+        }
+        binding.toolbarTitle.text = carViewModel.modelName
 
         lifecycleScope.launch {
             carViewModel.currentCars.collect {
@@ -89,10 +63,8 @@ class CarFragment : Fragment(), OnCarClickListener {
         if (car.frontPhoto == 0) {
             Snackbar.make(binding.root, EMPTY_DATA, Snackbar.LENGTH_SHORT).show()
         } else {
-            val bundle = Bundle().apply {
-                putParcelable("selectedCar", car)
-            }
-            findNavController().navigate(R.id.action_carFragment_to_carDetailsFragment, bundle)
+            val action = CarFragmentDirections.actionCarFragmentToCarDetailsFragment(car)
+            findNavController().navigate(action)
         }
     }
 }

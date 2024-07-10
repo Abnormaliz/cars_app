@@ -29,6 +29,6 @@ interface CarDao {
     @Query("SELECT * FROM list_notes WHERE carName = :carName")
     fun getNoteByName(carName: String): Flow<Note?>
 
-    @Query("SELECT EXISTS(SELECT 1 FROM list_cars WHERE name = :carName LIMIT 1)")
+    @Query("SELECT EXISTS(SELECT 1 FROM list_cars WHERE car = :carName LIMIT 1)")
     fun checkCar(carName: String): Flow<Boolean>
 }

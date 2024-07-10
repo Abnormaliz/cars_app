@@ -7,14 +7,14 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class BrandUi(
     val logo: Int,
-    val name: String,
+    val brand: String,
     val modelList: List<ModelUi>
 ) : Parcelable
 
 fun Brand.toBrandUi(): BrandUi {
     return BrandUi(
         logo = this.logo,
-        name = this.name,
+        brand = this.brand,
         modelList = this.modelList.map { model -> model.toModelUi() }
     )
 }

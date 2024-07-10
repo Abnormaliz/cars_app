@@ -6,467 +6,467 @@ import com.example.thecars.data.classes.Brand
 
 val allBrandsList = listOf(
     Brand(
-        name = "Acura",
+        brand = "Acura",
         logo = R.drawable.unknown,
         modelList = acuraModels
     ),
     Brand(
-        name = "BMW",
+        brand = "BMW",
         logo = R.drawable.bmw,
         modelList = bmwModels
     ),
     Brand(
-        name = "Alfa Romeo",
+        brand = "Alfa Romeo",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Aston Martin",
+        brand = "Aston Martin",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Audi",
+        brand = "Audi",
         logo = R.drawable.audi,
         modelList = emptyList()
     ),
     Brand(
-        name = "Aurus",
+        brand = "Aurus",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Bentley",
+        brand = "Bentley",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Buick",
+        brand = "Buick",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Cadillac",
+        brand = "Cadillac",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Changan",
+        brand = "Changan",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Chery",
+        brand = "Chery",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Chevrolet",
+        brand = "Chevrolet",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Chrysler",
+        brand = "Chrysler",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Citroen",
+        brand = "Citroen",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Daewoo",
+        brand = "Daewoo",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Daihatsu",
+        brand = "Daihatsu",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Datsun",
+        brand = "Datsun",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Dodge",
+        brand = "Dodge",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "EXEED",
+        brand = "EXEED",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "FAW",
+        brand = "FAW",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Ferrari",
+        brand = "Ferrari",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Fiat",
+        brand = "Fiat",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Ford",
+        brand = "Ford",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "GAC",
+        brand = "GAC",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "GMC",
+        brand = "GMC",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Geely",
+        brand = "Geely",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Genesis",
+        brand = "Genesis",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Great Wall",
+        brand = "Great Wall",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Haval",
+        brand = "Haval",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Honda",
+        brand = "Honda",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Hongqi",
+        brand = "Hongqi",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Hummer",
+        brand = "Hummer",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Hyundai",
+        brand = "Hyundai",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Infiniti",
+        brand = "Infiniti",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Isuzu",
+        brand = "Isuzu",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "JAC",
+        brand = "JAC",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Jaguar",
+        brand = "Jaguar",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Jeep",
+        brand = "Jeep",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Jetour",
+        brand = "Jetour",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Jetta",
+        brand = "Jetta",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Kaiyi",
+        brand = "Kaiyi",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Kia",
+        brand = "Kia",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "LADA",
+        brand = "LADA",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Lamborghini",
+        brand = "Lamborghini",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Land Rover",
+        brand = "Land Rover",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Lexus",
+        brand = "Lexus",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Lifan",
+        brand = "Lifan",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Lincoln",
+        brand = "Lincoln",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Livan",
+        brand = "Livan",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Lotus",
+        brand = "Lotus",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Mini",
+        brand = "Mini",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Maserati",
+        brand = "Maserati",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Maybach",
+        brand = "Maybach",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Mazda",
+        brand = "Mazda",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "McLaren",
+        brand = "McLaren",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Mercedes-benz",
+        brand = "Mercedes-benz",
         logo = R.drawable.mb,
         modelList = emptyList()
     ),
     Brand(
-        name = "Mitsubishi",
+        brand = "Mitsubishi",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Nissan",
+        brand = "Nissan",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "OMODA",
+        brand = "OMODA",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Opel",
+        brand = "Opel",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Peugeot",
+        brand = "Peugeot",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Plymouth",
+        brand = "Plymouth",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Polestar",
+        brand = "Polestar",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Pontiac",
+        brand = "Pontiac",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Porsche",
+        brand = "Porsche",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "RAM",
+        brand = "RAM",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Ravon",
+        brand = "Ravon",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Renault",
+        brand = "Renault",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Rolls-Royce",
+        brand = "Rolls-Royce",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Rover",
+        brand = "Rover",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "SEAT",
+        brand = "SEAT",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Saab",
+        brand = "Saab",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Scion",
+        brand = "Scion",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Skoda",
+        brand = "Skoda",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Skywell",
+        brand = "Skywell",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Smart",
+        brand = "Smart",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "SsangYong",
+        brand = "SsangYong",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Subaru",
+        brand = "Subaru",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Suzuki",
+        brand = "Suzuki",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Tank",
+        brand = "Tank",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Tesla",
+        brand = "Tesla",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Toyota",
+        brand = "Toyota",
         logo = R.drawable.toyota,
         modelList = emptyList()
     ),
     Brand(
-        name = "Volkswagen",
+        brand = "Volkswagen",
         logo = R.drawable.volkswagen,
         modelList = emptyList()
     ),
     Brand(
-        name = "Volvo",
+        brand = "Volvo",
         logo = R.drawable.volvo,
         modelList = emptyList()
     ),
     Brand(
-        name = "Vortex",
+        brand = "Vortex",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Voyah",
+        brand = "Voyah",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "ZEEKR",
+        brand = "ZEEKR",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "ГАЗ",
+        brand = "ГАЗ",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "ЗАЗ",
+        brand = "ЗАЗ",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "ЗИЛ",
+        brand = "ЗИЛ",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "ИЖ",
+        brand = "ИЖ",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "Москвич",
+        brand = "Москвич",
         logo = R.drawable.unknown,
         modelList = emptyList()
     ),
     Brand(
-        name = "УАЗ",
+        brand = "УАЗ",
         logo = R.drawable.unknown,
         modelList = emptyList()
     )

@@ -41,7 +41,7 @@ class ModelAdapter(
 
      @SuppressLint("ResourceAsColor")
      override fun onBindViewHolder(holder: ModelViewHolder, position: Int) {
-        holder.name.text = models[position].name
+        holder.name.text = models[position].model
          if (models[position].list.isEmpty()) {
              holder.emptyCard.alpha = 0.5F
          } else {

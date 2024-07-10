@@ -45,7 +45,7 @@ class BrandsAdapter(
             holder.emptyCard.alpha = 0F
         }
         holder.logos.setImageResource(currentBrand.logo)
-        holder.title.text = currentBrand.name
+        holder.title.text = currentBrand.brand
     }
 
     override fun getItemCount(): Int {

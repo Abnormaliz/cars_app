@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_modelsFragment_to_favoritesFragment"
             app:destination="@id/favoritesFragment" />
+        <argument
+            android:name="brand"
+            app:argType="com.example.thecars.app.presentation.models.BrandUi" />
     </fragment>
     <fragment
         android:id="@+id/carFragment"
@@ -40,6 +43,9 @@
         <action
             android:id="@+id/action_carFragment_to_favoritesFragment"
             app:destination="@id/favoritesFragment" />
+        <argument
+            android:name="model"
+            app:argType="com.example.thecars.app.presentation.models.ModelUi" />
     </fragment>
     <fragment
         android:id="@+id/carDetailsFragment"
@@ -48,6 +54,9 @@
         <action
             android:id="@+id/action_carDetailsFragment_to_favoritesFragment"
             app:destination="@id/favoritesFragment" />
+        <argument
+            android:name="car"
+            app:argType="com.example.thecars.app.presentation.models.CarUi" />
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"

@@ -47,7 +47,7 @@ class CarAdapter(
         } else {
             holder.emptyCard.alpha = 0F
         }
-        holder.title.text = currentCar.name
+        holder.title.text = currentCar.car + " " + currentCar.release
         holder.image.setImageResource(currentCar.previewPhoto)
     }
 

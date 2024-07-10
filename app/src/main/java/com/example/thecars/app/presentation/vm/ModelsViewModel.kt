@@ -12,6 +12,6 @@ class ModelsViewModel(brand: BrandUi) : ViewModel() {
     private val _modelList = MutableStateFlow(brand.modelList)
     val modelList: StateFlow<List<ModelUi>> = _modelList.asStateFlow()
 
-    val brandName = brand.name
+    val brandName = brand.brand
 
 }

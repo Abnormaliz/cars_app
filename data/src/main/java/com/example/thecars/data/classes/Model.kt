@@ -2,6 +2,7 @@ package com.example.thecars.data.classes
 
 
 data class Model(
-    val name: String,
+    val brand: String,
+    val model: String,
     val list: List<Car>
 )

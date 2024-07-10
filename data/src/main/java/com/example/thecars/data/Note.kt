@@ -7,7 +7,7 @@ import com.example.thecars.data.classes.Car
 
 @Entity(tableName = "list_notes", foreignKeys = arrayOf(ForeignKey(
     entity = Car::class,
-    parentColumns = arrayOf("name"),
+    parentColumns = arrayOf("car"),
     childColumns = arrayOf("carName"),
     onDelete = ForeignKey.CASCADE
 )))
