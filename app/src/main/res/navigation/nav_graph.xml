@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_brandsFragment_to_favoritesFragment"
             app:destination="@id/favoritesFragment" />
+        <action
+            android:id="@+id/action_brandsFragment_to_downloadFragment"
+            app:destination="@id/downloadFragment" />
     </fragment>
     <fragment
         android:id="@+id/modelsFragment"
@@ -67,4 +70,8 @@
             android:id="@+id/action_favoritesFragment_to_carDetailsFragment"
             app:destination="@id/carDetailsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/downloadFragment"
+        android:name="com.example.thecars.app.presentation.fragments.DownloadFragment"
+        android:label="DownloadFragment" />
 </navigation>

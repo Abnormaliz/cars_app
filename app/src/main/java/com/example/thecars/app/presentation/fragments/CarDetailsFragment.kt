@@ -2,7 +2,6 @@ package com.example.thecars.app.presentation.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,8 +30,8 @@ class CarDetailsFragment : Fragment() {
     private lateinit var binding: FragmentCarDetailsBinding
     private lateinit var adapter: ViewPagerAdapter
     private lateinit var tabLayout: TabLayout
-    private lateinit var editText: EditText
-    private lateinit var button: ImageButton
+    private lateinit var noteEditText: EditText
+    private lateinit var addNoteButton: ImageButton
 
     private val args: CarDetailsFragmentArgs by navArgs()
 
@@ -49,8 +48,8 @@ class CarDetailsFragment : Fragment() {
         tabLayout = binding.tabLayout
         adapter = ViewPagerAdapter(emptyList())
         binding.viewPager.adapter = adapter
-        editText = binding.edTextNotes
-        button = binding.button
+        noteEditText = binding.noteEditText
+        addNoteButton = binding.noteAddButton
 
         lifecycleScope.launch {
             carDetailsViewModel.isCarExists.collect {
@@ -84,23 +83,20 @@ class CarDetailsFragment : Fragment() {
         lifecycleScope.launch {
             carDetailsViewModel.isCarExists.collect {
                 if (it) {
-                    Log.i("values", "${editText.text}")
-                    editText.visibility = View.VISIBLE
-                   button.visibility = View.VISIBLE
-                    button.setOnClickListener {
-                        carDetailsViewModel.setOrUpdateNote(editText.text.toString())
+                    binding.noteLayout.visibility = View.VISIBLE
+                    addNoteButton.setOnClickListener {
+                        carDetailsViewModel.setOrUpdateNote(noteEditText.text.toString())
 
                         val imm =
                             requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                        imm.hideSoftInputFromWindow(editText.windowToken, 0)
-                        editText.clearFocus()
-
+                        imm.hideSoftInputFromWindow(noteEditText.windowToken, 0)
+                        noteEditText.clearFocus()
                     }
 
                 } else {
-                    editText.visibility = View.GONE
-                    button.visibility = View.GONE
-                    editText.text.clear()
+                    binding.noteLayout.visibility = View.GONE
+                    noteEditText.text.clear()
+
                 }
             }
 
@@ -108,9 +104,9 @@ class CarDetailsFragment : Fragment() {
         lifecycleScope.launch {
             carDetailsViewModel.existingNote.collect {
                 if (it != null) {
-                    editText.setText(it.text)
+                    noteEditText.setText(it.text)
                 } else {
-                    editText.setText("")
+                    noteEditText.setText("")
                 }
             }
         }
