@@ -3,16 +3,21 @@ package com.example.thecars.data.repositoryImpl
 import com.example.thecars.data.CarDatabase
 import com.example.thecars.data.Note
 import com.example.thecars.data.classes.Car
+import com.example.thecars.data.classes.RemoteCar
+import com.example.thecars.data.remote.CarApi
 import com.example.thecars.data.repositories.CarsRepository
 import kotlinx.coroutines.flow.Flow
+import retrofit2.Retrofit
 
-class CarsRepositoryImpl(private val db: CarDatabase) : CarsRepository {
+class CarsRepositoryImpl(private val db: CarDatabase, private val carApi: CarApi) : CarsRepository {
 
     override fun getAllCars(): Flow<List<Car>> = db.dao.getAllCars()
 
     override fun checkCar(carName: String): Flow<Boolean> = db.dao.checkCar(carName)
 
     override fun getNoteByName(carName: String): Flow<Note?> = db.dao.getNoteByName(carName)
+
+    override fun getCarApi(): RemoteCar = carApi.getCar()
 
 
     override suspend fun removeCarsFromFavourites(cars: List<Car>) {

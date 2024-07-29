@@ -2,6 +2,7 @@ package com.example.thecars.data.repositories
 
 import com.example.thecars.data.Note
 import com.example.thecars.data.classes.Car
+import com.example.thecars.data.classes.RemoteCar
 import kotlinx.coroutines.flow.Flow
 
 interface CarsRepository {
@@ -12,6 +13,8 @@ interface CarsRepository {
 
     fun getNoteByName(carName: String): Flow<Note?>
 
+    fun getCarApi(): RemoteCar
+
     suspend fun removeCarsFromFavourites(cars: List<Car>)
 
     suspend fun removeCarFromDatabase(car: Car)
@@ -21,5 +24,6 @@ interface CarsRepository {
     suspend fun removeNoteFromDatabase(note: Note)
 
     suspend fun addNoteToDatabase(note: Note)
+
 
 }
