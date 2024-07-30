@@ -33,7 +33,7 @@ val appModule = module {
                     .addInterceptor(httpLoggingInterceptor)
                     .build()
             )
-            .baseUrl("https://car-data.p.rapidapi.com")
+            .baseUrl("https://car-data.p.rapidapi.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(CarApi::class.java)

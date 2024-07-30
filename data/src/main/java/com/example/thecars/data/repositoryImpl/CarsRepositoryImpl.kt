@@ -17,7 +17,9 @@ class CarsRepositoryImpl(private val db: CarDatabase, private val carApi: CarApi
 
     override fun getNoteByName(carName: String): Flow<Note?> = db.dao.getNoteByName(carName)
 
-    override fun getCarApi(): RemoteCar = carApi.getCar()
+    override suspend fun getCarApi(): List<RemoteCar> = carApi.getCar(
+        limit = "10", page = "1"
+    )
 
 
     override suspend fun removeCarsFromFavourites(cars: List<Car>) {

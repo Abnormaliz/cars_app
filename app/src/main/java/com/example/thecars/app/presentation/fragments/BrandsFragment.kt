@@ -38,7 +38,7 @@ class BrandsFragment : Fragment(), OnBrandClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         binding.toolbarFavButton.setOnClickListener {
-            findNavController().navigate(R.id.action_brandsFragment_to_favoritesFragment)
+            findNavController().navigate(R.id.action_brandsFragment_to_downloadFragment)
         }
         binding.toolbarTitle.text = "Марка автомобиля"
 

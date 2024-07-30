@@ -3,6 +3,6 @@ package com.example.thecars.domain.usecases
 import com.example.thecars.data.classes.RemoteCar
 
 interface GetCarFromApiUseCase {
-    fun getCar(): RemoteCar
+    suspend fun getCar(): List<RemoteCar>
 
 }

@@ -6,12 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.fragment.app.Fragment
+import com.example.thecars.app.presentation.vm.DownloadViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class DownloadFragment : Fragment() {
+
+    private val downloadViewModel: DownloadViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -20,13 +25,19 @@ class DownloadFragment : Fragment() {
     ): View {
         return ComposeView(requireContext()).apply {
             setContent {
-                text()
+                text(downloadViewModel)
             }
         }
     }
 }
 
 @Composable
-fun text(){
-    Text(text = "asdq")
+fun text(viewModel: DownloadViewModel){
+    val carData by viewModel.carData.observeAsState()
+
+    carData?.let { cars ->
+        cars.forEach {car ->
+            Text(text = car.toString())
+        }
+    } ?: Text(text = "Loading...")
 }
