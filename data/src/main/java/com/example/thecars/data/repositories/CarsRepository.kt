@@ -13,7 +13,13 @@ interface CarsRepository {
 
     fun getNoteByName(carName: String): Flow<Note?>
 
-    suspend fun getCarApi(): List<RemoteCar>
+    suspend fun getCarApi(
+        limit: String,
+        page: String,
+        type: String?,
+        model: String?,
+        make: String?
+    ): List<RemoteCar>
 
     suspend fun removeCarsFromFavourites(cars: List<Car>)
 

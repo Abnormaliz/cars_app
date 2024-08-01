@@ -45,6 +45,19 @@
                 android:layout_gravity="end"
                 />
 
+            <ImageButton
+                android:id="@+id/toolbarApiButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="?android:selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_api"
+                app:iconSize="50dp"
+                app:tint="@android:color/white"
+                android:clickable="true"
+                android:layout_gravity="end"
+                />
+
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
