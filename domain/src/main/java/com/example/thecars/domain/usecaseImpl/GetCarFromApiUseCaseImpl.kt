@@ -10,8 +10,9 @@ class GetCarFromApiUseCaseImpl(private val carApi: CarApi) : GetCarFromApiUseCas
         page: String,
         type: String?,
         model: String?,
-        make: String?
+        make: String?,
+        year: String?
     ): List<RemoteCar> {
-        return carApi.getCar(limit, page, type, model, make)
+        return carApi.getCar(limit, page, type, model, make, year)
     }
 }

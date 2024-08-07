@@ -21,7 +21,8 @@ class DownloadViewModel(private val getCarFromApiUseCase: GetCarFromApiUseCaseIm
         page: String,
         type: String?,
         model: String?,
-        make: String?
+        make: String?,
+        year: String?
     ) {
         viewModelScope.launch {
             try {
@@ -30,7 +31,8 @@ class DownloadViewModel(private val getCarFromApiUseCase: GetCarFromApiUseCaseIm
                     page,
                     type,
                     model,
-                    make
+                    make,
+                    year
                 ).map { it.toCutCar() }
                 _cutCars.postValue(cars)
             } catch (e: Exception) {

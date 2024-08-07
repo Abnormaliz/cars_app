@@ -13,6 +13,7 @@ interface CarApi {
         @Query("page") page: String,
         @Query("type") type : String? = null,
         @Query("model") model : String? = null,
-        @Query("make") make : String? = null
+        @Query("make") make : String? = null,
+        @Query("year") year : String? = null
     ): List<RemoteCar>
 }

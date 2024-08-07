@@ -8,7 +8,8 @@ interface GetCarFromApiUseCase {
         page: String,
         type: String?,
         model: String?,
-        make: String?
+        make: String?,
+        year: String?
     ): List<RemoteCar>
 
 }
