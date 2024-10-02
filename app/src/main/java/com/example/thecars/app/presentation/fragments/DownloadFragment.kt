@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,8 +16,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -88,8 +91,7 @@ fun DownloadScreen(viewModel: DownloadViewModel) {
                 onItemSelected = { selectedItem -> limit = selectedItem },
                 text = "Amount to show"
             )
-            TextField(
-                value = page,
+            TextField(value = page,
                 onValueChange = { page = it },
                 label = { Text("Page, write 1-191") },
                 modifier = Modifier.fillMaxWidth()
@@ -100,8 +102,7 @@ fun DownloadScreen(viewModel: DownloadViewModel) {
                 onItemSelected = { selectedItem -> make = selectedItem },
                 text = "Brand of the car"
             )
-            TextField(
-                value = model,
+            TextField(value = model,
                 onValueChange = { model = it },
                 label = { Text("Model") },
                 modifier = Modifier.fillMaxWidth()
@@ -136,17 +137,30 @@ fun DownloadScreen(viewModel: DownloadViewModel) {
             ) {
                 cutCar?.let { cars ->
                     cars.forEach { car ->
-                        Row(
+                        Card(
                             modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(top = 8.dp),
-                            verticalAlignment = Alignment.CenterVertically
+                                .padding(5.dp)
                         ) {
-                            drawImage(brand = car.brand)
-                            Text(
-                                text = "${car.brand}, ${car.model}, ${car.release}, ${car.type}",
-                                modifier = Modifier.padding(top = 8.dp)
-                            )
+                            Box(modifier = Modifier.fillMaxSize()) {
+                                Row() {
+                                    drawImage(brand = car.brand)
+                                    Column {
+                                        Text(text = car.brand,
+                                            modifier = Modifier.padding(top = 8.dp)
+                                        )
+                                        Text(text = car.model,
+                                            modifier = Modifier.padding(top = 8.dp)
+                                        )
+                                        Text(text = car.release,
+                                            modifier = Modifier.padding(top = 8.dp)
+                                        )
+                                        Text(text = car.type,
+                                            modifier = Modifier.padding(top = 8.dp)
+                                        )
+                                    }
+                                }
+
+                            }
                         }
                     }
                 } ?: Text(text = "Loading...", modifier = Modifier.padding(top = 8.dp))
@@ -167,7 +181,8 @@ fun DropDownMenu(
     Column(
         modifier = Modifier.fillMaxWidth()
     ) {
-        ExposedDropdownMenuBox(expanded = isExpanded,
+        ExposedDropdownMenuBox(
+            expanded = isExpanded,
             onExpandedChange = { isExpanded = !isExpanded }) {
             TextField(label = { Text(text) },
                 modifier = Modifier.menuAnchor(),
@@ -194,15 +209,13 @@ fun DropDownMenu(
 @Composable
 fun drawImage(brand: String) {
     GlideImage(
-        model =
-        when (brand) {
+        model = when (brand) {
             "Toyota" -> "https://global.toyota/pages/global_toyota/mobility/toyota-brand/emblem_001.jpg"
             "Bentley" -> "https://logowik.com/content/uploads/images/706_bentley.jpg"
             else -> null
         },
         contentDescription = "Test",
-        modifier = Modifier
-            .width(30.dp),
+        modifier = Modifier.width(30.dp)
     )
 }
 
